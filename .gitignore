@@ -42,3 +42,7 @@ yarn-error.*
 
 # local bundle smoke-test output
 dist-check/
+
+# EAS local credentials (never commit)
+credentials.json
+credentials/

@@ -23,12 +23,20 @@
         "buildType": "apk"
       }
     },
+    "device": {
+      "developmentClient": false,
+      "distribution": "internal",
+      "channel": "preview",
+      "ios": {
+        "simulator": false,
+        "buildConfiguration": "Release"
+      }
+    },
     "unsigned-ipa": {
       "extends": "preview",
       "channel": "preview",
       "ios": {
         "simulator": false,
-        "credentialsSource": "local",
         "config": "unsigned-ipa.yml"
       }
     },
