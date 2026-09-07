@@ -26,12 +26,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Expo SDK 57 needs the Xcode 26 toolchain (Swift 6.2). The macos-15
-      # default is Swift 6.1, which fails SwiftPM resolution for ExpoModulesJSI.
-      - name: Select latest Xcode
+      # Expo SDK 57 needs Xcode 26 / Swift >= 6.2.0 for SwiftPM resolution, but
+      # Xcode 26.3's stricter C++ interop breaks expo-modules-jsi
+      # (RuntimeScheduler.h SWIFT_RETURNS_RETAINED error). Pin the first 26.x.
+      - name: Select Xcode 26.0.1
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: latest-stable
+          xcode-version: "26.0.1"
 
       - name: Toolchain versions
         run: |
