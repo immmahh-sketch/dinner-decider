@@ -1,0 +1,95 @@
+import { Dish } from './types';
+import { AnswerOption, Question, QUESTIONS } from './questions';
+
+export interface AnsweredStep {
+  questionId: string;
+  optionId: string;
+  /** true when applying this answer's filter would have emptied the pool, so we skipped it */
+  ignored: boolean;
+}
+
+export interface DeciderState {
+  steps: AnsweredStep[];
+}
+
+const optionFor = (questionId: string, optionId: string): AnswerOption | undefined =>
+  QUESTIONS[questionId]?.options.find((o) => o.id === optionId);
+
+/**
+ * Fold every kept answer's predicate over the full deck.
+ * Guess Who style: a dish survives only if it passes every non-ignored answer.
+ */
+export function poolFor(all: Dish[], steps: AnsweredStep[]): Dish[] {
+  let pool = all;
+  for (const step of steps) {
+    if (step.ignored) continue;
+    const opt = optionFor(step.questionId, step.optionId);
+    if (!opt?.keep) continue;
+    pool = pool.filter(opt.keep);
+  }
+  return pool;
+}
+
+export interface ApplyResult {
+  steps: AnsweredStep[];
+  pool: Dish[];
+  ignored: boolean;
+}
+
+/**
+ * Apply one answer. If the answer's filter would wipe the pool out entirely we
+ * keep the answer on record but mark it ignored, so the user never dead-ends.
+ */
+export function applyAnswer(
+  all: Dish[],
+  steps: AnsweredStep[],
+  questionId: string,
+  optionId: string,
+): ApplyResult {
+  const withoutThis = steps.filter((s) => s.questionId !== questionId);
+  const opt = optionFor(questionId, optionId);
+  const tentative: AnsweredStep = { questionId, optionId, ignored: false };
+
+  let ignored = false;
+  if (opt?.keep) {
+    const candidate = poolFor(all, [...withoutThis, tentative]);
+    if (candidate.length === 0) ignored = true;
+  }
+
+  const nextSteps = [...withoutThis, { ...tentative, ignored }];
+  return { steps: nextSteps, pool: poolFor(all, nextSteps), ignored };
+}
+
+/** Resolve the next question id from the current question + chosen option. */
+export function nextQuestionId(questionId: string, optionId: string): string | null {
+  const q = QUESTIONS[questionId];
+  const opt = optionFor(questionId, optionId);
+  const target = opt?.nextId !== undefined ? opt.nextId : q?.nextId ?? null;
+  if (!target) return null;
+  // Skip any question that is not applicable for the answers gathered so far.
+  return target;
+}
+
+export function questionById(id: string): Question | undefined {
+  return QUESTIONS[id];
+}
+
+/** Deterministic shuffle so a given remaining-set always shows in the same order. */
+export function seededShuffle<T>(items: T[], seed: number): T[] {
+  const arr = [...items];
+  let s = seed >>> 0 || 1;
+  const rand = () => {
+    // xorshift32
+    s ^= s << 13;
+    s ^= s >>> 17;
+    s ^= s << 5;
+    return ((s >>> 0) % 1_000_000) / 1_000_000;
+  };
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+export const RESULT_THRESHOLD = 10;

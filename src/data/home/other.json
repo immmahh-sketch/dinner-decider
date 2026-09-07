@@ -1,0 +1,378 @@
+[
+  {
+    "id": "home-ot-jerk-chicken",
+    "name": "Jerk Chicken with Rice & Peas",
+    "blurb": "Marinated, spiced chicken with coconut rice and kidney beans.",
+    "venue": "home",
+    "cuisine": "caribbean",
+    "protein": "chicken",
+    "carb": "rice",
+    "spicy": 3,
+    "richness": "hearty",
+    "mood": ["comfort"],
+    "format": "plate",
+    "diet": ["gluten-free", "dairy-free"],
+    "effort": "medium",
+    "timeMinutes": 60,
+    "onePan": false,
+    "servings": 4,
+    "ingredients": [
+      "8 chicken thighs and drumsticks",
+      "Jerk marinade: 3 spring onions, 2 Scotch bonnets, 4 garlic cloves, 3cm ginger, 1 tbsp allspice, 1 tbsp thyme, 2 tbsp soy, 2 tbsp brown sugar, juice of 1 lime, 1 tsp cinnamon, 1 tsp nutmeg",
+      "Rice and peas: 300g rice, 400ml coconut milk, 400g tin kidney beans, 2 spring onions, 1 thyme sprig, 1 Scotch bonnet (whole)"
+    ],
+    "method": [
+      "Blitz the marinade ingredients and rub all over the chicken. Marinate for at least 2 hours, ideally overnight.",
+      "Roast at 200C fan for 35-40 minutes, or barbecue, until charred and cooked through, basting once.",
+      "For the rice and peas, simmer the beans, coconut milk, 200ml water, spring onions, thyme and the whole Scotch bonnet for 5 minutes.",
+      "Add the rinsed rice, cover and cook 15 minutes until tender. Remove the chilli and fluff up.",
+      "Serve the jerk chicken with the rice and peas."
+    ]
+  },
+  {
+    "id": "home-ot-curry-goat",
+    "name": "Curry Goat",
+    "blurb": "Slow-braised goat (or mutton) in Caribbean curry spice with potato.",
+    "venue": "home",
+    "cuisine": "caribbean",
+    "protein": "lamb",
+    "carb": "rice",
+    "spicy": 2,
+    "richness": "hearty",
+    "mood": ["comfort"],
+    "format": "bowl",
+    "diet": ["gluten-free", "dairy-free"],
+    "effort": "showoff",
+    "timeMinutes": 180,
+    "onePan": true,
+    "servings": 6,
+    "ingredients": [
+      "1.2kg goat or mutton, on the bone, cut into pieces",
+      "4 tbsp Caribbean curry powder",
+      "1 onion, 4 garlic cloves, 3cm ginger, 4 spring onions",
+      "1 Scotch bonnet, 1 tsp allspice, 2 thyme sprigs",
+      "2 potatoes, chunked",
+      "400ml water or stock, rice to serve"
+    ],
+    "method": [
+      "Toss the meat with 2 tbsp curry powder, salt and pepper, and leave 1 hour.",
+      "Bloom the rest of the curry powder in hot oil for 1 minute, then brown the meat.",
+      "Add the onion, garlic, ginger, spring onions, allspice, thyme and the whole Scotch bonnet.",
+      "Add the water, cover and simmer very gently for 2 hours until tender.",
+      "Add the potato for the last 30 minutes until it thickens the gravy. Serve with rice."
+    ]
+  },
+  {
+    "id": "home-ot-jamaican-patties",
+    "name": "Jamaican Beef Patties",
+    "blurb": "Flaky turmeric pastry filled with spiced, saucy beef mince.",
+    "venue": "home",
+    "cuisine": "caribbean",
+    "protein": "beef",
+    "carb": "pastry",
+    "spicy": 2,
+    "richness": "medium",
+    "mood": ["comfort"],
+    "format": "handheld",
+    "diet": ["dairy-free"],
+    "effort": "showoff",
+    "timeMinutes": 75,
+    "onePan": false,
+    "servings": 6,
+    "ingredients": [
+      "Pastry: 350g plain flour, 1 tbsp turmeric, 1 tsp curry powder, 175g cold block margarine or butter, 120ml iced water",
+      "500g beef mince",
+      "1 onion, 3 spring onions, 2 garlic cloves, 1 Scotch bonnet",
+      "1 tbsp curry powder, 1 tsp allspice, 1 tsp thyme",
+      "50g breadcrumbs, 200ml beef stock",
+      "1 egg, beaten, to glaze"
+    ],
+    "method": [
+      "Rub the fat into the flour and spices, add the water, bring together and chill for 30 minutes.",
+      "Fry the onion, garlic, spring onion and chilli, brown the mince, add the spices, stock and breadcrumbs, and cook to a thick, moist filling. Cool.",
+      "Roll the pastry thin, cut circles, add filling, fold into half-moons and crimp.",
+      "Glaze with egg and bake at 190C fan for 25-30 minutes until golden and flaky."
+    ]
+  },
+  {
+    "id": "home-ot-german-schnitzel",
+    "name": "Pork Schnitzel with Potato Salad",
+    "blurb": "Thin crumbed pork escalopes fried crisp, with a tangy warm potato salad.",
+    "venue": "home",
+    "cuisine": "other",
+    "protein": "pork",
+    "carb": "potato",
+    "spicy": 0,
+    "richness": "hearty",
+    "mood": ["comfort"],
+    "format": "plate",
+    "diet": [],
+    "effort": "medium",
+    "timeMinutes": 45,
+    "onePan": false,
+    "servings": 4,
+    "ingredients": [
+      "4 pork loin steaks, flattened very thin",
+      "100g flour, 2 eggs, 150g fine dried breadcrumbs",
+      "Oil and butter for frying, lemon wedges",
+      "Potato salad: 800g waxy potatoes, 1 small onion, 200ml hot stock, 3 tbsp white wine vinegar, 2 tbsp oil, 1 tsp mustard, chives"
+    ],
+    "method": [
+      "Boil the potatoes, slice while warm, and toss with the finely chopped onion, hot stock, vinegar, oil and mustard. Rest.",
+      "Coat the pork in flour, egg then breadcrumbs, pressing lightly.",
+      "Fry in a generous amount of oil and butter for 2 minutes each side until deep golden, swirling the pan so the crumb souffles.",
+      "Drain, season and serve with lemon and the warm potato salad."
+    ]
+  },
+  {
+    "id": "home-ot-bratwurst-sauerkraut",
+    "name": "Bratwurst with Sauerkraut & Mash",
+    "blurb": "Griddled bratwurst with braised sauerkraut, apple and mustardy mash.",
+    "venue": "home",
+    "cuisine": "other",
+    "protein": "pork",
+    "carb": "potato",
+    "spicy": 0,
+    "richness": "hearty",
+    "mood": ["comfort"],
+    "format": "plate",
+    "diet": ["gluten-free"],
+    "effort": "quick",
+    "timeMinutes": 35,
+    "onePan": false,
+    "servings": 4,
+    "ingredients": [
+      "8 bratwurst",
+      "500g jarred sauerkraut, drained",
+      "1 onion and 1 apple, sliced",
+      "1 tsp caraway seeds, 100ml cider or apple juice",
+      "900g potatoes, 60g butter, splash of milk, 1 tbsp wholegrain mustard"
+    ],
+    "method": [
+      "Fry the onion and apple in butter until soft, add the caraway, sauerkraut and cider, and simmer gently for 20 minutes.",
+      "Boil and mash the potatoes with butter, milk and the mustard; season.",
+      "Griddle or fry the bratwurst until browned and cooked through.",
+      "Serve the sausages over the mash with the braised sauerkraut."
+    ]
+  },
+  {
+    "id": "home-ot-swedish-meatballs",
+    "name": "Swedish Meatballs",
+    "blurb": "Tender beef-and-pork meatballs in a creamy gravy with lingonberry.",
+    "venue": "home",
+    "cuisine": "other",
+    "protein": "beef",
+    "carb": "potato",
+    "spicy": 0,
+    "richness": "hearty",
+    "mood": ["comfort"],
+    "format": "plate",
+    "diet": [],
+    "effort": "medium",
+    "timeMinutes": 45,
+    "onePan": false,
+    "servings": 4,
+    "ingredients": [
+      "400g beef mince, 200g pork mince",
+      "1 small onion, grated, 50g breadcrumbs soaked in 60ml milk, 1 egg",
+      "1/4 tsp each allspice and nutmeg",
+      "40g butter, 30g flour, 500ml beef stock, 150ml double cream, 1 tsp soy",
+      "Mash and lingonberry or cranberry sauce to serve"
+    ],
+    "method": [
+      "Mix the minces with the onion, soaked breadcrumbs, egg, spices and seasoning, and roll into small balls.",
+      "Brown all over in butter, then set aside.",
+      "Stir the flour into the pan, then whisk in the stock and cream and simmer to a smooth gravy. Add the soy.",
+      "Return the meatballs and simmer for 10 minutes. Serve with mash and lingonberry."
+    ]
+  },
+  {
+    "id": "home-ot-pierogi-butter-onions",
+    "name": "Potato & Cheese Pierogi",
+    "blurb": "Boiled-then-fried dumplings filled with mash and cheese, with buttery onions.",
+    "venue": "home",
+    "cuisine": "other",
+    "protein": "veggie",
+    "carb": "potato",
+    "spicy": 0,
+    "richness": "hearty",
+    "mood": ["comfort"],
+    "format": "plate",
+    "diet": ["vegetarian"],
+    "effort": "showoff",
+    "timeMinutes": 90,
+    "onePan": false,
+    "servings": 4,
+    "ingredients": [
+      "Dough: 400g plain flour, 1 egg, 200ml warm water, 2 tbsp soured cream, pinch of salt",
+      "Filling: 500g mashed potato, 150g farmer's cheese or curd cheese, 50g grated cheddar, fried onion, salt and pepper",
+      "3 onions, sliced, 80g butter",
+      "Soured cream to serve"
+    ],
+    "method": [
+      "Knead the dough ingredients until smooth, then rest 30 minutes under a bowl.",
+      "Mix the filling. Roll the dough thin, cut circles, add a spoon of filling, fold and seal well.",
+      "Boil in batches for 3-4 minutes until they float, then drain.",
+      "Fry the onions slowly in the butter until deep gold. Toss the pierogi in the buttery onions until lightly crisp.",
+      "Serve with soured cream."
+    ]
+  },
+  {
+    "id": "home-ot-loaded-nachos",
+    "name": "Loaded Nachos for Dinner",
+    "blurb": "A big tray of tortilla chips under cheese, beans, jalapenos and all the toppings.",
+    "venue": "home",
+    "cuisine": "other",
+    "protein": "veggie",
+    "carb": "none",
+    "spicy": 2,
+    "richness": "hearty",
+    "mood": ["indulgent", "comfort"],
+    "format": "sharing",
+    "diet": ["vegetarian"],
+    "effort": "quick",
+    "timeMinutes": 20,
+    "onePan": true,
+    "servings": 4,
+    "ingredients": [
+      "1 large bag salted tortilla chips",
+      "400g tin refried or black beans",
+      "250g grated cheddar and mozzarella mix",
+      "Pickled jalapenos",
+      "To finish: guacamole, soured cream, salsa, spring onions, coriander"
+    ],
+    "method": [
+      "Heat oven to 200C fan.",
+      "Spread half the chips on a tray, dot with beans, scatter with cheese and jalapenos. Repeat with a second layer.",
+      "Bake for 8-10 minutes until the cheese is molten.",
+      "Pile on the cold toppings and serve straight from the tray."
+    ]
+  },
+  {
+    "id": "home-ot-breakfast-for-dinner-pancakes",
+    "name": "Bacon & Maple Pancake Stack",
+    "blurb": "Fluffy American pancakes with crispy bacon and lots of maple syrup.",
+    "venue": "home",
+    "cuisine": "other",
+    "protein": "pork",
+    "carb": "bread",
+    "spicy": 0,
+    "richness": "hearty",
+    "mood": ["comfort", "indulgent"],
+    "format": "plate",
+    "diet": [],
+    "effort": "quick",
+    "timeMinutes": 25,
+    "onePan": true,
+    "servings": 3,
+    "ingredients": [
+      "200g self-raising flour, 1 tsp baking powder, 1 tbsp sugar, pinch of salt",
+      "1 egg, 250ml milk, 30g melted butter",
+      "8 rashers streaky bacon",
+      "Butter for the pan, maple syrup to serve"
+    ],
+    "method": [
+      "Fry the bacon until crisp, then keep warm.",
+      "Whisk the dry ingredients, then beat in the egg, milk and melted butter to a thick batter.",
+      "Cook spoonfuls in a buttered pan over medium heat until bubbles form, then flip and cook 1 minute more.",
+      "Stack the pancakes with the bacon and drown in maple syrup."
+    ]
+  },
+  {
+    "id": "home-ot-veg-buddha-bowl",
+    "name": "Roast Veg & Halloumi Grain Bowl",
+    "blurb": "Roasted vegetables, grains, halloumi and a lemony tahini dressing.",
+    "venue": "home",
+    "cuisine": "other",
+    "protein": "veggie",
+    "carb": "grains",
+    "spicy": 0,
+    "richness": "medium",
+    "mood": ["healthy", "fresh", "light"],
+    "format": "bowl",
+    "diet": ["vegetarian", "gluten-free"],
+    "effort": "quick",
+    "timeMinutes": 40,
+    "onePan": false,
+    "servings": 4,
+    "ingredients": [
+      "1 sweet potato, 1 red onion, 1 courgette, 1 pepper, all chopped",
+      "2 tbsp olive oil, 1 tsp smoked paprika, 1 tsp cumin",
+      "250g cooked mixed grains or quinoa",
+      "225g halloumi, sliced and griddled",
+      "Dressing: 3 tbsp tahini, juice of 1 lemon, 1 small garlic clove, water",
+      "Handful of rocket, pumpkin seeds"
+    ],
+    "method": [
+      "Toss the vegetables with the oil and spices and roast at 200C fan for 25-30 minutes.",
+      "Warm the grains.",
+      "Griddle the halloumi until golden.",
+      "Whisk the tahini dressing until pourable.",
+      "Build bowls with grains, roast veg, rocket and halloumi, then drizzle with dressing and scatter with seeds."
+    ]
+  },
+  {
+    "id": "home-ot-tomato-soup-grilled-cheese",
+    "name": "Tomato Soup & Grilled Cheese",
+    "blurb": "Silky roasted tomato soup with a crisp, molten cheese toastie to dunk.",
+    "venue": "home",
+    "cuisine": "other",
+    "protein": "veggie",
+    "carb": "bread",
+    "spicy": 0,
+    "richness": "medium",
+    "mood": ["comfort"],
+    "format": "soup",
+    "diet": ["vegetarian"],
+    "effort": "quick",
+    "timeMinutes": 40,
+    "onePan": false,
+    "servings": 4,
+    "ingredients": [
+      "1kg ripe tomatoes, halved (or 2 x 400g tins)",
+      "1 onion, 3 garlic cloves, 2 tbsp olive oil",
+      "1 tbsp tomato puree, 1 tsp sugar, 500ml stock",
+      "Splash of cream or milk (optional), basil",
+      "Toastie: 8 slices bread, 200g mature cheddar, butter"
+    ],
+    "method": [
+      "Roast the tomatoes, onion and garlic with the oil at 200C fan for 25 minutes until charred.",
+      "Blitz with the puree, sugar and stock, then simmer and season. Loosen with cream if you like.",
+      "Butter the bread on the outside, fill with cheese, and griddle over medium heat until golden and molten both sides.",
+      "Serve the soup with the toastie cut into soldiers for dunking."
+    ]
+  },
+  {
+    "id": "home-ot-katsu-halloumi",
+    "name": "Halloumi Katsu Curry",
+    "blurb": "Crisp panko halloumi with the same mild Japanese curry sauce and rice.",
+    "venue": "home",
+    "cuisine": "other",
+    "protein": "veggie",
+    "carb": "rice",
+    "spicy": 1,
+    "richness": "hearty",
+    "mood": ["comfort", "indulgent"],
+    "format": "plate",
+    "diet": ["vegetarian"],
+    "effort": "medium",
+    "timeMinutes": 35,
+    "onePan": false,
+    "servings": 4,
+    "ingredients": [
+      "2 x 225g blocks halloumi, sliced into 1cm slabs",
+      "80g flour, 2 eggs, 120g panko",
+      "1 onion, 1 carrot, chopped",
+      "2 garlic cloves, 2cm ginger",
+      "2 tbsp mild curry powder, 1 tbsp flour, 1 tbsp garam masala, 1 tsp turmeric",
+      "500ml vegetable stock, 1 tbsp soy, 1 tsp honey or maple",
+      "Rice to serve"
+    ],
+    "method": [
+      "Soften the onion and carrot, add the garlic, ginger and spices, then the flour.",
+      "Whisk in the stock, soy and honey, simmer 15 minutes, then blitz smooth.",
+      "Coat the halloumi in flour, egg and panko, and shallow fry for 1-2 minutes each side until golden.",
+      "Serve the crisp halloumi sliced over rice with the sauce poured alongside."
+    ]
+  }
+]
