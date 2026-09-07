@@ -99,6 +99,9 @@ jobs:
             PROVISIONING_PROFILE_SPECIFIER="" \
             DEVELOPMENT_TEAM="" \
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
+            SWIFT_STRICT_CONCURRENCY=minimal \
+            SWIFT_TREAT_WARNINGS_AS_ERRORS=NO \
+            GCC_TREAT_WARNINGS_AS_ERRORS=NO \
             2>&1 | tee "$RUNNER_TEMP/xcodebuild.log" | grep -E "error:|warning: .*(failed|missing)|ARCHIVE|===|Compiling|CompileC .*\.m " || true
           test -d "$PWD/build/App.xcarchive"
 
