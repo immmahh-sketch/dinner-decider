@@ -35,7 +35,7 @@ export default function Welcome() {
 
       <View style={styles.bottom}>
         {revealed && (
-          <Animated.View entering={FadeInDown.springify().damping(14)} style={styles.cta}>
+          <Animated.View entering={FadeInDown.duration(400)} style={styles.cta}>
             <Button label="Help me decide" onPress={begin} variant="primary" />
             <Text style={styles.count}>
               {DATASET_COUNTS.total.toLocaleString()} dinners in the deck

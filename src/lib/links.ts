@@ -30,8 +30,8 @@ export async function openExternal(url: string) {
   try {
     await WebBrowser.openBrowserAsync(url, {
       presentationStyle: WebBrowser.WebBrowserPresentationStyle.PAGE_SHEET,
-      toolbarColor: '#FFF4E6',
-      controlsColor: '#FF5A5F',
+      toolbarColor: '#EEF2F6',
+      controlsColor: '#0FB5A6',
     });
   } catch {
     // no-op: browser not available (e.g. in a test env)

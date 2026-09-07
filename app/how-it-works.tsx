@@ -58,7 +58,7 @@ export default function HowItWorks() {
           <Switch
             value={hide}
             onValueChange={setHide}
-            trackColor={{ true: colors.primary, false: '#d8cdbb' }}
+            trackColor={{ true: colors.primary, false: '#C6D0DA' }}
             thumbColor="#fff"
           />
         </View>

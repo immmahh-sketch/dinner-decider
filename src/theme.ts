@@ -1,27 +1,31 @@
-// Bold, warm, cartoon-diner palette.
+// Bold, playful game-show palette — cool base, vivid primaries.
+// Deliberately steers clear of orange / peach.
 export const colors = {
-  bg: '#FFF4E6',
+  bg: '#EEF2F6', // cool off-white
   card: '#FFFFFF',
-  ink: '#2B2118',
-  inkSoft: '#7A6A58',
-  primary: '#FF5A5F', // tomato red
-  primaryDark: '#D6383D',
-  accent: '#FFC542', // egg-yolk yellow
-  accentDark: '#E0A81E',
-  mint: '#2EC4B6',
-  grape: '#7C4DFF',
-  line: '#EAD9C3',
+  ink: '#161D2B', // near-black navy
+  inkSoft: '#5B6B7C',
+  primary: '#0FB5A6', // teal
+  primaryDark: '#0B8C81',
+  accent: '#FF2E7E', // raspberry
+  accentDark: '#D31E63',
+  mint: '#25C685', // success green
+  grape: '#6C5CE7',
+  blue: '#2D9CDB',
+  gold: '#FFD23F',
+  line: '#DEE5EC',
   danger: '#E5484D',
-  shadow: 'rgba(43, 33, 24, 0.18)',
+  shadow: 'rgba(22, 29, 43, 0.16)',
 };
 
+// Rainbow wedges for the fortune wheel — no orange, no peach.
 export const wheelColors = [
-  '#FF5A5F',
-  '#FFC542',
-  '#2EC4B6',
-  '#7C4DFF',
-  '#FF8A5B',
-  '#4D96FF',
+  '#0FB5A6', // teal
+  '#FF2E7E', // raspberry
+  '#6C5CE7', // violet
+  '#2D9CDB', // blue
+  '#FFD23F', // gold
+  '#25C685', // green
 ];
 
 export const radius = {
