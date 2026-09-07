@@ -10,7 +10,9 @@
     "backgroundColor": "#EEF2F6",
     "primaryColor": "#0FB5A6",
     "newArchEnabled": true,
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "runtimeVersion": {
       "policy": "fingerprint"
     },
@@ -18,7 +20,7 @@
       "enabled": true,
       "checkAutomatically": "ON_LOAD",
       "fallbackToCacheTimeout": 0,
-      "url": "https://u.expo.dev/00000000-0000-0000-0000-000000000000"
+      "url": "https://u.expo.dev/50d4ca4e-d7a9-416f-ad37-192110bd393d"
     },
     "ios": {
       "supportsTablet": true,
@@ -60,9 +62,11 @@
       ]
     ],
     "extra": {
+      "router": {},
       "eas": {
-        "projectId": "00000000-0000-0000-0000-000000000000"
+        "projectId": "50d4ca4e-d7a9-416f-ad37-192110bd393d"
       }
-    }
+    },
+    "owner": "immmahh"
   }
 }
