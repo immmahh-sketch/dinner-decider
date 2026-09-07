@@ -79,4 +79,6 @@ to switch on real ads and the paid unlock.
 
 ## Building the sideload IPA
 
-See [BUILDING.md](./BUILDING.md) for the full EAS + Signulous walkthrough.
+See [BUILDING.md](./BUILDING.md) for the full EAS + Signulous walkthrough, and
+[OTA.md](./OTA.md) for pushing JS/data updates to the phone without a rebuild
+(`expo-updates` is already wired in).

@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button } from '@/components/Button';
 import { usePrefs } from '@/store/prefs';
 import { openExternal } from '@/lib/links';
+import { useAppUpdates } from '@/lib/updates';
 import { colors, radius, shadowCard } from '@/theme';
 
 // Placeholder hosted-checkout link. Swap for a real Stripe Payment Link or
@@ -12,11 +13,31 @@ import { colors, radius, shadowCard } from '@/theme';
 const CHECKOUT_URL = 'https://example.com/dinner-decider/remove-ads';
 const UNLOCK_CODE = 'DINNER2025';
 
+function updateBlurb(status: string, current: string): string {
+  switch (status) {
+    case 'ready':
+      return 'A new version has been downloaded. Restart to apply it.';
+    case 'downloading':
+      return 'Downloading the latest version…';
+    case 'checking':
+      return 'Checking for a newer version…';
+    case 'up-to-date':
+      return `You are on the latest version (${current}).`;
+    case 'unavailable':
+      return 'Over-the-air updates are only active in the installed app, not in Expo Go.';
+    case 'error':
+      return 'Could not check right now. Try again when you have signal.';
+    default:
+      return `Running ${current}. Updates download automatically; you can also check now.`;
+  }
+}
+
 export default function RemoveAds() {
   const router = useRouter();
   const adsRemoved = usePrefs((s) => s.adsRemoved);
   const setAdsRemoved = usePrefs((s) => s.setAdsRemoved);
   const setHideHowItWorks = usePrefs((s) => s.setHideHowItWorks);
+  const updates = useAppUpdates();
 
   const [showCode, setShowCode] = useState(false);
   const [code, setCode] = useState('');
@@ -81,6 +102,27 @@ export default function RemoveAds() {
             )}
             {!!error && <Text style={styles.error}>{error}</Text>}
           </>
+        )}
+      </View>
+
+      <View style={[styles.card, shadowCard]}>
+        <Text style={styles.cardTitle}>App updates</Text>
+        <Text style={styles.cardBody}>{updateBlurb(updates.status, updates.currentLabel)}</Text>
+        {updates.status === 'ready' ? (
+          <Button
+            label="Restart to update"
+            variant="accent"
+            onPress={updates.restart}
+            style={{ marginTop: 14 }}
+          />
+        ) : (
+          <Button
+            label={updates.status === 'checking' || updates.status === 'downloading' ? 'Checking…' : 'Check for updates'}
+            variant="outline"
+            onPress={updates.check}
+            disabled={updates.status === 'checking' || updates.status === 'downloading'}
+            style={{ marginTop: 14 }}
+          />
         )}
       </View>
 

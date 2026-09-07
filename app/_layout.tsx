@@ -6,6 +6,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { usePrefs } from '@/store/prefs';
 import { useShoppingList } from '@/store/shoppingList';
+import { prefetchUpdate } from '@/lib/updates';
 import { colors } from '@/theme';
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
@@ -19,6 +20,11 @@ export default function RootLayout() {
       SplashScreen.hideAsync().catch(() => {});
     }
   }, [prefsHydrated, listHydrated]);
+
+  useEffect(() => {
+    // Eagerly pull any OTA update so it is ready to apply on the next launch.
+    prefetchUpdate();
+  }, []);
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>

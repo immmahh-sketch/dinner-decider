@@ -10,7 +10,10 @@ build service, which runs on macOS for you).
 npm i -g eas-cli
 eas login                 # your existing Expo account
 eas init                  # links this repo to an EAS project, writes the projectId into app.json
+eas update:configure      # writes the real updates.url for OTA (see OTA.md)
 ```
+
+Commit the `app.json` changes those two commands make (real `projectId` + `updates.url`).
 
 ## 1. Kick off the unsigned build
 

@@ -10,6 +10,16 @@
     "backgroundColor": "#EEF2F6",
     "primaryColor": "#0FB5A6",
     "newArchEnabled": true,
+    "assetBundlePatterns": ["**/*"],
+    "runtimeVersion": {
+      "policy": "fingerprint"
+    },
+    "updates": {
+      "enabled": true,
+      "checkAutomatically": "ON_LOAD",
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/00000000-0000-0000-0000-000000000000"
+    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.dinnerdecider.app",
@@ -39,6 +49,7 @@
     "plugins": [
       "expo-router",
       "expo-web-browser",
+      "expo-updates",
       [
         "expo-splash-screen",
         {
@@ -47,6 +58,11 @@
           "imageWidth": 200
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "00000000-0000-0000-0000-000000000000"
+      }
+    }
   }
 }
