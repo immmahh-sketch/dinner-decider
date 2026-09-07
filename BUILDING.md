@@ -1,90 +1,62 @@
 # Building the IPA and sideloading with Signulous
 
-Already done for you: EAS project `@immmahh/dinner-decider`
-(`50d4ca4e-d7a9-416f-ad37-192110bd393d`), EAS Update configured, `eas` CLI
-logged in as `immmahh`.
+The default path builds an **unsigned `.ipa` on GitHub Actions** — a hosted
+macOS runner runs `expo prebuild` + `xcodebuild` with code signing turned off.
+No Apple account, no Mac. Signulous re-signs it with its own certificate.
 
-## The one thing that still needs you: an Apple identity
+## Build it
 
-**EAS cannot produce any iOS `.ipa` — signed or unsigned — without an
-Apple-issued provisioning profile.** That profile is tied to an Apple account,
-and creating it means signing in to Apple with your Apple ID **password + 2FA**,
-which only you can do. There is no fully credential-free path (the
-`unsigned-ipa` profile's build is blocked by the EAS CLI before it can run —
-see the bottom of this file).
+1. GitHub → the repo → **Actions** tab → **Build unsigned iOS IPA** → **Run workflow**
+   (`main`/`master`). Or push a tag: `git tag build-1 && git push origin build-1`.
+2. ~15–25 min on a `macos-15` runner.
+3. When it's green, the `.ipa` is in two places:
+   - **Releases** → tag **`ipa`** → asset `DinnerDecider-unsigned.ipa`
+     (direct download — best for Safari on the iPhone)
+   - the run's **Artifacts** → `DinnerDecider-unsigned-ipa` (a zip containing the `.ipa`)
 
-You have two ways in. Signulous re-signs whatever you give it with its own
-long-lived certificate, so a short-lived signature from either route is fine.
+The workflow is `.github/workflows/ios-unsigned-ipa.yml`. It's **manual only** —
+GitHub bills macOS minutes at 10×, so a private repo on the free plan gets
+roughly 10–20 of these a month. Making the repo public removes that limit.
 
-### Route A — free Apple ID (no $99)
+## Get it onto the phone → Signulous
 
-A free Apple ID has a "Personal Team" that can issue **development**
-provisioning profiles for registered devices.
+- On the iPhone, open the **Releases → `ipa`** asset link in Safari (you'll need
+  to be signed in to GitHub for a private repo) → **Download** → it lands in Files.
+- Or download it on the PC, drop it in `dist-share/` next to this repo, and open
+  `http://192.168.0.198:8000/` on the iPhone while that server runs.
 
-```bash
-# 1. register your iPhone with EAS (opens a page / QR to install a UDID profile)
-eas device:create
+Then in Signulous: **Sign Your Own App** → upload `DinnerDecider-unsigned.ipa` →
+it re-signs and gives you an install link. Open that in Safari and install.
 
-# 2. build a development-signed device .ipa (interactive: it asks for your Apple ID)
-eas build --platform ios --profile device
-```
-
-At the Apple prompt, sign in with your normal Apple ID. EAS creates the
-Personal-Team development cert + profile automatically. Output is a real
-`.ipa`, valid ~7 days on its own — irrelevant once Signulous re-signs it.
-
-Limitation: the device must be registered before the build, and each rebuild
-must include that device.
-
-### Route B — Apple Developer Program ($99/yr)
-
-Everything gets easier. After adding the account to EAS once:
+## After the first install: update over the air, no rebuild
 
 ```bash
-eas build --platform ios --profile preview
+npx eas-cli update --branch preview --message "new dishes / copy / screens"
 ```
 
-`preview` is `distribution: internal` (ad-hoc). EAS manages the cert + profile.
-No device pre-registration hassle, no 7-day limit even before Signulous.
+The binary is pinned to the **`preview`** channel and
+`runtimeVersion` = the app `version` (`1.0.0`). Any JS / screen / question /
+dish-data change ships over the air on next launch. See `OTA.md`.
 
-## Then: get it onto the phone
+You need a new `.ipa` (re-run the workflow) only for **native** changes: adding a
+native module, bumping the Expo SDK, or changing `app.json` native config
+(icons, permissions, bundle id, the updates URL, **or the app `version`** — that
+moves the runtimeVersion and cuts old installs off from new OTA updates).
 
-The CLI prints a build URL and, when done, a link to the `.ipa`
-(`expo.dev` → project → Builds → the artifact). To pull it onto the iPhone:
+## Alternatives (need an Apple identity, done interactively by you)
 
-- open the build's `.ipa` link directly in Safari on the iPhone → **Download** →
-  it lands in Files, **or**
-- drop the file into the `dist-share/` folder next to this repo and open
-  `http://192.168.0.198:8000/` on the iPhone (while that server is running).
+- **Free Apple ID:** `npx eas-cli device:create` then
+  `npx eas-cli build -p ios --profile device` → a dev-signed device `.ipa`.
+- **Apple Developer Program ($99):** `npx eas-cli build -p ios --profile preview`
+  → an ad-hoc `.ipa`, EAS manages the cert/profile.
 
-Then in Signulous: **Sign Your Own App** → upload the `.ipa` → it re-signs with
-your Signulous certificate and gives you an install link. Open that in Safari and
-install.
+Both still go through Signulous the same way. EAS project is already linked
+(`@immmahh/dinner-decider`).
 
-## After the first install: OTA, no rebuild
+## If the GitHub build fails
 
-```bash
-eas update --branch preview --message "..."
-```
-
-JS / screens / questions / dish data all update over the air. See `OTA.md`.
-Only native changes (new native lib, SDK bump, `app.json` native config) need a
-fresh `.ipa` from Route A or B.
-
-## Bumping the version
-
-- `app.json` → `expo.version` + `expo.ios.buildNumber`, or use the `production`
-  profile (`autoIncrement: true`).
-
----
-
-## Appendix: why the `unsigned-ipa` profile doesn't run
-
-`.eas/build/unsigned-ipa.yml` is a valid custom build workflow that archives with
-`CODE_SIGNING_ALLOWED=NO` and repackages the `.app` into an `.ipa` — no Apple
-account needed **at build time**. But `eas build` resolves iOS credentials
-*before* dispatching the job, and in non-interactive mode fails with
-"couldn't find any credentials suitable for internal distribution";
-`credentialsSource: local` then demands a real `credentials.json` +
-`.mobileprovision` (Apple-signed, can't be fabricated). If Expo ever adds a
-"no credentials" flag for custom iOS builds, this profile is ready to use.
+- **Scheme not found / wrong** — check the "Resolve workspace + scheme" step log
+  and, if needed, hard-code the scheme in the workflow's `xcodebuild` step.
+- **CocoaPods errors** — usually a transient repo issue; re-run the job.
+- **Hermes / bundle phase errors** — check the "Archive" step log; it runs the
+  Metro bundle + Hermes compile, same as any RN release build.

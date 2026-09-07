@@ -1,0 +1,112 @@
+name: Build unsigned iOS IPA
+
+# Builds an UNSIGNED .ipa on a GitHub-hosted macOS runner (no Apple account
+# needed) and publishes it as both a workflow artifact and a GitHub Release
+# asset (tag: ipa) so you can download it straight to the iPhone and hand it
+# to Signulous to re-sign.
+#
+# Run it: Actions tab -> "Build unsigned iOS IPA" -> Run workflow.
+# macOS minutes bill at 10x, so this is manual-only.
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "build-*"
+
+permissions:
+  contents: write
+
+jobs:
+  ipa:
+    runs-on: macos-15
+    timeout-minutes: 45
+    env:
+      IPA_NAME: DinnerDecider-unsigned.ipa
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install JS dependencies
+        run: npm ci --legacy-peer-deps || npm install --legacy-peer-deps --no-audit --no-fund
+
+      - name: Expo prebuild (generate native iOS project)
+        run: npx expo prebuild --platform ios --no-install --clean
+
+      - name: CocoaPods install
+        working-directory: ios
+        run: |
+          pod install --repo-update || (pod repo update && pod install)
+
+      - name: Resolve workspace + scheme
+        id: xc
+        working-directory: ios
+        run: |
+          set -eux
+          WORKSPACE="$(ls -d *.xcworkspace | head -n1)"
+          SCHEME="$(xcodebuild -workspace "$WORKSPACE" -list -json \
+            | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{const j=JSON.parse(s);console.log((j.workspace.schemes||[])[0]||"")})')"
+          test -n "$SCHEME"
+          echo "workspace=$WORKSPACE" >> "$GITHUB_OUTPUT"
+          echo "scheme=$SCHEME" >> "$GITHUB_OUTPUT"
+
+      - name: Archive without code signing
+        working-directory: ios
+        run: |
+          set -eux
+          xcodebuild \
+            -workspace "${{ steps.xc.outputs.workspace }}" \
+            -scheme "${{ steps.xc.outputs.scheme }}" \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$PWD/build/App.xcarchive" \
+            clean archive \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGN_ENTITLEMENTS="" \
+            PROVISIONING_PROFILE_SPECIFIER="" \
+            DEVELOPMENT_TEAM="" \
+            AD_HOC_CODE_SIGNING_ALLOWED=YES \
+            -quiet
+
+      - name: Package .app into an unsigned .ipa
+        working-directory: ios
+        run: |
+          set -eux
+          APP_PATH="$(ls -d build/App.xcarchive/Products/Applications/*.app | head -n1)"
+          test -d "$APP_PATH"
+          rm -rf payload && mkdir -p payload/Payload
+          cp -R "$APP_PATH" payload/Payload/
+          ( cd payload && zip -qry "../$IPA_NAME" Payload )
+          ls -la "$IPA_NAME"
+          unzip -l "$IPA_NAME" | head -20
+          # sanity: an app bundle over ~1MB actually got packaged
+          test "$(stat -f%z "$IPA_NAME")" -gt 1000000
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: DinnerDecider-unsigned-ipa
+          path: ios/DinnerDecider-unsigned.ipa
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish to the "ipa" release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eux
+          gh release delete ipa --cleanup-tag --yes || true
+          gh release create ipa \
+            --target "$GITHUB_SHA" \
+            --title "Latest unsigned IPA" \
+            --notes "Unsigned build from commit ${GITHUB_SHA:0:7} (run ${GITHUB_RUN_NUMBER}). Upload to Signulous to re-sign." \
+            "ios/DinnerDecider-unsigned.ipa#DinnerDecider-unsigned.ipa"
+          echo "Download: $(gh release view ipa --json assets --jq '.assets[0].url')"

@@ -24,13 +24,15 @@ eas update:configure     # writes the real updates.url (https://u.expo.dev/<proj
 
 ## How versions line up
 
-- `runtimeVersion` policy is **`fingerprint`** — EAS hashes the native side of the
-  app. An OTA update is only delivered to a build whose fingerprint matches.
-- Build profiles map to update branches by **channel** (`eas.json`):
-  - `unsigned-ipa` / `preview` build  → channel **`preview`** → branch **`preview`**
-  - `production` build                → channel **`production`** → branch **`production`**
-
-So the IPA you sideload from the `unsigned-ipa` profile listens on the `preview` branch.
+- `runtimeVersion` policy is **`appVersion`** — the runtime version is the app
+  `version` in `app.json` (`1.0.0`). An OTA update is only delivered to a build
+  with the same runtime version, so **bumping `version` cuts existing installs
+  off** until they install a new `.ipa`.
+- The channel is baked into the binary via
+  `app.json` → `updates.requestHeaders["expo-channel-name"] = "preview"` (the
+  GitHub Actions build has no EAS step to set it, so it's set in config).
+  `eas.json` profiles also set `channel` for EAS-built binaries.
+- Channel **`preview`** ↔ branch **`preview`**.
 
 ## Publishing an update
 
@@ -52,12 +54,10 @@ That's it. On the phone:
 
 - adding/removing a native module (e.g. turning on `react-native-google-mobile-ads`)
 - upgrading the Expo SDK
-- changing anything in `app.json` that affects native config (icons, permissions,
-  bundle id, the `updates.url` itself)
+- changing native `app.json` config (icons, permissions, bundle id, `updates.url`)
+- bumping the app `version` (moves the runtimeVersion)
 
-In those cases the fingerprint changes, old installs stop receiving `preview`
-updates until they install the new build, and you run
-`eas build --platform ios --profile unsigned-ipa` again (see `BUILDING.md`).
+In those cases, re-run the **Build unsigned iOS IPA** workflow (see `BUILDING.md`).
 
 ## Rolling back a bad update
 
