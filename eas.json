@@ -28,6 +28,7 @@
       "channel": "preview",
       "ios": {
         "simulator": false,
+        "credentialsSource": "local",
         "config": "unsigned-ipa.yml"
       }
     },
