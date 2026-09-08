@@ -8,6 +8,7 @@ import { Button } from '@/components/Button';
 import { WHEEL_TITLES, DATASET_COUNTS } from '@/data/dishes';
 import { useDecider } from '@/store/decider';
 import { usePrefs } from '@/store/prefs';
+import { UPDATED_AT } from '@/meta';
 import { colors } from '@/theme';
 
 export default function Welcome() {
@@ -43,6 +44,8 @@ export default function Welcome() {
           </Animated.View>
         )}
       </View>
+
+      <Text style={styles.updated}>Updated {UPDATED_AT}</Text>
     </SafeAreaView>
   );
 }
@@ -55,4 +58,12 @@ const styles = StyleSheet.create({
   bottom: { minHeight: 140, paddingHorizontal: 28, justifyContent: 'flex-start' },
   cta: { gap: 12, alignItems: 'stretch' },
   count: { textAlign: 'center', color: colors.inkSoft, fontSize: 13, fontWeight: '600' },
+  updated: {
+    textAlign: 'center',
+    color: colors.inkSoft,
+    fontSize: 10,
+    fontWeight: '500',
+    opacity: 0.45,
+    paddingBottom: 10,
+  },
 });
