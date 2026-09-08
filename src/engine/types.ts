@@ -69,6 +69,19 @@ export type DishFormat = 'bowl' | 'plate' | 'handheld' | 'sharing' | 'soup' | 's
 
 export type Diet = 'vegetarian' | 'vegan' | 'pescatarian' | 'gluten-free' | 'dairy-free';
 
+/**
+ * The kind of *evening* a dish suits — the first thing the quiz asks, before
+ * anything else. Like flavours, this is derived from a dish's other fields +
+ * wording (see engine/occasion.ts); `occasions` on a dish is an optional
+ * manual override.
+ */
+export type Occasion =
+  | 'solo' // eating on your own — manageable, no giant feast
+  | 'nofuss' // just feed me — fast, easy, minimum effort
+  | 'family' // feeding the household — crowd-pleaser, scales up, not too hot
+  | 'date' // date night — a step up, a bit special, for two
+  | 'special'; // anniversary / celebration — pull out all the stops
+
 export interface BaseDish {
   id: string;
   name: string;
@@ -85,6 +98,8 @@ export interface BaseDish {
   diet: Diet[];
   /** optional manual flavour override; otherwise flavours are derived */
   flavours?: Flavour[];
+  /** optional manual occasion override; otherwise occasions are derived */
+  occasions?: Occasion[];
 }
 
 export interface HomeDish extends BaseDish {

@@ -14,7 +14,7 @@ const STEPS: { emoji: string; title: string; body: string }[] = [
   {
     emoji: '🙋',
     title: 'Answer easy questions',
-    body: 'Eating in or out? Cooking or takeaway? Spicy or not? Each answer flips down the cards that do not match.',
+    body: 'What kind of evening is it? Eating in or out? Spicy or not? Each answer flips down the cards that do not match.',
   },
   {
     emoji: '👀',

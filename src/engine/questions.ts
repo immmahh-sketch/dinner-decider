@@ -1,5 +1,6 @@
 import { Dish, isHome, isRestaurant, isTakeaway } from './types';
 import { hasFlavour } from './flavours';
+import { hasOccasion } from './occasion';
 
 export type Answers = Record<string, string>;
 
@@ -34,6 +35,21 @@ export const venueOf = (a: Answers): 'home' | 'takeaway' | 'restaurant' | 'any' 
 };
 
 export const QUESTIONS: Record<string, Question> = {
+  // ---------------------------------------------------------------- EVENING FIRST
+  q_evening: {
+    id: 'q_evening',
+    title: 'What kind of evening is it?',
+    subtitle: 'This sets the tone for everything that follows.',
+    options: [
+      { id: 'solo', label: 'Just me tonight', emoji: '🍽️', keep: (d) => hasOccasion(d, 'solo') },
+      { id: 'nofuss', label: 'Just feed me — no fuss', emoji: '😮‍💨', keep: (d) => hasOccasion(d, 'nofuss') },
+      { id: 'family', label: 'Feeding the household', emoji: '👨‍👩‍👧‍👦', keep: (d) => hasOccasion(d, 'family') },
+      { id: 'date', label: 'Date night', emoji: '🕯️', keep: (d) => hasOccasion(d, 'date') },
+      { id: 'special', label: 'Anniversary or big occasion', emoji: '🥂', keep: (d) => hasOccasion(d, 'special') },
+      { id: 'any', label: 'Surprise me', emoji: '🎲' },
+    ],
+  },
+
   // ---------------------------------------------------------------- the fork
   q_where: {
     id: 'q_where',
@@ -144,19 +160,6 @@ export const QUESTIONS: Record<string, Question> = {
     ],
   },
 
-  // ---------------------------------------------------------------- occasion (restaurant)
-  q_occasion: {
-    id: 'q_occasion',
-    title: 'What is the occasion?',
-    when: (a) => venueOf(a) === 'restaurant',
-    options: [
-      { id: 'casual', label: 'Casual bite', emoji: '👕', keep: (d) => isRestaurant(d) && d.priceTier <= 2 },
-      { id: 'nice', label: 'Nice dinner out', emoji: '🍷', keep: (d) => isRestaurant(d) && d.priceTier >= 2 },
-      { id: 'special', label: 'Special occasion', emoji: '🎉', keep: (d) => isRestaurant(d) && d.priceTier === 3 },
-      { id: 'any', label: "Don't mind", emoji: '🤷' },
-    ],
-  },
-
   // ---------------------------------------------------------------- cuisine — LATE
   q_style: {
     id: 'q_style',
@@ -188,6 +191,7 @@ export const QUESTIONS: Record<string, Question> = {
 
 /** The order questions are asked in; `when` skips any that don't apply. */
 export const QUESTION_ORDER: string[] = [
+  'q_evening',
   'q_where',
   'q_cook_order',
   'q_vibe',
@@ -196,9 +200,8 @@ export const QUESTION_ORDER: string[] = [
   'q_carb',
   'q_spice',
   'q_hunger',
-  'q_occasion',
   'q_style',
   'q_onepan',
 ];
 
-export const FIRST_QUESTION_ID = 'q_where';
+export const FIRST_QUESTION_ID = 'q_evening';
