@@ -6,6 +6,7 @@ import { TopBar } from '@/components/TopBar';
 import { AdBanner } from '@/components/AdBanner';
 import { Button } from '@/components/Button';
 import { dishById } from '@/data/dishes';
+import { hydrateDish } from '@/engine/hydrate';
 import { isHome } from '@/engine/types';
 import { useShoppingList } from '@/store/shoppingList';
 import { findNearMeQuery, mapsSearchUrl, openExternal } from '@/lib/links';
@@ -14,7 +15,7 @@ import { colors, radius, shadowCard } from '@/theme';
 export default function DishDetail() {
   const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
-  const dish = id ? dishById(id) : undefined;
+  const dish = id ? hydrateDish(dishById(id)) : undefined;
 
   const addForDish = useShoppingList((s) => s.addForDish);
   const inList = useShoppingList((s) => (id ? s.hasDish(id) : false));

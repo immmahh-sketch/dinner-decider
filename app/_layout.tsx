@@ -6,6 +6,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { usePrefs } from '@/store/prefs';
 import { useShoppingList } from '@/store/shoppingList';
+import { loadCatalog } from '@/data/dishes';
 import { prefetchUpdate } from '@/lib/updates';
 import { colors } from '@/theme';
 
@@ -24,6 +25,9 @@ export default function RootLayout() {
   useEffect(() => {
     // Eagerly pull any OTA update so it is ready to apply on the next launch.
     prefetchUpdate();
+    // Fetch the full hosted catalogue in the background; the app runs on the
+    // bundled deck until it arrives.
+    loadCatalog();
   }, []);
 
   return (

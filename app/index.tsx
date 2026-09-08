@@ -5,8 +5,9 @@ import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Wheel } from '@/components/Wheel';
 import { Button } from '@/components/Button';
-import { WHEEL_TITLES, DATASET_COUNTS } from '@/data/dishes';
+import { WHEEL_TITLES } from '@/data/dishes';
 import { useDecider } from '@/store/decider';
+import { useCatalogStats } from '@/store/catalog';
 import { usePrefs } from '@/store/prefs';
 import { UPDATED_AT } from '@/meta';
 import { colors } from '@/theme';
@@ -16,6 +17,7 @@ export default function Welcome() {
   const [revealed, setRevealed] = useState(false);
   const hideHowItWorks = usePrefs((s) => s.hideHowItWorks);
   const start = useDecider((s) => s.start);
+  const stats = useCatalogStats();
 
   const begin = () => {
     start();
@@ -39,7 +41,8 @@ export default function Welcome() {
           <Animated.View entering={FadeInDown.duration(400)} style={styles.cta}>
             <Button label="Help me decide" onPress={begin} variant="primary" />
             <Text style={styles.count}>
-              {DATASET_COUNTS.total.toLocaleString()} dinners in the deck
+              {stats.total.toLocaleString()} dinners in the deck
+              {stats.source === 'bundled' ? ' · loading the full menu…' : ''}
             </Text>
           </Animated.View>
         )}

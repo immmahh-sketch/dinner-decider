@@ -3,6 +3,7 @@ import { ALL_DISHES } from '@/data/dishes';
 import { Dish } from '@/engine/types';
 import { poolFor, RESULT_THRESHOLD, seededShuffle } from '@/engine/filter';
 import { useDecider } from './decider';
+import { useCatalogVersion } from './catalog';
 
 /**
  * The remaining dishes for the current answers. Derived with useMemo from the
@@ -11,7 +12,8 @@ import { useDecider } from './decider';
  */
 export function usePool(): Dish[] {
   const steps = useDecider((s) => s.steps);
-  return useMemo(() => poolFor(ALL_DISHES, steps), [steps]);
+  const catVersion = useCatalogVersion();
+  return useMemo(() => poolFor(ALL_DISHES, steps), [steps, catVersion]);
 }
 
 export function usePoolCount(): number {
@@ -28,3 +30,5 @@ export function useResults(): { results: Dish[]; total: number } {
   );
   return { results, total: pool.length };
 }
+
+export { useCatalogStats } from './catalog';

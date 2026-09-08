@@ -46,3 +46,6 @@ dist-check/
 # EAS local credentials (never commit)
 credentials.json
 credentials/
+
+# hosted catalogue (uploaded to the "catalog" GitHub release, not committed)
+docs/dishes.json
