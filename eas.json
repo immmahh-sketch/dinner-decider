@@ -50,6 +50,7 @@
     "testflight": {
       "channel": "preview",
       "autoIncrement": true,
+      "credentialsSource": "local",
       "ios": {
         "simulator": false,
         "buildConfiguration": "Release"
