@@ -46,9 +46,24 @@
       "ios": {
         "simulator": false
       }
+    },
+    "testflight": {
+      "channel": "preview",
+      "autoIncrement": true,
+      "ios": {
+        "simulator": false,
+        "buildConfiguration": "Release"
+      }
     }
   },
   "submit": {
-    "production": {}
+    "production": {},
+    "testflight": {
+      "ios": {
+        "ascApiKeyPath": "./credentials/asc-api-key.p8",
+        "ascApiKeyId": "4ZR5S4Q694",
+        "ascApiKeyIssuerId": "f8769ad5-5ffd-49be-9b53-a5071535fa8c"
+      }
+    }
   }
 }
