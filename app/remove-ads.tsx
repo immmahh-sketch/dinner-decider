@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button } from '@/components/Button';
-import { usePrefs } from '@/store/prefs';
+import { ALLERGENS, DIETS, usePrefs } from '@/store/prefs';
 import { openExternal } from '@/lib/links';
 import { useAppUpdates } from '@/lib/updates';
 import { colors, radius, shadowCard } from '@/theme';
@@ -39,9 +39,27 @@ export default function RemoveAds() {
   const setHideHowItWorks = usePrefs((s) => s.setHideHowItWorks);
   const updates = useAppUpdates();
 
+  const username = usePrefs((s) => s.username);
+  const setUsername = usePrefs((s) => s.setUsername);
+  const avoid = usePrefs((s) => s.avoid);
+  const diets = usePrefs((s) => s.diets);
+  const allergens = usePrefs((s) => s.allergens);
+  const addAvoid = usePrefs((s) => s.addAvoid);
+  const removeAvoid = usePrefs((s) => s.removeAvoid);
+  const toggleDiet = usePrefs((s) => s.toggleDiet);
+  const toggleAllergen = usePrefs((s) => s.toggleAllergen);
+
+  const [term, setTerm] = useState('');
   const [showCode, setShowCode] = useState(false);
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
+
+  const submitAvoid = () => {
+    const v = term.trim();
+    if (!v) return;
+    addAvoid(v);
+    setTerm('');
+  };
 
   const redeem = () => {
     if (code.trim().toUpperCase() === UNLOCK_CODE) {
@@ -61,87 +79,177 @@ export default function RemoveAds() {
         </Pressable>
       </View>
 
-      <View style={[styles.card, shadowCard]}>
-        <Text style={styles.badge}>ONE-TIME · £2.99</Text>
-        <Text style={styles.cardTitle}>Remove ads</Text>
-        <Text style={styles.cardBody}>
-          Support the app and lose every ad slot, forever, on this device.
-        </Text>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 28 }}>
+        {/* -------------------------------------------------- your name */}
+        <View style={[styles.card, shadowCard]}>
+          <Text style={styles.cardTitle}>Your name</Text>
+          <Text style={styles.cardBody}>
+            Shown when you share a dinner idea — “Sam reckons we should have…”.
+          </Text>
+          <TextInput
+            value={username}
+            onChangeText={setUsername}
+            placeholder="e.g. Sam"
+            placeholderTextColor={colors.inkSoft}
+            autoCapitalize="words"
+            autoCorrect={false}
+            maxLength={24}
+            style={[styles.input, { marginTop: 12 }]}
+          />
+        </View>
 
-        {adsRemoved ? (
-          <View style={styles.doneRow}>
-            <Text style={styles.doneText}>✅ Ads are off. Thank you!</Text>
-            <Pressable onLongPress={() => setAdsRemoved(false)}>
-              <Text style={styles.restoreHint}>(long-press to re-enable for testing)</Text>
-            </Pressable>
+        {/* -------------------------------------------------- deal-breakers */}
+        <View style={[styles.card, shadowCard]}>
+          <Text style={styles.cardTitle}>Deal-breakers &amp; dietary</Text>
+          <Text style={styles.cardBody}>
+            These are absolute — matching dishes are hidden from every result, before
+            the quiz even starts.
+          </Text>
+
+          <Text style={styles.groupLabel}>Never show me…</Text>
+          <View style={styles.chipWrap}>
+            {avoid.map((a) => (
+              <Pressable key={a} style={[styles.chip, styles.chipOn]} onPress={() => removeAvoid(a)}>
+                <Text style={[styles.chipText, styles.chipTextOn]}>{a}  ✕</Text>
+              </Pressable>
+            ))}
+            {avoid.length === 0 && <Text style={styles.hint}>Nothing yet — add an ingredient below.</Text>}
           </View>
-        ) : (
-          <>
-            <Button
-              label="Continue to checkout"
-              variant="primary"
-              onPress={() => openExternal(CHECKOUT_URL)}
-              style={{ marginTop: 16 }}
+          <View style={styles.addRow}>
+            <TextInput
+              value={term}
+              onChangeText={setTerm}
+              onSubmitEditing={submitAvoid}
+              placeholder="e.g. onions, coriander, almonds"
+              placeholderTextColor={colors.inkSoft}
+              autoCapitalize="none"
+              autoCorrect={false}
+              returnKeyType="done"
+              style={[styles.input, { flex: 1 }]}
             />
-            <Pressable onPress={() => setShowCode((v) => !v)} style={{ marginTop: 12 }}>
-              <Text style={styles.codeToggle}>Have an unlock code?</Text>
-            </Pressable>
-            {showCode && (
-              <View style={styles.codeBox}>
-                <TextInput
-                  value={code}
-                  onChangeText={setCode}
-                  autoCapitalize="characters"
-                  autoCorrect={false}
-                  placeholder="Enter code"
-                  placeholderTextColor={colors.inkSoft}
-                  style={styles.input}
-                />
-                <Button label="Redeem" variant="accent" onPress={redeem} />
-              </View>
-            )}
-            {!!error && <Text style={styles.error}>{error}</Text>}
-          </>
-        )}
-      </View>
+            <Button label="Add" variant="accent" onPress={submitAvoid} />
+          </View>
 
-      <View style={[styles.card, shadowCard]}>
-        <Text style={styles.cardTitle}>App updates</Text>
-        <Text style={styles.cardBody}>{updateBlurb(updates.status, updates.currentLabel)}</Text>
-        {updates.status === 'ready' ? (
+          <Text style={styles.groupLabel}>Allergens to screen out</Text>
+          <View style={styles.chipWrap}>
+            {ALLERGENS.map(({ key, label }) => {
+              const on = allergens.includes(key);
+              return (
+                <Pressable
+                  key={key}
+                  style={[styles.chip, on && styles.chipOn]}
+                  onPress={() => toggleAllergen(key)}
+                >
+                  <Text style={[styles.chipText, on && styles.chipTextOn]}>{label}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+
+          <Text style={styles.groupLabel}>Dietary</Text>
+          <View style={styles.chipWrap}>
+            {DIETS.map(({ key, label }) => {
+              const on = diets.includes(key);
+              return (
+                <Pressable
+                  key={key}
+                  style={[styles.chip, on && styles.chipOn]}
+                  onPress={() => toggleDiet(key)}
+                >
+                  <Text style={[styles.chipText, on && styles.chipTextOn]}>{label}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+          <Text style={styles.fineprint}>
+            Allergen screening matches dish wording and can’t be perfect — always check
+            with the venue or recipe if a reaction would be serious.
+          </Text>
+        </View>
+
+        {/* -------------------------------------------------- remove ads */}
+        <View style={[styles.card, shadowCard]}>
+          <Text style={styles.badge}>ONE-TIME · £2.99</Text>
+          <Text style={styles.cardTitle}>Remove ads</Text>
+          <Text style={styles.cardBody}>
+            Support the app and lose every ad slot, forever, on this device.
+          </Text>
+
+          {adsRemoved ? (
+            <View style={styles.doneRow}>
+              <Text style={styles.doneText}>✅ Ads are off. Thank you!</Text>
+              <Pressable onLongPress={() => setAdsRemoved(false)}>
+                <Text style={styles.restoreHint}>(long-press to re-enable for testing)</Text>
+              </Pressable>
+            </View>
+          ) : (
+            <>
+              <Button
+                label="Continue to checkout"
+                variant="primary"
+                onPress={() => openExternal(CHECKOUT_URL)}
+                style={{ marginTop: 16 }}
+              />
+              <Pressable onPress={() => setShowCode((v) => !v)} style={{ marginTop: 12 }}>
+                <Text style={styles.codeToggle}>Have an unlock code?</Text>
+              </Pressable>
+              {showCode && (
+                <View style={styles.codeBox}>
+                  <TextInput
+                    value={code}
+                    onChangeText={setCode}
+                    autoCapitalize="characters"
+                    autoCorrect={false}
+                    placeholder="Enter code"
+                    placeholderTextColor={colors.inkSoft}
+                    style={[styles.input, { flex: 1 }]}
+                  />
+                  <Button label="Redeem" variant="accent" onPress={redeem} />
+                </View>
+              )}
+              {!!error && <Text style={styles.error}>{error}</Text>}
+            </>
+          )}
+        </View>
+
+        <View style={[styles.card, shadowCard]}>
+          <Text style={styles.cardTitle}>App updates</Text>
+          <Text style={styles.cardBody}>{updateBlurb(updates.status, updates.currentLabel)}</Text>
+          {updates.status === 'ready' ? (
+            <Button
+              label="Restart to update"
+              variant="accent"
+              onPress={updates.restart}
+              style={{ marginTop: 14 }}
+            />
+          ) : (
+            <Button
+              label={updates.status === 'checking' || updates.status === 'downloading' ? 'Checking…' : 'Check for updates'}
+              variant="outline"
+              onPress={updates.check}
+              disabled={updates.status === 'checking' || updates.status === 'downloading'}
+              style={{ marginTop: 14 }}
+            />
+          )}
+        </View>
+
+        <View style={[styles.card, shadowCard]}>
+          <Text style={styles.cardTitle}>Show me how it works again</Text>
+          <Text style={styles.cardBody}>Bring back the intro screen next time you start.</Text>
           <Button
-            label="Restart to update"
-            variant="accent"
-            onPress={updates.restart}
-            style={{ marginTop: 14 }}
-          />
-        ) : (
-          <Button
-            label={updates.status === 'checking' || updates.status === 'downloading' ? 'Checking…' : 'Check for updates'}
+            label="Re-enable intro"
             variant="outline"
-            onPress={updates.check}
-            disabled={updates.status === 'checking' || updates.status === 'downloading'}
+            onPress={() => setHideHowItWorks(false)}
             style={{ marginTop: 14 }}
           />
-        )}
-      </View>
+        </View>
 
-      <View style={[styles.card, shadowCard]}>
-        <Text style={styles.cardTitle}>Show me how it works again</Text>
-        <Text style={styles.cardBody}>Bring back the intro screen next time you start.</Text>
-        <Button
-          label="Re-enable intro"
-          variant="outline"
-          onPress={() => setHideHowItWorks(false)}
-          style={{ marginTop: 14 }}
-        />
-      </View>
-
-      <Text style={styles.legal}>
-        In-app purchases are not available on sideloaded builds, so “Remove ads” uses a web
-        checkout that emails an unlock code. Ads currently show a placeholder until an ad
-        network is connected.
-      </Text>
+        <Text style={styles.legal}>
+          In-app purchases are not available on sideloaded builds, so “Remove ads” uses a web
+          checkout that emails an unlock code. Ads currently show a placeholder until an ad
+          network is connected.
+        </Text>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -167,13 +275,36 @@ const styles = StyleSheet.create({
   badge: { fontSize: 11, fontWeight: '900', color: colors.primary, letterSpacing: 1 },
   cardTitle: { fontSize: 18, fontWeight: '900', color: colors.ink, marginTop: 4 },
   cardBody: { fontSize: 13.5, color: colors.inkSoft, marginTop: 4, lineHeight: 19 },
+  groupLabel: {
+    fontSize: 11,
+    fontWeight: '900',
+    color: colors.inkSoft,
+    letterSpacing: 0.8,
+    textTransform: 'uppercase',
+    marginTop: 16,
+    marginBottom: 8,
+  },
+  chipWrap: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, alignItems: 'center' },
+  chip: {
+    backgroundColor: colors.bg,
+    borderRadius: radius.pill,
+    paddingHorizontal: 12,
+    paddingVertical: 7,
+    borderWidth: 1,
+    borderColor: colors.line,
+  },
+  chipOn: { backgroundColor: colors.primary, borderColor: colors.primary },
+  chipText: { fontSize: 12.5, fontWeight: '800', color: colors.inkSoft, textTransform: 'capitalize' },
+  chipTextOn: { color: '#fff' },
+  hint: { fontSize: 12.5, color: colors.inkSoft, fontStyle: 'italic' },
+  addRow: { flexDirection: 'row', gap: 8, alignItems: 'center', marginTop: 10 },
+  fineprint: { fontSize: 11, color: colors.inkSoft, lineHeight: 16, marginTop: 14 },
   doneRow: { marginTop: 14, gap: 4 },
   doneText: { fontSize: 15, fontWeight: '800', color: colors.mint },
   restoreHint: { fontSize: 11, color: colors.inkSoft },
   codeToggle: { fontSize: 13, fontWeight: '800', color: colors.primary },
   codeBox: { flexDirection: 'row', gap: 8, marginTop: 10, alignItems: 'center' },
   input: {
-    flex: 1,
     borderWidth: 1,
     borderColor: colors.line,
     borderRadius: radius.md,

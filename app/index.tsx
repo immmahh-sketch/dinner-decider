@@ -16,6 +16,7 @@ export default function Welcome() {
   const router = useRouter();
   const [revealed, setRevealed] = useState(false);
   const hideHowItWorks = usePrefs((s) => s.hideHowItWorks);
+  const username = usePrefs((s) => s.username);
   const start = useDecider((s) => s.start);
   const stats = useCatalogStats();
 
@@ -44,6 +45,11 @@ export default function Welcome() {
               {stats.total.toLocaleString()} dinners in the deck
               {stats.source === 'bundled' ? ' · loading the full menu…' : ''}
             </Text>
+            {!username && (
+              <Pressable onPress={() => router.push('/remove-ads')}>
+                <Text style={styles.nameNudge}>＋ Add your name so you can share picks</Text>
+              </Pressable>
+            )}
           </Animated.View>
         )}
       </View>
@@ -61,6 +67,13 @@ const styles = StyleSheet.create({
   bottom: { minHeight: 140, paddingHorizontal: 28, justifyContent: 'flex-start' },
   cta: { gap: 12, alignItems: 'stretch' },
   count: { textAlign: 'center', color: colors.inkSoft, fontSize: 13, fontWeight: '600' },
+  nameNudge: {
+    textAlign: 'center',
+    color: colors.primary,
+    fontSize: 12.5,
+    fontWeight: '800',
+    marginTop: 2,
+  },
   updated: {
     textAlign: 'center',
     color: colors.inkSoft,

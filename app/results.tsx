@@ -7,16 +7,28 @@ import { DishCard } from '@/components/DishCard';
 import { Button } from '@/components/Button';
 import { useDecider } from '@/store/decider';
 import { useResults } from '@/store/pool';
+import { usePrefs } from '@/store/prefs';
 import { isHome } from '@/engine/types';
-import { RESULT_THRESHOLD } from '@/engine/filter';
+import { answersFromSteps, RESULT_THRESHOLD } from '@/engine/filter';
+import { planLabel } from '@/engine/estimate';
 import { findNearMeQuery, mapsSearchUrl, openExternal } from '@/lib/links';
+import { shareDish } from '@/lib/share';
 import { colors } from '@/theme';
+
+const PLAN_NAME: Record<string, string> = {
+  sw: 'Slimming World',
+  ww: 'WeightWatchers',
+  cals: 'calorie',
+};
 
 export default function Results() {
   const router = useRouter();
   const { results, total } = useResults();
   const reshuffle = useDecider((s) => s.reshuffle);
   const start = useDecider((s) => s.start);
+  const steps = useDecider((s) => s.steps);
+  const username = usePrefs((s) => s.username);
+  const plan = planLabel(answersFromSteps(steps).q_plan);
 
   const overflow = total > RESULT_THRESHOLD;
   const subtitle =
@@ -48,12 +60,24 @@ export default function Results() {
       <View style={styles.head}>
         <Text style={styles.h1}>Dinner, sorted</Text>
         <Text style={styles.sub}>{subtitle}</Text>
+        {plan && plan !== 'cals' && (
+          <Text style={styles.planNote}>
+            ≈ {PLAN_NAME[plan]} scores are a rough guide — always check your own app.
+          </Text>
+        )}
       </View>
 
       <FlatList
         data={results}
         keyExtractor={(d) => d.id}
-        renderItem={({ item }) => <DishCard dish={item} onPress={() => openDish(item.id)} />}
+        renderItem={({ item }) => (
+          <DishCard
+            dish={item}
+            plan={plan}
+            onPress={() => openDish(item.id)}
+            onShare={() => shareDish(item, username)}
+          />
+        )}
         contentContainerStyle={{ paddingVertical: 8, paddingBottom: 20 }}
         ListEmptyComponent={
           <Text style={styles.empty}>
@@ -80,6 +104,7 @@ const styles = StyleSheet.create({
   head: { paddingHorizontal: 20, paddingTop: 6, paddingBottom: 4 },
   h1: { fontSize: 26, fontWeight: '900', color: colors.ink },
   sub: { fontSize: 14, color: colors.inkSoft, marginTop: 4 },
+  planNote: { fontSize: 11.5, color: colors.inkSoft, marginTop: 6, fontStyle: 'italic' },
   empty: { textAlign: 'center', color: colors.inkSoft, padding: 32, lineHeight: 20 },
   footer: { paddingHorizontal: 20, paddingTop: 12, gap: 8 },
 });

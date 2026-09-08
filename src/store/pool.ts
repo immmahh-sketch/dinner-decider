@@ -4,6 +4,7 @@ import { Dish } from '@/engine/types';
 import { poolFor, RESULT_THRESHOLD, seededShuffle } from '@/engine/filter';
 import { useDecider } from './decider';
 import { useCatalogVersion } from './catalog';
+import { usePrefs } from './prefs';
 
 /**
  * The remaining dishes for the current answers. Derived with useMemo from the
@@ -13,7 +14,19 @@ import { useCatalogVersion } from './catalog';
 export function usePool(): Dish[] {
   const steps = useDecider((s) => s.steps);
   const catVersion = useCatalogVersion();
-  return useMemo(() => poolFor(ALL_DISHES, steps), [steps, catVersion]);
+  // deal-breakers feed poolFor via the module-singleton excluder; this key just
+  // forces the memo to refresh when the user edits them.
+  const avoid = usePrefs((s) => s.avoid);
+  const diets = usePrefs((s) => s.diets);
+  const allergens = usePrefs((s) => s.allergens);
+  const dealKey = useMemo(
+    () => `${avoid.join(',')}|${diets.join(',')}|${allergens.join(',')}`,
+    [avoid, diets, allergens],
+  );
+  return useMemo(
+    () => poolFor(ALL_DISHES, steps),
+    [steps, catVersion, dealKey],
+  );
 }
 
 export function usePoolCount(): number {

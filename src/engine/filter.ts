@@ -1,5 +1,6 @@
 import { Dish } from './types';
 import { Answers, AnswerOption, Question, QUESTIONS, QUESTION_ORDER } from './questions';
+import { getActiveExcluder } from './exclude';
 
 export interface AnsweredStep {
   questionId: string;
@@ -20,9 +21,17 @@ export function answersFromSteps(steps: AnsweredStep[]): Answers {
 /**
  * Fold every kept answer's predicate over the full deck.
  * Guess Who style: a dish survives only if it passes every non-ignored answer.
+ *
+ * `exclude` is the user's always-on deal-breaker filter (no onions, allergens,
+ * hard diets). It defaults to the active one so imperative callers get it for
+ * free; pass `null` to opt out.
  */
-export function poolFor(all: Dish[], steps: AnsweredStep[]): Dish[] {
-  let pool = all;
+export function poolFor(
+  all: Dish[],
+  steps: AnsweredStep[],
+  exclude: ((d: Dish) => boolean) | null = getActiveExcluder(),
+): Dish[] {
+  let pool = exclude ? all.filter((d) => !exclude(d)) : all;
   for (const step of steps) {
     if (step.ignored) continue;
     const opt = optionFor(step.questionId, step.optionId);

@@ -50,6 +50,45 @@ export const QUESTIONS: Record<string, Question> = {
     ],
   },
 
+  // ---------------------------------------------------------------- HEALTH LAYER
+  q_health: {
+    id: 'q_health',
+    title: 'Thinking about healthy eating?',
+    subtitle: 'No judgement — this just nudges the shortlist.',
+    options: [
+      { id: 'notfussed', label: 'Not fussed tonight', emoji: '🤗' },
+      {
+        id: 'mindful',
+        label: 'Keeping it mindful',
+        emoji: '🥗',
+        keep: (d) =>
+          d.richness !== 'hearty' ||
+          d.mood.some((m) => m === 'light' || m === 'fresh' || m === 'healthy'),
+      },
+      {
+        id: 'losing',
+        label: 'Trying to lose weight',
+        emoji: '🎯',
+        keep: (d) =>
+          d.richness === 'light' ||
+          d.mood.some((m) => m === 'light' || m === 'fresh' || m === 'healthy'),
+      },
+    ],
+  },
+
+  q_plan: {
+    id: 'q_plan',
+    title: 'On a particular plan?',
+    subtitle: 'We’ll show a rough score on every dish.',
+    when: (a) => a.q_health === 'losing',
+    options: [
+      { id: 'sw', label: 'Slimming World', emoji: '🟢' },
+      { id: 'ww', label: 'WeightWatchers', emoji: '🔵' },
+      { id: 'cals', label: 'Counting calories', emoji: '🔢' },
+      { id: 'lighter', label: 'No set plan — just lighter', emoji: '🍃' },
+    ],
+  },
+
   // ---------------------------------------------------------------- the fork
   q_where: {
     id: 'q_where',
@@ -192,6 +231,8 @@ export const QUESTIONS: Record<string, Question> = {
 /** The order questions are asked in; `when` skips any that don't apply. */
 export const QUESTION_ORDER: string[] = [
   'q_evening',
+  'q_health',
+  'q_plan',
   'q_where',
   'q_cook_order',
   'q_vibe',
