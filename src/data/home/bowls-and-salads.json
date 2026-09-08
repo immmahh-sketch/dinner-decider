@@ -1,0 +1,361 @@
+[
+  {
+    "id": "home-bs-chicken-caesar",
+    "name": "Chicken Caesar Salad",
+    "blurb": "Crisp romaine, garlicky anchovy dressing, croutons and grilled chicken.",
+    "venue": "home", "cuisine": "american", "protein": "chicken", "carb": "salad",
+    "spicy": 0, "richness": "medium", "mood": ["fresh", "comfort"], "format": "salad", "diet": [],
+    "effort": "quick", "timeMinutes": 25, "onePan": false, "servings": 4,
+    "ingredients": [
+      "3 chicken breasts", "2 romaine lettuces, chopped", "4 slices sourdough, torn into croutons",
+      "50g Parmesan, shaved", "Dressing: 4 anchovy fillets, 1 garlic clove, 1 egg yolk, 1 tsp Dijon, juice of half a lemon, 6 tbsp olive oil, 20g grated Parmesan"
+    ],
+    "method": [
+      "Toss the bread with oil and bake at 200C fan for 10 minutes until crisp.",
+      "Season and griddle the chicken for 5-6 minutes each side, then rest and slice.",
+      "Blitz or whisk the dressing ingredients to a smooth, pourable sauce.",
+      "Toss the lettuce with most of the dressing, then top with chicken, croutons and Parmesan."
+    ]
+  },
+  {
+    "id": "home-bs-halloumi-grain-bowl",
+    "name": "Halloumi, Grain & Pomegranate Bowl",
+    "blurb": "Griddled halloumi over lemony grains with herbs and pomegranate.",
+    "venue": "home", "cuisine": "middle-eastern", "protein": "veggie", "carb": "grains",
+    "spicy": 0, "richness": "medium", "mood": ["fresh", "healthy"], "format": "bowl", "diet": ["vegetarian"],
+    "effort": "quick", "timeMinutes": 25, "onePan": false, "servings": 4,
+    "ingredients": [
+      "225g halloumi, sliced", "250g cooked mixed grains or bulgur", "Big handful each parsley and mint, chopped",
+      "Seeds of 1 pomegranate", "50g toasted walnuts", "Zest and juice of 1 lemon, 4 tbsp olive oil",
+      "1 tsp sumac"
+    ],
+    "method": [
+      "Toss the warm grains with the lemon, oil, herbs and sumac; season.",
+      "Griddle the halloumi for 1-2 minutes each side until bar-marked.",
+      "Fold the pomegranate and walnuts through the grains.",
+      "Top with the hot halloumi and a final scatter of sumac."
+    ]
+  },
+  {
+    "id": "home-bs-nicoise",
+    "name": "Salade Niçoise",
+    "blurb": "Seared tuna, green beans, new potatoes, egg, olives and a sharp dressing.",
+    "venue": "home", "cuisine": "french", "protein": "fish", "carb": "potato",
+    "spicy": 0, "richness": "medium", "mood": ["fresh"], "format": "salad", "diet": ["pescatarian", "gluten-free"],
+    "effort": "quick", "timeMinutes": 30, "onePan": false, "servings": 4,
+    "ingredients": [
+      "4 tuna steaks (or 2 x 160g tins)", "400g new potatoes", "200g green beans", "4 eggs",
+      "200g cherry tomatoes", "100g black olives", "Little gem leaves",
+      "Dressing: 6 tbsp olive oil, 2 tbsp red wine vinegar, 1 tsp Dijon, 1 small garlic clove, few basil leaves"
+    ],
+    "method": [
+      "Boil the potatoes until tender; add the beans for the last 3 minutes. Drain and cool slightly.",
+      "Soft-boil the eggs for 6-7 minutes, then peel and halve.",
+      "Sear the tuna in a very hot pan for 1 minute each side so it stays pink; slice.",
+      "Whisk the dressing. Arrange everything on a platter and spoon the dressing over."
+    ]
+  },
+  {
+    "id": "home-bs-poke-salmon",
+    "name": "Salmon Poke Bowl",
+    "blurb": "Marinated raw salmon over rice with edamame, avocado, cucumber and sesame.",
+    "venue": "home", "cuisine": "east-asian", "protein": "fish", "carb": "rice",
+    "spicy": 1, "richness": "medium", "mood": ["fresh", "healthy"], "format": "bowl", "diet": ["pescatarian", "dairy-free"],
+    "effort": "quick", "timeMinutes": 20, "onePan": false, "servings": 2,
+    "ingredients": [
+      "300g very fresh skinless salmon fillet, diced", "200g sushi rice, cooked and cooled slightly",
+      "Marinade: 2 tbsp soy, 1 tsp sesame oil, 1 tsp rice vinegar, 1 tsp honey, pinch of chilli flakes",
+      "100g frozen edamame, blanched", "1 avocado, sliced", "1/2 cucumber, ribboned",
+      "2 spring onions, sesame seeds, pickled ginger to serve"
+    ],
+    "method": [
+      "Mix the marinade and gently fold through the salmon; leave 10 minutes.",
+      "Divide the rice between bowls.",
+      "Arrange the salmon, edamame, avocado and cucumber on top.",
+      "Finish with spring onions, sesame and pickled ginger."
+    ]
+  },
+  {
+    "id": "home-bs-greek-chicken-bowl",
+    "name": "Greek Chicken Souvlaki Bowl",
+    "blurb": "Lemon-oregano chicken with rice, tzatziki, tomato-cucumber salad and olives.",
+    "venue": "home", "cuisine": "med", "protein": "chicken", "carb": "rice",
+    "spicy": 0, "richness": "medium", "mood": ["fresh", "comfort"], "format": "bowl", "diet": ["gluten-free"],
+    "effort": "quick", "timeMinutes": 35, "onePan": false, "servings": 4,
+    "ingredients": [
+      "700g chicken thigh, cubed", "Marinade: juice of 1 lemon, 3 tbsp olive oil, 2 tbsp dried oregano, 3 garlic cloves",
+      "300g rice", "Tzatziki: 300g yoghurt, half a grated and squeezed cucumber, 1 garlic clove, splash of vinegar",
+      "Salad: 3 tomatoes, half a cucumber, half a red onion, chopped", "Kalamata olives, feta to serve"
+    ],
+    "method": [
+      "Marinate the chicken for at least 30 minutes, then thread on skewers.",
+      "Cook the rice. Mix the tzatziki and the chopped salad separately.",
+      "Grill or griddle the skewers for 10-12 minutes, turning, until charred and cooked.",
+      "Build bowls with rice, chicken, salad, tzatziki, olives and crumbled feta."
+    ]
+  },
+  {
+    "id": "home-bs-buddha-tofu",
+    "name": "Peanut Tofu Buddha Bowl",
+    "blurb": "Crisp baked tofu, brown rice, raw veg and a lime-peanut dressing.",
+    "venue": "home", "cuisine": "east-asian", "protein": "vegan", "carb": "rice",
+    "spicy": 1, "richness": "medium", "mood": ["healthy", "fresh"], "format": "bowl", "diet": ["vegetarian", "vegan", "dairy-free"],
+    "effort": "quick", "timeMinutes": 35, "onePan": false, "servings": 4,
+    "ingredients": [
+      "450g firm tofu, cubed and tossed with 2 tbsp cornflour and soy", "250g brown rice",
+      "1 carrot and 1 red pepper, julienned", "150g shredded red cabbage", "100g edamame",
+      "Dressing: 3 tbsp peanut butter, juice of 1 lime, 1 tbsp soy, 1 tsp maple, 1 tsp grated ginger, water to loosen"
+    ],
+    "method": [
+      "Bake the tofu at 200C fan for 25 minutes, turning once, until golden and crisp.",
+      "Cook the rice.",
+      "Whisk the dressing until pourable.",
+      "Build bowls with rice, raw veg, edamame and tofu, then drizzle generously with the peanut dressing."
+    ]
+  },
+  {
+    "id": "home-bs-larb-lettuce-cups",
+    "name": "Pork Larb Lettuce Cups",
+    "blurb": "Zingy Thai minced pork with lime, chilli, herbs and toasted rice, in lettuce.",
+    "venue": "home", "cuisine": "east-asian", "protein": "pork", "carb": "salad",
+    "spicy": 3, "richness": "light", "mood": ["fresh", "light"], "format": "salad", "diet": ["gluten-free", "dairy-free"],
+    "effort": "quick", "timeMinutes": 20, "onePan": true, "servings": 4,
+    "ingredients": [
+      "500g pork mince", "2 tbsp uncooked rice, toasted and ground", "Juice of 3 limes, 3 tbsp fish sauce, 1 tsp sugar",
+      "3 shallots and 4 spring onions, sliced", "Big handful each mint and coriander", "1-2 tsp chilli flakes",
+      "2 baby gem lettuces, leaves separated"
+    ],
+    "method": [
+      "Cook the pork in a dry hot pan with a splash of water, breaking it small, until just done.",
+      "Off the heat, add the lime juice, fish sauce, sugar and chilli.",
+      "Stir through the shallots, spring onions, herbs and toasted rice powder.",
+      "Spoon into lettuce cups to eat with your hands."
+    ]
+  },
+  {
+    "id": "home-bs-roast-veg-quinoa",
+    "name": "Roast Veg & Feta Quinoa Salad",
+    "blurb": "Warm roasted vegetables through herby quinoa with feta and a lemon dressing.",
+    "venue": "home", "cuisine": "med", "protein": "veggie", "carb": "grains",
+    "spicy": 0, "richness": "medium", "mood": ["healthy", "fresh"], "format": "salad", "diet": ["vegetarian", "gluten-free"],
+    "effort": "quick", "timeMinutes": 40, "onePan": false, "servings": 4,
+    "ingredients": [
+      "1 aubergine, 1 courgette, 1 red pepper, 1 red onion, chopped", "3 tbsp olive oil",
+      "200g quinoa", "200g feta, crumbled", "Handful each parsley and mint",
+      "Dressing: juice of 1 lemon, 3 tbsp olive oil, 1 tsp honey, 1 small garlic clove"
+    ],
+    "method": [
+      "Toss the vegetables with oil and roast at 200C fan for 25-30 minutes until soft and charred.",
+      "Cook the quinoa in salted water for 12-15 minutes, then drain well.",
+      "Toss the warm quinoa with the dressing and herbs.",
+      "Fold through the roast veg and feta and serve warm or at room temperature."
+    ]
+  },
+  {
+    "id": "home-bs-prawn-mango",
+    "name": "Prawn, Mango & Avocado Salad",
+    "blurb": "Sweet mango, creamy avocado and prawns with a chilli-lime dressing.",
+    "venue": "home", "cuisine": "other", "protein": "seafood", "carb": "salad",
+    "spicy": 1, "richness": "light", "mood": ["fresh", "light", "healthy"], "format": "salad", "diet": ["pescatarian", "gluten-free", "dairy-free"],
+    "effort": "quick", "timeMinutes": 15, "onePan": false, "servings": 4,
+    "ingredients": [
+      "300g cooked cold-water prawns", "1 ripe mango, diced", "2 avocados, diced",
+      "1 baby gem or handful of rocket", "Half a red onion, thinly sliced", "Handful of coriander",
+      "Dressing: juice of 2 limes, 2 tbsp olive oil, 1 tsp honey, 1 red chilli chopped"
+    ],
+    "method": [
+      "Whisk the dressing.",
+      "Gently combine the prawns, mango, avocado and onion.",
+      "Fold through the leaves and coriander.",
+      "Dress just before serving so the avocado stays bright."
+    ]
+  },
+  {
+    "id": "home-bs-panzanella-tuna",
+    "name": "Tuna Panzanella",
+    "blurb": "Torn sourdough soaked in tomato juices with tuna, capers and red onion.",
+    "venue": "home", "cuisine": "italian", "protein": "fish", "carb": "bread",
+    "spicy": 0, "richness": "light", "mood": ["fresh", "light"], "format": "salad", "diet": ["pescatarian"],
+    "effort": "quick", "timeMinutes": 20, "onePan": false, "servings": 4,
+    "ingredients": [
+      "300g stale sourdough, torn", "700g ripe tomatoes, chopped", "2 x 160g tins good tuna in oil",
+      "1 small red onion, sliced", "2 tbsp capers", "Handful of basil",
+      "5 tbsp extra virgin olive oil, 2 tbsp red wine vinegar"
+    ],
+    "method": [
+      "Salt the tomatoes and leave 10 minutes to release their juices.",
+      "Soak the onion in the vinegar for 10 minutes.",
+      "Toast or griddle the bread, then toss with the tomatoes, onion, oil and capers.",
+      "Leave 10 minutes for the bread to soften, then flake in the tuna and tear through the basil."
+    ]
+  },
+  {
+    "id": "home-bs-chopped-italian",
+    "name": "Chopped Italian Salad",
+    "blurb": "Everything diced small — salami, provolone, chickpeas, peppers, a red wine vinaigrette.",
+    "venue": "home", "cuisine": "italian", "protein": "pork", "carb": "salad",
+    "spicy": 1, "richness": "medium", "mood": ["fresh"], "format": "salad", "diet": [],
+    "effort": "quick", "timeMinutes": 15, "onePan": false, "servings": 4,
+    "ingredients": [
+      "1 romaine, finely chopped", "100g salami, diced", "100g provolone or mozzarella, diced",
+      "400g tin chickpeas, drained", "150g cherry tomatoes, quartered", "1 pepper, diced",
+      "Pickled peppers to taste", "Dressing: 5 tbsp olive oil, 2 tbsp red wine vinegar, 1 tsp oregano, 1 tsp Dijon"
+    ],
+    "method": [
+      "Whisk the dressing with plenty of black pepper.",
+      "Combine all the chopped ingredients in a big bowl.",
+      "Toss with the dressing just before serving so it stays crunchy."
+    ]
+  },
+  {
+    "id": "home-bs-steak-rocket",
+    "name": "Seared Steak with Rocket & Parmesan",
+    "blurb": "Rested sliced steak over peppery rocket with shaved Parmesan and balsamic.",
+    "venue": "home", "cuisine": "italian", "protein": "beef", "carb": "salad",
+    "spicy": 0, "richness": "medium", "mood": ["fresh", "fancy"], "format": "plate", "diet": ["gluten-free"],
+    "effort": "quick", "timeMinutes": 20, "onePan": true, "servings": 2,
+    "ingredients": [
+      "2 sirloin or rump steaks", "100g rocket", "40g Parmesan, shaved",
+      "150g cherry tomatoes, halved", "Good balsamic vinegar", "Extra virgin olive oil"
+    ],
+    "method": [
+      "Season the steaks well and sear in a smoking-hot pan for 2-3 minutes each side. Rest 5 minutes.",
+      "Dress the rocket and tomatoes lightly with oil and a pinch of salt.",
+      "Slice the steak against the grain and lay over the leaves.",
+      "Shave over the Parmesan and finish with balsamic and any resting juices."
+    ]
+  },
+  {
+    "id": "home-bs-cobb",
+    "name": "Chicken & Bacon Cobb Salad",
+    "blurb": "A composed salad of chicken, bacon, egg, avocado, blue cheese and tomato.",
+    "venue": "home", "cuisine": "american", "protein": "chicken", "carb": "salad",
+    "spicy": 0, "richness": "medium", "mood": ["fresh"], "format": "salad", "diet": ["gluten-free"],
+    "effort": "quick", "timeMinutes": 25, "onePan": false, "servings": 4,
+    "ingredients": [
+      "2 cooked chicken breasts, sliced", "6 rashers bacon, crisped and chopped", "3 eggs, hard boiled",
+      "2 avocados, 200g cherry tomatoes, 100g blue cheese", "1 romaine, chopped",
+      "Dressing: 4 tbsp olive oil, 2 tbsp red wine vinegar, 1 tsp Dijon, 1 tsp honey"
+    ],
+    "method": [
+      "Lay the lettuce on a platter.",
+      "Arrange the chicken, bacon, quartered eggs, sliced avocado, tomatoes and crumbled blue cheese in rows.",
+      "Whisk the dressing and pour over just before serving; toss at the table."
+    ]
+  },
+  {
+    "id": "home-bs-quinoa-black-bean",
+    "name": "Black Bean, Corn & Lime Quinoa",
+    "blurb": "A zesty Tex-Mex bowl of quinoa, black beans, charred corn, avocado and coriander.",
+    "venue": "home", "cuisine": "mexican", "protein": "vegan", "carb": "grains",
+    "spicy": 1, "richness": "medium", "mood": ["healthy", "fresh"], "format": "bowl", "diet": ["vegetarian", "vegan", "gluten-free", "dairy-free"],
+    "effort": "quick", "timeMinutes": 30, "onePan": false, "servings": 4,
+    "ingredients": [
+      "200g quinoa", "2 x 400g tins black beans, drained", "300g sweetcorn, charred in a dry pan",
+      "2 avocados, diced", "Handful of coriander", "Half a red onion, diced",
+      "Dressing: juice of 2 limes, 3 tbsp olive oil, 1 tsp cumin, 1 tsp maple, pinch of chilli"
+    ],
+    "method": [
+      "Cook the quinoa, drain well and cool slightly.",
+      "Char the corn in a hot dry pan until spotty.",
+      "Toss the quinoa with the beans, corn, onion and dressing.",
+      "Fold through the avocado and coriander just before serving."
+    ]
+  },
+  {
+    "id": "home-bs-smoked-mackerel",
+    "name": "Smoked Mackerel & Beetroot Salad",
+    "blurb": "Peppery leaves, sweet beetroot, horseradish crème fraîche and flaked mackerel.",
+    "venue": "home", "cuisine": "british", "protein": "fish", "carb": "salad",
+    "spicy": 1, "richness": "light", "mood": ["fresh", "light", "healthy"], "format": "salad", "diet": ["pescatarian", "gluten-free"],
+    "effort": "quick", "timeMinutes": 15, "onePan": false, "servings": 2,
+    "ingredients": [
+      "2 smoked mackerel fillets, skin removed and flaked", "250g cooked beetroot, cut into wedges",
+      "100g watercress or rocket", "Dressing: 3 tbsp crème fraîche, 1 tbsp horseradish, squeeze of lemon",
+      "1 apple, sliced thin", "Toasted hazelnuts to finish"
+    ],
+    "method": [
+      "Loosen the horseradish crème fraîche with a little water to a drizzling consistency.",
+      "Pile the leaves, beetroot and apple on plates.",
+      "Scatter over the flaked mackerel and hazelnuts.",
+      "Spoon over the dressing and add a squeeze more lemon."
+    ]
+  },
+  {
+    "id": "home-bs-caprese-orzo-salad",
+    "name": "Caprese Orzo Salad",
+    "blurb": "Cooled orzo with mozzarella pearls, cherry tomatoes, basil and balsamic.",
+    "venue": "home", "cuisine": "italian", "protein": "veggie", "carb": "pasta",
+    "spicy": 0, "richness": "medium", "mood": ["fresh", "comfort"], "format": "salad", "diet": ["vegetarian"],
+    "effort": "quick", "timeMinutes": 20, "onePan": false, "servings": 4,
+    "ingredients": [
+      "300g orzo", "300g cherry tomatoes, halved", "250g mozzarella pearls (bocconcini)",
+      "Big handful of basil", "4 tbsp extra virgin olive oil", "2 tbsp balsamic vinegar",
+      "1 small garlic clove, grated"
+    ],
+    "method": [
+      "Cook the orzo, drain, rinse briefly under cold water and drain well.",
+      "Toss with the oil, balsamic and garlic.",
+      "Fold through the tomatoes, mozzarella and torn basil.",
+      "Season and serve at room temperature."
+    ]
+  },
+  {
+    "id": "home-bs-falafel-salad-bowl",
+    "name": "Falafel & Tahini Salad Bowl",
+    "blurb": "Baked falafel over chopped salad and hummus with a lemony tahini drizzle.",
+    "venue": "home", "cuisine": "middle-eastern", "protein": "vegan", "carb": "salad",
+    "spicy": 1, "richness": "medium", "mood": ["healthy", "fresh"], "format": "bowl", "diet": ["vegetarian", "vegan", "dairy-free"],
+    "effort": "quick", "timeMinutes": 30, "onePan": false, "servings": 4,
+    "ingredients": [
+      "1 pack ready falafel (or homemade), baked until crisp", "200g hummus",
+      "Chopped salad: 3 tomatoes, 1 cucumber, half a red onion, handful of parsley",
+      "2 little gem lettuces, shredded", "Pickled chillies or turnip",
+      "Tahini sauce: 4 tbsp tahini, juice of 1 lemon, 1 small garlic clove, water"
+    ],
+    "method": [
+      "Heat the falafel through in a 200C oven for 12-15 minutes until crisp.",
+      "Whisk the tahini with lemon, garlic and water until creamy and pourable.",
+      "Spread hummus in the base of each bowl.",
+      "Top with the shredded lettuce, chopped salad, falafel and pickles, then drizzle with tahini."
+    ]
+  },
+  {
+    "id": "home-bs-vietnamese-noodle-salad",
+    "name": "Vietnamese Chicken Noodle Salad (Bun Ga)",
+    "blurb": "Cold rice vermicelli with lemongrass chicken, herbs, pickled veg and nuoc cham.",
+    "venue": "home", "cuisine": "east-asian", "protein": "chicken", "carb": "noodles",
+    "spicy": 2, "richness": "light", "mood": ["fresh", "light", "healthy"], "format": "bowl", "diet": ["gluten-free", "dairy-free"],
+    "effort": "medium", "timeMinutes": 35, "onePan": false, "servings": 4,
+    "ingredients": [
+      "600g chicken thigh, sliced", "Marinade: 2 lemongrass stalks minced, 2 tbsp fish sauce, 1 tbsp sugar, 2 garlic cloves",
+      "200g rice vermicelli, cooked and cooled", "1 carrot and half a cucumber, julienned",
+      "Big handful each mint, coriander and Thai basil", "50g roasted peanuts, crushed",
+      "Nuoc cham: 3 tbsp fish sauce, 3 tbsp lime juice, 2 tbsp sugar, 1 chilli, 1 garlic clove, 4 tbsp water"
+    ],
+    "method": [
+      "Marinate the chicken for 20 minutes, then sear in a hot pan until caramelised and cooked.",
+      "Mix the nuoc cham until the sugar dissolves.",
+      "Divide the noodles between bowls and top with carrot, cucumber and herbs.",
+      "Add the hot chicken, scatter with peanuts and pour over the nuoc cham."
+    ]
+  },
+  {
+    "id": "home-bs-superfood-salmon",
+    "name": "Roast Salmon & Broccoli Grain Bowl",
+    "blurb": "Flaked roast salmon, charred tenderstem, avocado and grains with a green dressing.",
+    "venue": "home", "cuisine": "other", "protein": "fish", "carb": "grains",
+    "spicy": 0, "richness": "medium", "mood": ["healthy", "fresh"], "format": "bowl", "diet": ["pescatarian", "gluten-free", "dairy-free"],
+    "effort": "quick", "timeMinutes": 30, "onePan": true, "servings": 4,
+    "ingredients": [
+      "4 salmon fillets", "300g tenderstem broccoli", "250g cooked mixed grains", "2 avocados",
+      "Dressing: big handful of parsley and basil, 1 small garlic clove, juice of 1 lemon, 5 tbsp olive oil, 1 tsp capers"
+    ],
+    "method": [
+      "Roast the salmon and broccoli (tossed in a little oil) at 200C fan for 12-14 minutes.",
+      "Blitz the dressing ingredients to a loose green sauce.",
+      "Warm the grains and divide between bowls.",
+      "Flake over the salmon, add the broccoli and sliced avocado, and spoon over the green dressing."
+    ]
+  }
+]

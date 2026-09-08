@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { TopBar } from '@/components/TopBar';
 import { AdBanner } from '@/components/AdBanner';
 import { useDecider } from '@/store/decider';
+import { usePoolCount } from '@/store/pool';
 import { questionById } from '@/engine/filter';
 import { colors, radius, shadowCard } from '@/theme';
 
@@ -16,7 +17,7 @@ export default function QuestionScreen() {
   const visited = useDecider((s) => s.visited);
   const answer = useDecider((s) => s.answer);
   const goBack = useDecider((s) => s.goBack);
-  const count = useDecider((s) => s.count());
+  const count = usePoolCount();
 
   const question = useMemo(() => questionById(currentQuestionId), [currentQuestionId]);
   const answered = steps.length;

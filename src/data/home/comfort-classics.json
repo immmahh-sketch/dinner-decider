@@ -1,0 +1,342 @@
+[
+  {
+    "id": "home-cc-chicken-pie",
+    "name": "Creamy Chicken & Mushroom Pie",
+    "blurb": "Chicken, mushrooms and tarragon in a cream sauce under puff pastry.",
+    "venue": "home", "cuisine": "british", "protein": "chicken", "carb": "pastry",
+    "spicy": 0, "richness": "hearty", "mood": ["comfort"], "format": "plate", "diet": [],
+    "effort": "medium", "timeMinutes": 55, "onePan": false, "servings": 4,
+    "ingredients": [
+      "600g chicken thigh, diced", "300g chestnut mushrooms, sliced", "1 onion and 2 leeks, sliced",
+      "30g butter, 30g flour, 400ml chicken stock, 100ml double cream", "1 tsp tarragon, 1 tsp Dijon",
+      "320g puff pastry sheet", "1 egg, beaten"
+    ],
+    "method": [
+      "Brown the chicken, then set aside. Soften the onion, leeks and mushrooms in butter for 10 minutes.",
+      "Stir in the flour, then the stock, and simmer to a sauce. Add cream, tarragon, mustard and the chicken.",
+      "Tip into a pie dish and cool slightly. Top with pastry, seal, glaze with egg and cut a vent.",
+      "Bake at 200C fan for 25-30 minutes until puffed and deep golden."
+    ]
+  },
+  {
+    "id": "home-cc-mac-cheese-bacon",
+    "name": "Bacon Mac & Cheese",
+    "blurb": "Baked macaroni in a three-cheese sauce with crispy bacon and a crumb top.",
+    "venue": "home", "cuisine": "american", "protein": "pork", "carb": "pasta",
+    "spicy": 0, "richness": "hearty", "mood": ["comfort", "indulgent"], "format": "bowl", "diet": [],
+    "effort": "quick", "timeMinutes": 40, "onePan": false, "servings": 4,
+    "ingredients": [
+      "400g macaroni", "8 rashers smoked bacon, chopped", "60g butter, 60g flour, 800ml milk",
+      "200g mature cheddar, 100g gruyère, 40g Parmesan", "1 tsp English mustard",
+      "60g panko tossed with 20g melted butter"
+    ],
+    "method": [
+      "Fry the bacon until crisp. Cook the macaroni 2 minutes under and drain.",
+      "Make a roux with butter and flour, whisk in the milk and simmer to a smooth sauce.",
+      "Off the heat stir in the cheeses and mustard, then the pasta and bacon.",
+      "Tip into a dish, top with the panko and bake at 200C fan for 20 minutes."
+    ]
+  },
+  {
+    "id": "home-cc-beef-stroganoff",
+    "name": "Beef Stroganoff",
+    "blurb": "Strips of beef and mushrooms in a mustard-soured cream sauce with rice.",
+    "venue": "home", "cuisine": "other", "protein": "beef", "carb": "rice",
+    "spicy": 1, "richness": "hearty", "mood": ["comfort"], "format": "plate", "diet": [],
+    "effort": "quick", "timeMinutes": 30, "onePan": true, "servings": 4,
+    "ingredients": [
+      "600g sirloin or rump, thinly sliced", "300g mushrooms, sliced", "1 onion, sliced",
+      "1 tbsp paprika, 1 tbsp Dijon", "150ml beef stock", "200g soured cream",
+      "Handful of parsley", "Rice to serve"
+    ],
+    "method": [
+      "Sear the beef in a very hot pan in batches, then set aside.",
+      "Soften the onion and mushrooms, add the paprika and mustard.",
+      "Add the stock and let it reduce, then stir in the soured cream and warm gently.",
+      "Return the beef and any juices, heat through, finish with parsley and serve with rice."
+    ]
+  },
+  {
+    "id": "home-cc-sausage-casserole",
+    "name": "Sausage & Bean Casserole",
+    "blurb": "Browned sausages braised with beans, tomatoes and smoked paprika.",
+    "venue": "home", "cuisine": "british", "protein": "pork", "carb": "none",
+    "spicy": 1, "richness": "hearty", "mood": ["comfort"], "format": "bowl", "diet": ["dairy-free"],
+    "effort": "quick", "timeMinutes": 45, "onePan": true, "servings": 4,
+    "ingredients": [
+      "8 good pork sausages", "1 onion and 2 peppers, sliced", "3 garlic cloves",
+      "1 tbsp smoked paprika, 1 tsp thyme", "2 x 400g tins chopped tomatoes",
+      "2 x 400g tins mixed beans or cannellini, drained", "1 tbsp Worcestershire sauce",
+      "Crusty bread or mash to serve"
+    ],
+    "method": [
+      "Brown the sausages all over in a casserole, then set aside.",
+      "Soften the onion and peppers, add the garlic, paprika and thyme.",
+      "Add the tomatoes, beans and Worcestershire, return the sausages, and simmer for 25-30 minutes.",
+      "Season and serve with bread or mash."
+    ]
+  },
+  {
+    "id": "home-cc-fish-finger-sandwich",
+    "name": "The Ultimate Fish Finger Sandwich",
+    "blurb": "Homemade crumbed fish fingers in soft bread with tartare and lettuce.",
+    "venue": "home", "cuisine": "british", "protein": "fish", "carb": "bread",
+    "spicy": 0, "richness": "medium", "mood": ["comfort", "indulgent"], "format": "handheld", "diet": [],
+    "effort": "quick", "timeMinutes": 25, "onePan": false, "servings": 2,
+    "ingredients": [
+      "400g chunky white fish, cut into fingers", "60g flour, 1 egg, 120g panko",
+      "4 thick slices soft white bread", "Tartare: 4 tbsp mayo, 1 tbsp chopped gherkin, 1 tsp capers, squeeze of lemon",
+      "Little gem leaves", "Oil for shallow frying"
+    ],
+    "method": [
+      "Coat the fish in flour, egg then panko.",
+      "Shallow fry for 2-3 minutes each side until deep golden and cooked through. Drain.",
+      "Mix the tartare.",
+      "Build sandwiches with buttered bread, tartare, lettuce and the hot fish fingers."
+    ]
+  },
+  {
+    "id": "home-cc-cauliflower-cheese-main",
+    "name": "Loaded Cauliflower Cheese",
+    "blurb": "Whole roasted cauliflower florets in a sharp cheese sauce with a crunchy top.",
+    "venue": "home", "cuisine": "british", "protein": "veggie", "carb": "none",
+    "spicy": 0, "richness": "hearty", "mood": ["comfort", "indulgent"], "format": "plate", "diet": ["vegetarian", "gluten-free"],
+    "effort": "quick", "timeMinutes": 45, "onePan": false, "servings": 4,
+    "ingredients": [
+      "2 large cauliflowers, in florets", "50g butter, 50g cornflour, 600ml milk",
+      "200g mature cheddar, 50g Parmesan", "1 tsp English mustard, pinch of nutmeg",
+      "30g pumpkin seeds or crushed crackers for the top"
+    ],
+    "method": [
+      "Roast the florets with a little oil at 220C fan for 20 minutes until edges char.",
+      "Make a white sauce with butter, cornflour and milk; off the heat stir in most of the cheese and the mustard.",
+      "Fold the cauliflower through the sauce in a dish, top with remaining cheese and the seeds.",
+      "Bake at 200C fan for 20 minutes until bubbling."
+    ]
+  },
+  {
+    "id": "home-cc-chilli-jacket",
+    "name": "Beef Chilli Loaded Jacket Potatoes",
+    "blurb": "Crisp-skinned baked potatoes stuffed with beef chilli, cheese and soured cream.",
+    "venue": "home", "cuisine": "american", "protein": "beef", "carb": "potato",
+    "spicy": 2, "richness": "hearty", "mood": ["comfort"], "format": "plate", "diet": ["gluten-free"],
+    "effort": "medium", "timeMinutes": 90, "onePan": false, "servings": 4,
+    "ingredients": [
+      "4 large baking potatoes", "500g beef mince", "1 onion, 1 pepper, chopped",
+      "2 tbsp smoked paprika, 1 tbsp cumin, 1 tsp chipotle paste", "400g tin chopped tomatoes, 400g tin kidney beans",
+      "150g grated cheddar, soured cream and spring onions to serve"
+    ],
+    "method": [
+      "Bake the pricked, oiled and salted potatoes at 200C fan for 70-80 minutes until crisp.",
+      "Brown the mince, add the onion, pepper and spices, then the tomatoes and beans. Simmer 30 minutes.",
+      "Split the potatoes, fluff with butter and season.",
+      "Load with chilli and cheese, return to the oven for 3 minutes, then top with soured cream and spring onions."
+    ]
+  },
+  {
+    "id": "home-cc-tuna-pasta-bake",
+    "name": "Tuna Pasta Bake",
+    "blurb": "Pasta, tuna and sweetcorn in a cheesy tomato sauce with a golden crust.",
+    "venue": "home", "cuisine": "british", "protein": "fish", "carb": "pasta",
+    "spicy": 0, "richness": "hearty", "mood": ["comfort"], "format": "bowl", "diet": ["pescatarian"],
+    "effort": "quick", "timeMinutes": 40, "onePan": false, "servings": 4,
+    "ingredients": [
+      "400g pasta such as fusilli", "2 x 160g tins tuna, drained", "200g sweetcorn",
+      "40g butter, 40g flour, 700ml milk", "150g grated cheddar", "1 tsp Dijon",
+      "400g passata", "30g breadcrumbs"
+    ],
+    "method": [
+      "Cook the pasta 2 minutes under.",
+      "Make a cheese sauce with butter, flour, milk, most of the cheese and the mustard, then stir in the passata.",
+      "Fold in the pasta, tuna and corn, tip into a dish, top with crumbs and the rest of the cheese.",
+      "Bake at 200C fan for 20-25 minutes until golden."
+    ]
+  },
+  {
+    "id": "home-cc-cottage-pie-mash",
+    "name": "Cheesy-Topped Cottage Pie",
+    "blurb": "Rich beef mince and vegetables under a cheddar-crusted mash.",
+    "venue": "home", "cuisine": "british", "protein": "beef", "carb": "potato",
+    "spicy": 0, "richness": "hearty", "mood": ["comfort"], "format": "plate", "diet": ["gluten-free"],
+    "effort": "medium", "timeMinutes": 70, "onePan": false, "servings": 4,
+    "ingredients": [
+      "600g beef mince", "1 onion, 2 carrots, 1 celery stick, diced", "2 tbsp tomato purée",
+      "1 tbsp Worcestershire, 350ml beef stock, 1 tsp thyme", "150g frozen peas",
+      "900g potatoes for mash, 60g butter, splash of milk, 80g grated cheddar"
+    ],
+    "method": [
+      "Brown the mince, set aside. Soften the vegetables for 10 minutes.",
+      "Add the purée, Worcestershire and thyme, return the beef, add the stock and simmer 25 minutes. Stir in the peas.",
+      "Mash the boiled potatoes with butter and milk; season.",
+      "Top the mince with mash, fork the top, scatter with cheddar and bake at 200C fan for 25-30 minutes."
+    ]
+  },
+  {
+    "id": "home-cc-chicken-noodle-soup",
+    "name": "Proper Chicken Noodle Soup",
+    "blurb": "Golden broth, shredded chicken, soft noodles and lots of parsley.",
+    "venue": "home", "cuisine": "other", "protein": "chicken", "carb": "noodles",
+    "spicy": 0, "richness": "light", "mood": ["comfort", "light"], "format": "soup", "diet": ["dairy-free"],
+    "effort": "quick", "timeMinutes": 40, "onePan": true, "servings": 4,
+    "ingredients": [
+      "1.5 litres good chicken stock", "300g cooked chicken, shredded",
+      "1 onion, 2 carrots, 2 celery sticks, diced", "2 garlic cloves",
+      "150g egg noodles or vermicelli", "Big handful of parsley, squeeze of lemon"
+    ],
+    "method": [
+      "Soften the onion, carrot and celery in a little oil for 8 minutes, add the garlic.",
+      "Pour in the stock and simmer for 15 minutes.",
+      "Add the noodles and cook until tender, then stir in the chicken to heat through.",
+      "Finish with parsley, lemon and plenty of black pepper."
+    ]
+  },
+  {
+    "id": "home-cc-gnocchi-bake",
+    "name": "Cheesy Tomato Gnocchi Bake",
+    "blurb": "Potato gnocchi baked in a rich tomato sauce with mozzarella and basil.",
+    "venue": "home", "cuisine": "italian", "protein": "veggie", "carb": "potato",
+    "spicy": 1, "richness": "hearty", "mood": ["comfort", "indulgent"], "format": "bowl", "diet": ["vegetarian"],
+    "effort": "quick", "timeMinutes": 30, "onePan": true, "servings": 4,
+    "ingredients": [
+      "800g fresh gnocchi", "2 x 400g tins chopped tomatoes", "3 garlic cloves, 1 tsp chilli flakes",
+      "1 tbsp tomato purée, 1 tsp sugar", "2 x 125g balls mozzarella, torn", "40g Parmesan",
+      "Handful of basil"
+    ],
+    "method": [
+      "Fry the garlic and chilli in oil, add the purée, then the tomatoes and sugar. Simmer 15 minutes.",
+      "Boil the gnocchi until they float, then drain.",
+      "Fold the gnocchi through the sauce in an ovenproof pan, dot with mozzarella and Parmesan.",
+      "Bake or grill at 220C for 10 minutes until blistered; finish with basil."
+    ]
+  },
+  {
+    "id": "home-cc-corned-beef-hash-brown",
+    "name": "Corned Beef Hash with a Fried Egg",
+    "blurb": "Crisp fried potato and onion with corned beef and a runny egg on top.",
+    "venue": "home", "cuisine": "british", "protein": "beef", "carb": "potato",
+    "spicy": 0, "richness": "hearty", "mood": ["comfort"], "format": "plate", "diet": ["gluten-free"],
+    "effort": "quick", "timeMinutes": 30, "onePan": true, "servings": 3,
+    "ingredients": [
+      "600g potatoes, boiled and diced", "340g tin corned beef, cubed", "1 large onion, chopped",
+      "1 tbsp Worcestershire sauce", "3 eggs", "Brown sauce or beans to serve"
+    ],
+    "method": [
+      "Fry the onion in oil until soft, add the potatoes and press down to crisp.",
+      "Turn, add the corned beef and Worcestershire, and keep frying until crisp in patches.",
+      "Fry the eggs.",
+      "Serve the hash topped with a fried egg and brown sauce or beans."
+    ]
+  },
+  {
+    "id": "home-cc-veg-lasagne",
+    "name": "Roasted Vegetable Lasagne",
+    "blurb": "Layers of roast Mediterranean veg, tomato sauce, béchamel and pasta.",
+    "venue": "home", "cuisine": "italian", "protein": "veggie", "carb": "pasta",
+    "spicy": 0, "richness": "hearty", "mood": ["comfort"], "format": "plate", "diet": ["vegetarian"],
+    "effort": "showoff", "timeMinutes": 90, "onePan": false, "servings": 6,
+    "ingredients": [
+      "12-15 lasagne sheets", "2 aubergines, 2 courgettes, 2 peppers, 1 red onion, chopped and roasted",
+      "2 x 400g tins chopped tomatoes, 2 garlic cloves, handful of basil",
+      "60g butter, 60g flour, 700ml milk, pinch of nutmeg", "150g grated cheese (cheddar/Parmesan mix)"
+    ],
+    "method": [
+      "Roast the vegetables with oil at 200C fan for 30 minutes.",
+      "Simmer the tomatoes with garlic and basil for 20 minutes.",
+      "Make a béchamel with butter, flour and milk; add nutmeg and half the cheese.",
+      "Layer tomato sauce, veg, pasta and béchamel, repeating, finishing with béchamel and cheese.",
+      "Bake at 190C fan for 35-40 minutes until golden. Rest 10 minutes."
+    ]
+  },
+  {
+    "id": "home-cc-turkey-meatballs",
+    "name": "Turkey Meatballs in Tomato Sauce",
+    "blurb": "Light turkey meatballs simmered in a herby tomato sauce, with spaghetti.",
+    "venue": "home", "cuisine": "italian", "protein": "chicken", "carb": "pasta",
+    "spicy": 1, "richness": "medium", "mood": ["comfort", "healthy"], "format": "plate", "diet": ["dairy-free"],
+    "effort": "medium", "timeMinutes": 40, "onePan": false, "servings": 4,
+    "ingredients": [
+      "500g turkey mince", "1 small onion grated, 1 egg, 40g breadcrumbs, 1 tsp oregano, 2 garlic cloves",
+      "2 x 400g tins chopped tomatoes", "1 tbsp tomato purée, 1 tsp chilli flakes",
+      "400g spaghetti", "Basil to finish"
+    ],
+    "method": [
+      "Mix the mince with the onion, egg, breadcrumbs, oregano and garlic; roll into small balls.",
+      "Brown the meatballs in a pan, then set aside.",
+      "Fry the purée and chilli, add the tomatoes and simmer 10 minutes, then return the meatballs for 15 minutes.",
+      "Serve over spaghetti with basil."
+    ]
+  },
+  {
+    "id": "home-cc-baked-potato-tuna",
+    "name": "Jacket Potato with Tuna Mayo & Sweetcorn",
+    "blurb": "The classic quick fix — fluffy jacket, tuna mayo, corn and cheese.",
+    "venue": "home", "cuisine": "british", "protein": "fish", "carb": "potato",
+    "spicy": 0, "richness": "medium", "mood": ["comfort"], "format": "plate", "diet": ["pescatarian", "gluten-free"],
+    "effort": "quick", "timeMinutes": 80, "onePan": true, "servings": 2,
+    "ingredients": [
+      "2 large baking potatoes", "2 x 145g tins tuna, drained", "4 tbsp mayo",
+      "150g sweetcorn", "2 spring onions, sliced", "50g grated cheddar", "Butter"
+    ],
+    "method": [
+      "Bake the pricked, oiled and salted potatoes at 200C fan for 70-80 minutes.",
+      "Mix the tuna with mayo, corn and spring onions.",
+      "Split the potatoes, fluff with butter and season.",
+      "Pile on the tuna mayo and scatter with cheese."
+    ]
+  },
+  {
+    "id": "home-cc-french-onion-pasta",
+    "name": "French Onion Pasta",
+    "blurb": "Deeply caramelised onions, gruyère and stock tossed through pasta.",
+    "venue": "home", "cuisine": "french", "protein": "veggie", "carb": "pasta",
+    "spicy": 0, "richness": "hearty", "mood": ["comfort", "indulgent"], "format": "bowl", "diet": ["vegetarian"],
+    "effort": "medium", "timeMinutes": 55, "onePan": false, "servings": 4,
+    "ingredients": [
+      "1kg onions, thinly sliced", "50g butter, 1 tbsp oil, 1 tsp sugar", "150ml white wine",
+      "400ml vegetable stock", "1 tsp thyme", "400g rigatoni", "120g gruyère plus 40g Parmesan, grated"
+    ],
+    "method": [
+      "Cook the onions low and slow in the butter and oil for 35-40 minutes until deep brown; add the sugar near the end.",
+      "Add the wine and reduce, then the stock and thyme, and simmer 10 minutes.",
+      "Cook the pasta and toss through the onion sauce with a splash of pasta water.",
+      "Off the heat stir in the cheeses until glossy; season with black pepper."
+    ]
+  },
+  {
+    "id": "home-cc-toad-hole-onion-gravy",
+    "name": "Toad in the Hole with Onion Gravy",
+    "blurb": "Sausages baked in crisp Yorkshire batter, drowned in onion gravy.",
+    "venue": "home", "cuisine": "british", "protein": "pork", "carb": "none",
+    "spicy": 0, "richness": "hearty", "mood": ["comfort"], "format": "plate", "diet": [],
+    "effort": "medium", "timeMinutes": 55, "onePan": false, "servings": 4,
+    "ingredients": [
+      "8 good pork sausages", "140g plain flour, 4 eggs, 200ml milk", "3 tbsp beef dripping or oil",
+      "Gravy: 2 onions sliced, 1 tbsp flour, 500ml beef stock, splash of Worcestershire"
+    ],
+    "method": [
+      "Whisk the flour, eggs and milk to a smooth batter and rest 30 minutes.",
+      "Heat oven to 220C fan. Put the fat and sausages in a roasting tin for 10 minutes until sizzling.",
+      "Pour in the batter and bake 25-30 minutes without opening the door, until risen and golden.",
+      "Caramelise the onions slowly, stir in the flour then the stock and Worcestershire, and simmer to a gravy."
+    ]
+  },
+  {
+    "id": "home-cc-egg-fried-rice-special",
+    "name": "Special Fried Rice",
+    "blurb": "Day-old rice fried with prawns, char siu, egg, peas and spring onion.",
+    "venue": "home", "cuisine": "east-asian", "protein": "mixed", "carb": "rice",
+    "spicy": 0, "richness": "medium", "mood": ["comfort"], "format": "bowl", "diet": ["dairy-free"],
+    "effort": "quick", "timeMinutes": 20, "onePan": true, "servings": 4,
+    "ingredients": [
+      "500g cooked, cooled long-grain rice", "150g cooked prawns", "150g char siu or cooked ham, diced",
+      "3 eggs, beaten", "150g frozen peas", "4 spring onions", "3 garlic cloves",
+      "2 tbsp soy sauce, 1 tsp sesame oil, white pepper"
+    ],
+    "method": [
+      "Scramble the eggs in a very hot oiled wok, then remove.",
+      "Fry the garlic and peas briefly, add the rice and press to heat through.",
+      "Add the prawns, ham, soy, sesame oil and white pepper, and toss.",
+      "Return the egg, fold through the spring onions and serve."
+    ]
+  }
+]

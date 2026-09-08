@@ -48,6 +48,23 @@ export type Richness = 'light' | 'medium' | 'hearty';
 
 export type Mood = 'comfort' | 'light' | 'fresh' | 'indulgent' | 'healthy' | 'fancy';
 
+/**
+ * The way a dish *tastes* — this is what the app leads with now, ahead of
+ * cuisine. Mostly derived from a dish's other fields + its wording
+ * (see engine/flavours.ts); `flavours` on a dish is an optional manual override.
+ */
+export type Flavour =
+  | 'fresh' // light, green, crisp
+  | 'zesty' // citrus / sharp / pickled / vinegary
+  | 'herby' // a big hit of fresh herbs
+  | 'spicy' // real chilli heat
+  | 'warming' // gentle spice, curry warmth, ginger, cinnamon
+  | 'comforting' // cosy, carby, creamy, baked
+  | 'indulgent' // rich, fried, cheesy, decadent
+  | 'smoky' // chargrilled, barbecued, smoked
+  | 'savoury' // deep umami — soy, miso, mushroom, slow-cooked
+  | 'holiday'; // sunshine food — coconut, grill, mezze, tacos
+
 export type DishFormat = 'bowl' | 'plate' | 'handheld' | 'sharing' | 'soup' | 'salad';
 
 export type Diet = 'vegetarian' | 'vegan' | 'pescatarian' | 'gluten-free' | 'dairy-free';
@@ -66,6 +83,8 @@ export interface BaseDish {
   mood: Mood[];
   format: DishFormat;
   diet: Diet[];
+  /** optional manual flavour override; otherwise flavours are derived */
+  flavours?: Flavour[];
 }
 
 export interface HomeDish extends BaseDish {

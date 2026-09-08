@@ -1,13 +1,12 @@
 import { create } from 'zustand';
 import { ALL_DISHES } from '@/data/dishes';
-import { Dish } from '@/engine/types';
 import {
   AnsweredStep,
+  answersFromSteps,
   applyAnswer,
   nextQuestionId,
   poolFor,
   RESULT_THRESHOLD,
-  seededShuffle,
 } from '@/engine/filter';
 import { FIRST_QUESTION_ID } from '@/engine/questions';
 
@@ -21,7 +20,7 @@ interface AnswerOutcome {
 interface DeciderStore {
   steps: AnsweredStep[];
   currentQuestionId: string;
-  /** stack of visited question ids, for the back button */
+  /** stack of question ids shown so far, for the back button */
   visited: string[];
   shuffleSeed: number;
 
@@ -29,31 +28,28 @@ interface DeciderStore {
   answer: (questionId: string, optionId: string) => AnswerOutcome;
   goBack: () => void;
   reshuffle: () => void;
-  reset: () => void;
-
-  pool: () => Dish[];
-  count: () => number;
-  results: () => Dish[];
 }
+
+const freshSeed = () => Math.floor(Math.random() * 1_000_000) + 1;
 
 export const useDecider = create<DeciderStore>((set, get) => ({
   steps: [],
   currentQuestionId: FIRST_QUESTION_ID,
   visited: [FIRST_QUESTION_ID],
-  shuffleSeed: Math.floor(Math.random() * 1_000_000) + 1,
+  shuffleSeed: freshSeed(),
 
   start: () =>
     set({
       steps: [],
       currentQuestionId: FIRST_QUESTION_ID,
       visited: [FIRST_QUESTION_ID],
-      shuffleSeed: Math.floor(Math.random() * 1_000_000) + 1,
+      shuffleSeed: freshSeed(),
     }),
 
   answer: (questionId, optionId) => {
     const { steps } = get();
     const res = applyAnswer(ALL_DISHES, steps, questionId, optionId);
-    const nextId = nextQuestionId(questionId, optionId);
+    const nextId = nextQuestionId(questionId, answersFromSteps(res.steps));
     const done = res.pool.length <= RESULT_THRESHOLD || nextId === null;
 
     set((s) => ({
@@ -69,22 +65,15 @@ export const useDecider = create<DeciderStore>((set, get) => ({
     const { visited, steps } = get();
     if (visited.length <= 1) return;
     const nextVisited = visited.slice(0, -1);
-    const leaving = visited[visited.length - 1];
     set({
       visited: nextVisited,
       currentQuestionId: nextVisited[nextVisited.length - 1],
-      steps: steps.filter((s) => s.questionId !== leaving),
+      steps: steps.slice(0, -1),
     });
   },
 
-  reshuffle: () => set({ shuffleSeed: Math.floor(Math.random() * 1_000_000) + 1 }),
-
-  reset: () => get().start(),
-
-  pool: () => poolFor(ALL_DISHES, get().steps),
-  count: () => poolFor(ALL_DISHES, get().steps).length,
-  results: () => {
-    const pool = poolFor(ALL_DISHES, get().steps);
-    return seededShuffle(pool, get().shuffleSeed).slice(0, RESULT_THRESHOLD);
-  },
+  reshuffle: () => set({ shuffleSeed: freshSeed() }),
 }));
+
+/** Imperative pool read (outside React). Components should use the hooks in pool.ts. */
+export const currentPool = () => poolFor(ALL_DISHES, useDecider.getState().steps);

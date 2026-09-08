@@ -1,0 +1,305 @@
+[
+  {
+    "id": "home-fk-chicken-katsu",
+    "name": "Chicken Katsu Curry (Fakeaway)",
+    "blurb": "Crisp panko chicken with a mild, glossy Japanese curry sauce and rice.",
+    "venue": "home", "cuisine": "east-asian", "protein": "chicken", "carb": "rice",
+    "spicy": 1, "richness": "hearty", "mood": ["comfort", "indulgent"], "format": "plate", "diet": ["dairy-free"],
+    "effort": "medium", "timeMinutes": 40, "onePan": false, "servings": 4,
+    "ingredients": [
+      "4 chicken breasts, flattened", "100g flour, 2 eggs, 150g panko",
+      "1 onion, 1 carrot, chopped", "2 garlic cloves, 2cm ginger", "2 tbsp mild curry powder, 1 tbsp flour, 1 tbsp garam masala, 1 tsp turmeric",
+      "500ml chicken stock, 1 tbsp soy, 1 tsp honey", "Oil for frying, rice to serve"
+    ],
+    "method": [
+      "Soften the onion and carrot, add garlic, ginger and spices, then the flour.",
+      "Whisk in the stock, soy and honey; simmer 15 minutes, then blitz smooth.",
+      "Coat the chicken in flour, egg and panko; shallow fry 3-4 minutes each side.",
+      "Slice and serve over rice with the sauce poured alongside."
+    ]
+  },
+  {
+    "id": "home-fk-salt-pepper-chicken",
+    "name": "Salt & Pepper Chicken",
+    "blurb": "Crispy chicken tossed with fried onion, pepper, chilli and five-spice.",
+    "venue": "home", "cuisine": "east-asian", "protein": "chicken", "carb": "rice",
+    "spicy": 2, "richness": "medium", "mood": ["indulgent"], "format": "bowl", "diet": ["dairy-free"],
+    "effort": "medium", "timeMinutes": 35, "onePan": false, "servings": 4,
+    "ingredients": [
+      "600g chicken thigh, cut into strips", "3 tbsp cornflour, 1 egg white",
+      "1 onion, 1 green pepper, 2 red chillies, sliced", "3 garlic cloves, minced",
+      "1 tsp Chinese five-spice, 1 tsp white pepper, 1 tsp flaky salt", "Oil for shallow frying, rice to serve"
+    ],
+    "method": [
+      "Toss the chicken in the egg white then cornflour and fry in shallow oil until deep golden and crisp. Drain.",
+      "Stir-fry the onion, pepper and chillies in a little oil until charred at the edges.",
+      "Add the garlic, five-spice, white pepper and salt.",
+      "Return the crispy chicken and toss for 30 seconds; serve with rice."
+    ]
+  },
+  {
+    "id": "home-fk-crispy-chilli-beef",
+    "name": "Crispy Chilli Beef",
+    "blurb": "Deep-fried shredded beef in a sticky sweet, sharp chilli sauce.",
+    "venue": "home", "cuisine": "east-asian", "protein": "beef", "carb": "rice",
+    "spicy": 2, "richness": "hearty", "mood": ["indulgent", "comfort"], "format": "bowl", "diet": ["dairy-free"],
+    "effort": "medium", "timeMinutes": 35, "onePan": false, "servings": 4,
+    "ingredients": [
+      "500g sirloin or rump, thinly sliced", "4 tbsp cornflour", "1 carrot and 1 pepper, julienned",
+      "Sauce: 4 tbsp ketchup, 3 tbsp rice vinegar, 3 tbsp sweet chilli sauce, 2 tbsp soy, 2 tbsp sugar, 1-2 tsp chilli flakes",
+      "3 spring onions, 2 garlic cloves", "Oil for deep frying, rice to serve"
+    ],
+    "method": [
+      "Toss the beef in the cornflour and shake off the excess.",
+      "Deep fry in batches at 180C until dark and crisp; drain.",
+      "Stir-fry the carrot and pepper briefly, add the garlic, then the mixed sauce and bubble until sticky.",
+      "Toss the beef through at the last second and finish with spring onions; serve with rice."
+    ]
+  },
+  {
+    "id": "home-fk-doner-kebab-tray",
+    "name": "Homemade Doner Kebab",
+    "blurb": "Spiced blitzed lamb baked into a loaf, sliced thin and crisped, in flatbread.",
+    "venue": "home", "cuisine": "middle-eastern", "protein": "lamb", "carb": "bread",
+    "spicy": 2, "richness": "hearty", "mood": ["indulgent", "comfort"], "format": "handheld", "diet": ["dairy-free"],
+    "effort": "medium", "timeMinutes": 60, "onePan": false, "servings": 4,
+    "ingredients": [
+      "700g lamb mince", "1 onion, grated and squeezed dry", "3 garlic cloves",
+      "2 tsp each cumin, coriander, smoked paprika, oregano, 1 tsp cayenne", "1 tsp salt",
+      "Flatbreads, shredded lettuce, tomato, red onion, chilli sauce and garlic sauce to serve"
+    ],
+    "method": [
+      "Blitz the lamb with the onion, garlic, spices and salt to a smooth, tacky paste.",
+      "Press firmly into a loaf tin and bake at 180C fan for 35-40 minutes. Rest, then chill briefly to firm up.",
+      "Slice very thinly and crisp the slices in a hot dry pan.",
+      "Stuff into warm flatbreads with salad and both sauces."
+    ]
+  },
+  {
+    "id": "home-fk-sweet-sour-pork",
+    "name": "Sweet & Sour Pork",
+    "blurb": "Crisp pork with pineapple and peppers in a tangy red sauce.",
+    "venue": "home", "cuisine": "east-asian", "protein": "pork", "carb": "rice",
+    "spicy": 0, "richness": "medium", "mood": ["comfort"], "format": "plate", "diet": ["dairy-free"],
+    "effort": "medium", "timeMinutes": 35, "onePan": false, "servings": 4,
+    "ingredients": [
+      "500g pork shoulder or loin, cubed", "60g cornflour, 1 egg", "1 pepper, 1 onion, chopped",
+      "200g pineapple chunks", "Sauce: 4 tbsp ketchup, 3 tbsp rice vinegar, 2 tbsp sugar, 1 tbsp soy, 150ml water, 1 tsp cornflour",
+      "Oil for frying, rice to serve"
+    ],
+    "method": [
+      "Coat the pork in egg then cornflour and shallow fry until golden and crisp; drain.",
+      "Stir-fry the onion and pepper, then add the pineapple.",
+      "Pour in the mixed sauce and simmer until thick and glossy.",
+      "Toss the pork through at the last second; serve with rice."
+    ]
+  },
+  {
+    "id": "home-fk-chicken-chow-mein",
+    "name": "Chicken Chow Mein",
+    "blurb": "Egg noodles tossed with chicken, cabbage and beansprouts in a savoury sauce.",
+    "venue": "home", "cuisine": "east-asian", "protein": "chicken", "carb": "noodles",
+    "spicy": 0, "richness": "medium", "mood": ["comfort"], "format": "bowl", "diet": ["dairy-free"],
+    "effort": "quick", "timeMinutes": 20, "onePan": true, "servings": 4,
+    "ingredients": [
+      "300g medium egg noodles", "400g chicken breast, sliced", "200g cabbage or pak choi, shredded",
+      "150g beansprouts", "4 spring onions", "3 garlic cloves",
+      "Sauce: 3 tbsp soy, 1 tbsp oyster sauce, 1 tsp sesame oil, 1 tsp sugar"
+    ],
+    "method": [
+      "Cook the noodles, drain and toss with a little oil.",
+      "Stir-fry the chicken in a hot wok until nearly done, add the garlic and cabbage.",
+      "Add the noodles, beansprouts, spring onions and sauce; toss over high heat for 2 minutes.",
+      "Serve immediately."
+    ]
+  },
+  {
+    "id": "home-fk-chip-shop-curry-chips",
+    "name": "Chip Shop Chips & Curry Sauce",
+    "blurb": "Proper chunky oven chips smothered in a mild, glossy chip-shop curry sauce.",
+    "venue": "home", "cuisine": "british", "protein": "vegan", "carb": "potato",
+    "spicy": 1, "richness": "hearty", "mood": ["comfort", "indulgent"], "format": "bowl", "diet": ["vegetarian", "vegan", "dairy-free"],
+    "effort": "quick", "timeMinutes": 45, "onePan": false, "servings": 4,
+    "ingredients": [
+      "1kg Maris Piper potatoes, cut into thick chips", "4 tbsp oil",
+      "1 onion, finely chopped", "2 tbsp mild curry powder, 1 tsp turmeric, 1 tsp five-spice",
+      "1 tbsp cornflour, 1 tbsp sugar, 500ml vegetable stock, 1 tbsp soy"
+    ],
+    "method": [
+      "Parboil the chips for 6 minutes, drain and steam-dry, then roast in hot oil at 220C fan for 30-35 minutes.",
+      "Fry the onion until soft, add the curry powder, turmeric and five-spice for 1 minute.",
+      "Stir in the cornflour and sugar, then whisk in the stock and soy.",
+      "Simmer 5 minutes to a glossy sauce and pour over the chips."
+    ]
+  },
+  {
+    "id": "home-fk-southern-fried-chicken",
+    "name": "Buttermilk Fried Chicken",
+    "blurb": "Marinated in buttermilk, double-dredged and fried shatteringly crisp.",
+    "venue": "home", "cuisine": "american", "protein": "chicken", "carb": "none",
+    "spicy": 1, "richness": "hearty", "mood": ["indulgent"], "format": "plate", "diet": [],
+    "effort": "medium", "timeMinutes": 60, "onePan": false, "servings": 4,
+    "ingredients": [
+      "8 chicken thighs and drumsticks", "500ml buttermilk, 1 tbsp hot sauce, 1 tsp salt",
+      "300g flour, 2 tbsp cornflour, 1 tbsp each smoked paprika, garlic powder, onion powder, 1 tsp cayenne, 1 tsp black pepper",
+      "Oil for deep frying"
+    ],
+    "method": [
+      "Marinate the chicken in the seasoned buttermilk for at least 2 hours, ideally overnight.",
+      "Mix the flour with the cornflour and spices. Dredge each piece, pressing the coating on firmly.",
+      "Fry at 165C for 12-15 minutes, turning, until deep golden and 75C inside.",
+      "Rest on a rack for 5 minutes so it stays crisp."
+    ]
+  },
+  {
+    "id": "home-fk-donburi-teriyaki",
+    "name": "Teriyaki Chicken Donburi",
+    "blurb": "Pan-fried chicken thighs in a sticky teriyaki glaze over rice.",
+    "venue": "home", "cuisine": "east-asian", "protein": "chicken", "carb": "rice",
+    "spicy": 0, "richness": "medium", "mood": ["comfort"], "format": "bowl", "diet": ["dairy-free"],
+    "effort": "quick", "timeMinutes": 25, "onePan": true, "servings": 4,
+    "ingredients": [
+      "8 boneless chicken thighs", "Sauce: 5 tbsp soy, 4 tbsp mirin, 3 tbsp sake, 2 tbsp sugar",
+      "Rice to serve", "Spring onions and sesame seeds to garnish"
+    ],
+    "method": [
+      "Fry the chicken skin-side down until deeply golden, flip and cook through; pour off excess fat.",
+      "Add the sauce and let it bubble and reduce, spooning over the chicken until sticky.",
+      "Slice and serve over rice with the sauce, spring onions and sesame."
+    ]
+  },
+  {
+    "id": "home-fk-chicken-pakora-wrap",
+    "name": "Chicken Pakora Wraps",
+    "blurb": "Spiced gram-flour-battered chicken in a wrap with mint yoghurt and salad.",
+    "venue": "home", "cuisine": "indian", "protein": "chicken", "carb": "bread",
+    "spicy": 2, "richness": "medium", "mood": ["indulgent"], "format": "handheld", "diet": [],
+    "effort": "medium", "timeMinutes": 35, "onePan": false, "servings": 4,
+    "ingredients": [
+      "600g chicken breast, cut into strips", "150g gram (chickpea) flour, 1 tsp baking powder",
+      "1 tsp each cumin, coriander, turmeric, chilli powder, 3 garlic cloves and 2cm ginger crushed",
+      "Cold sparkling water to a batter", "Wraps, shredded lettuce and red onion",
+      "Mint yoghurt: 150g yoghurt, handful of mint, squeeze of lemon"
+    ],
+    "method": [
+      "Whisk the gram flour, baking powder, spices, garlic, ginger and enough water to a thick batter.",
+      "Coat the chicken and deep or shallow fry at 175C for 4-5 minutes until golden and cooked.",
+      "Mix the mint yoghurt.",
+      "Fill warm wraps with salad, pakora chicken and a good drizzle of mint yoghurt."
+    ]
+  },
+  {
+    "id": "home-fk-lamb-bhuna",
+    "name": "Lamb Bhuna",
+    "blurb": "Lamb cooked down hard in a thick, dark, deeply spiced onion-tomato masala.",
+    "venue": "home", "cuisine": "indian", "protein": "lamb", "carb": "rice",
+    "spicy": 3, "richness": "hearty", "mood": ["comfort"], "format": "bowl", "diet": ["gluten-free", "dairy-free"],
+    "effort": "medium", "timeMinutes": 75, "onePan": true, "servings": 4,
+    "ingredients": [
+      "700g diced lamb shoulder", "3 onions, finely sliced", "4 garlic cloves and 4cm ginger, crushed",
+      "3 tomatoes, chopped, plus 2 tbsp tomato purée", "2 tbsp curry powder, 1 tbsp cumin, 1 tbsp coriander, 2 tsp chilli powder",
+      "1 tsp garam masala", "Coriander to finish"
+    ],
+    "method": [
+      "Fry the onions in oil until deep golden, about 15 minutes.",
+      "Add the garlic, ginger and ground spices, then the lamb, and brown well.",
+      "Add the tomatoes, purée and a splash of water; cover and simmer 45 minutes.",
+      "Uncover and cook hard, stirring, until the sauce is thick and clinging. Finish with garam masala and coriander."
+    ]
+  },
+  {
+    "id": "home-fk-quarter-pounder",
+    "name": "Diner-Style Quarter Pounder",
+    "blurb": "A fat beef patty, American cheese, pickles and burger sauce in a soft bun.",
+    "venue": "home", "cuisine": "american", "protein": "beef", "carb": "bread",
+    "spicy": 0, "richness": "hearty", "mood": ["indulgent", "comfort"], "format": "handheld", "diet": [],
+    "effort": "quick", "timeMinutes": 20, "onePan": true, "servings": 4,
+    "ingredients": [
+      "600g beef mince (20% fat), shaped into 4 thick patties", "4 slices American cheese",
+      "4 soft burger buns", "Burger sauce: 4 tbsp mayo, 2 tbsp ketchup, 1 tbsp mustard, 1 tbsp chopped gherkin, pinch of paprika",
+      "Sliced pickles, shredded lettuce, sliced tomato"
+    ],
+    "method": [
+      "Season the patties well and fry in a hot pan for 3-4 minutes each side, adding cheese for the last minute.",
+      "Toast the buns cut-side down in the pan.",
+      "Spread both bun halves with burger sauce.",
+      "Build with lettuce, tomato, the cheesy patty and pickles."
+    ]
+  },
+  {
+    "id": "home-fk-katsu-pork",
+    "name": "Tonkatsu (Pork Katsu)",
+    "blurb": "Panko pork loin fried crisp, sliced, with tonkatsu sauce, rice and cabbage.",
+    "venue": "home", "cuisine": "east-asian", "protein": "pork", "carb": "rice",
+    "spicy": 0, "richness": "hearty", "mood": ["comfort", "indulgent"], "format": "plate", "diet": ["dairy-free"],
+    "effort": "quick", "timeMinutes": 30, "onePan": false, "servings": 4,
+    "ingredients": [
+      "4 pork loin steaks, flattened", "80g flour, 2 eggs, 150g panko",
+      "1/4 white cabbage, very finely shredded", "Tonkatsu sauce (shop-bought, or ketchup + Worcestershire + soy + sugar)",
+      "Oil for shallow frying, rice to serve"
+    ],
+    "method": [
+      "Coat the pork in flour, egg then panko, pressing on firmly.",
+      "Shallow fry for 3 minutes each side until deep golden and cooked; drain and rest 2 minutes.",
+      "Slice into thick fingers.",
+      "Serve with rice, a heap of raw cabbage and plenty of tonkatsu sauce."
+    ]
+  },
+  {
+    "id": "home-fk-chicken-shawarma-plate",
+    "name": "Chicken Shawarma Plate",
+    "blurb": "Spiced roast chicken thighs with rice, salad, pickles and garlic sauce.",
+    "venue": "home", "cuisine": "middle-eastern", "protein": "chicken", "carb": "rice",
+    "spicy": 1, "richness": "medium", "mood": ["comfort"], "format": "plate", "diet": ["dairy-free"],
+    "effort": "quick", "timeMinutes": 45, "onePan": true, "servings": 4,
+    "ingredients": [
+      "1kg boneless chicken thighs", "150g yoghurt, juice of 1 lemon, 3 tbsp oil",
+      "2 tsp each cumin, coriander, smoked paprika, 1 tsp turmeric, 1/2 tsp cinnamon, 1/2 tsp cayenne, 4 garlic cloves",
+      "2 red onions, sliced", "Rice, chopped salad, pickled chillies and garlic sauce to serve"
+    ],
+    "method": [
+      "Marinate the chicken in the yoghurt, lemon, oil, spices and garlic for 1 hour.",
+      "Spread on a tray with the onions and roast at 220C fan for 30-35 minutes until charred.",
+      "Rest, then slice.",
+      "Serve over rice with salad, pickles and garlic sauce."
+    ]
+  },
+  {
+    "id": "home-fk-firecracker-prawns",
+    "name": "Firecracker Prawn Noodles",
+    "blurb": "Prawns in a hot, sweet, sticky chilli sauce tossed with noodles.",
+    "venue": "home", "cuisine": "east-asian", "protein": "seafood", "carb": "noodles",
+    "spicy": 3, "richness": "medium", "mood": ["comfort"], "format": "bowl", "diet": ["dairy-free"],
+    "effort": "quick", "timeMinutes": 20, "onePan": true, "servings": 4,
+    "ingredients": [
+      "400g raw king prawns", "300g medium egg noodles", "1 pepper and 1 onion, sliced",
+      "Sauce: 3 tbsp sweet chilli, 2 tbsp sriracha, 2 tbsp soy, 1 tbsp ketchup, 1 tbsp rice vinegar, 1 tsp sugar",
+      "3 garlic cloves, 3 spring onions, sesame seeds"
+    ],
+    "method": [
+      "Cook the noodles and toss with a little oil.",
+      "Stir-fry the pepper and onion for 2 minutes, add the garlic, then the prawns until pink.",
+      "Pour in the sauce and let it bubble and coat.",
+      "Toss through the noodles and spring onions; finish with sesame."
+    ]
+  },
+  {
+    "id": "home-fk-chicken-fried-rice-takeaway",
+    "name": "Chicken Fried Rice",
+    "blurb": "Wok-fried day-old rice with chicken, egg, peas and soy.",
+    "venue": "home", "cuisine": "east-asian", "protein": "chicken", "carb": "rice",
+    "spicy": 0, "richness": "medium", "mood": ["comfort"], "format": "bowl", "diet": ["dairy-free"],
+    "effort": "quick", "timeMinutes": 20, "onePan": true, "servings": 4,
+    "ingredients": [
+      "500g cooked, cooled long-grain rice", "300g chicken breast, diced", "3 eggs, beaten",
+      "150g frozen peas", "4 spring onions, 3 garlic cloves",
+      "2.5 tbsp soy sauce, 1 tsp sesame oil, white pepper"
+    ],
+    "method": [
+      "Stir-fry the chicken in a hot wok until cooked, then push aside and scramble the egg.",
+      "Add the garlic and peas briefly, then the rice, pressing it into the pan.",
+      "Add the soy, sesame oil and white pepper and toss until hot through.",
+      "Fold through the spring onions and serve."
+    ]
+  }
+]

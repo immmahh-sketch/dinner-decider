@@ -1,0 +1,305 @@
+[
+  {
+    "id": "home-ss-spicy-lentil-soup",
+    "name": "Spiced Red Lentil Soup",
+    "blurb": "Cheap, fast and warming — red lentils, cumin, smoked paprika and lemon.",
+    "venue": "home", "cuisine": "middle-eastern", "protein": "vegan", "carb": "none",
+    "spicy": 1, "richness": "medium", "mood": ["healthy", "comfort", "light"], "format": "soup", "diet": ["vegetarian", "vegan", "gluten-free", "dairy-free"],
+    "effort": "quick", "timeMinutes": 30, "onePan": true, "servings": 4,
+    "ingredients": [
+      "250g red lentils, rinsed", "1 onion, 2 carrots, diced", "3 garlic cloves",
+      "2 tsp cumin, 1 tsp smoked paprika, 1/2 tsp turmeric, pinch of chilli", "1.2 litres vegetable stock",
+      "Juice of 1 lemon, coriander, olive oil to finish"
+    ],
+    "method": [
+      "Soften the onion and carrot in oil for 8 minutes, add the garlic and spices for 1 minute.",
+      "Add the lentils and stock and simmer for 20 minutes until the lentils collapse.",
+      "Blitz half for body, or leave rustic. Season and add the lemon.",
+      "Serve with coriander and a swirl of oil."
+    ]
+  },
+  {
+    "id": "home-ss-minestrone-big",
+    "name": "Big-Batch Minestrone",
+    "blurb": "A chunky vegetable and bean soup with small pasta and pesto to stir in.",
+    "venue": "home", "cuisine": "italian", "protein": "veggie", "carb": "pasta",
+    "spicy": 0, "richness": "medium", "mood": ["healthy", "comfort", "light"], "format": "soup", "diet": ["vegetarian"],
+    "effort": "quick", "timeMinutes": 45, "onePan": true, "servings": 6,
+    "ingredients": [
+      "1 onion, 2 carrots, 2 celery sticks, 1 courgette, diced", "3 garlic cloves",
+      "400g tin chopped tomatoes", "400g tin cannellini beans", "1.5 litres vegetable stock",
+      "100g small pasta such as ditalini", "Handful of kale, shredded", "Pesto and Parmesan to serve"
+    ],
+    "method": [
+      "Soften the onion, carrot and celery in oil for 10 minutes, add garlic and courgette.",
+      "Add the tomatoes, beans and stock and simmer for 15 minutes.",
+      "Stir in the pasta and kale and cook 10 minutes until tender.",
+      "Season well and serve with a spoon of pesto and grated Parmesan."
+    ]
+  },
+  {
+    "id": "home-ss-chicken-tortilla-soup",
+    "name": "Chicken Tortilla Soup",
+    "blurb": "A smoky tomato and chipotle broth with shredded chicken, topped with crisp tortilla.",
+    "venue": "home", "cuisine": "mexican", "protein": "chicken", "carb": "none",
+    "spicy": 2, "richness": "medium", "mood": ["comfort"], "format": "soup", "diet": ["gluten-free", "dairy-free"],
+    "effort": "quick", "timeMinutes": 35, "onePan": true, "servings": 4,
+    "ingredients": [
+      "400g cooked chicken, shredded", "1 onion, 1 pepper, chopped", "3 garlic cloves",
+      "2 tbsp smoked paprika, 1 tbsp cumin, 1-2 tsp chipotle paste", "2 x 400g tins chopped tomatoes",
+      "800ml chicken stock", "400g tin black beans", "Tortillas cut into strips and fried, avocado, lime, coriander"
+    ],
+    "method": [
+      "Fry the onion and pepper, add the garlic and spices, then the tomatoes and stock.",
+      "Simmer 15 minutes, then add the beans and chicken and warm through.",
+      "Crisp the tortilla strips in a little oil.",
+      "Ladle the soup into bowls and top with tortilla strips, avocado, lime and coriander."
+    ]
+  },
+  {
+    "id": "home-ss-ribollita",
+    "name": "Ribollita (Tuscan Bread & Bean Soup)",
+    "blurb": "A thick, rustic soup of cannellini beans, cavolo nero and stale bread.",
+    "venue": "home", "cuisine": "italian", "protein": "vegan", "carb": "bread",
+    "spicy": 0, "richness": "hearty", "mood": ["comfort", "healthy"], "format": "soup", "diet": ["vegetarian", "vegan", "dairy-free"],
+    "effort": "medium", "timeMinutes": 60, "onePan": true, "servings": 6,
+    "ingredients": [
+      "1 onion, 2 carrots, 2 celery sticks, diced", "4 garlic cloves", "2 x 400g tins cannellini beans",
+      "400g tin chopped tomatoes", "1.5 litres vegetable stock", "1 bunch cavolo nero, shredded",
+      "300g stale sourdough, torn", "Best olive oil to finish"
+    ],
+    "method": [
+      "Soften the soffritto in olive oil for 12-15 minutes.",
+      "Add the tomatoes, one tin of beans (mashed) and the stock, and simmer 20 minutes.",
+      "Add the cavolo nero and the whole beans and cook 15 minutes.",
+      "Stir in the bread and let it break down for 10 minutes; serve with a generous glug of oil."
+    ]
+  },
+  {
+    "id": "home-ss-beef-guinness-stew",
+    "name": "Beef & Guinness Stew",
+    "blurb": "Beef slow-braised in stout with root vegetables until spoonably tender.",
+    "venue": "home", "cuisine": "british", "protein": "beef", "carb": "none",
+    "spicy": 0, "richness": "hearty", "mood": ["comfort"], "format": "bowl", "diet": ["dairy-free"],
+    "effort": "showoff", "timeMinutes": 180, "onePan": true, "servings": 6,
+    "ingredients": [
+      "1kg stewing beef, cubed", "2 tbsp flour", "2 onions, 3 carrots, 2 celery sticks, chunked",
+      "2 tbsp tomato purée", "440ml can stout", "500ml beef stock", "2 bay leaves, thyme",
+      "Mashed potato or crusty bread to serve"
+    ],
+    "method": [
+      "Toss the beef in seasoned flour and brown in batches in a casserole.",
+      "Soften the vegetables, stir in the purée, then add the stout and let it reduce.",
+      "Return the beef, add the stock and herbs, cover and cook at 150C fan for 2.5 hours.",
+      "Season and serve with mash or bread."
+    ]
+  },
+  {
+    "id": "home-ss-thai-coconut-soup",
+    "name": "Tom Kha Gai (Thai Coconut Chicken Soup)",
+    "blurb": "Creamy coconut broth with chicken, mushrooms, lemongrass and lime.",
+    "venue": "home", "cuisine": "east-asian", "protein": "chicken", "carb": "none",
+    "spicy": 1, "richness": "medium", "mood": ["comfort", "light"], "format": "soup", "diet": ["gluten-free", "dairy-free"],
+    "effort": "quick", "timeMinutes": 30, "onePan": true, "servings": 4,
+    "ingredients": [
+      "600g chicken thigh, sliced", "400ml coconut milk, 500ml chicken stock",
+      "2 lemongrass stalks bruised, 5 slices galangal or ginger, 4 lime leaves",
+      "200g mushrooms, sliced", "2 tbsp fish sauce, 1 tsp sugar, juice of 2 limes",
+      "1-2 red chillies, coriander"
+    ],
+    "method": [
+      "Simmer the stock with the lemongrass, galangal and lime leaves for 10 minutes.",
+      "Add the coconut milk and chicken and poach gently for 8 minutes.",
+      "Add the mushrooms for 3 minutes, then season with fish sauce, sugar and lime.",
+      "Serve with sliced chilli and coriander."
+    ]
+  },
+  {
+    "id": "home-ss-french-onion-soup-classic",
+    "name": "French Onion Soup",
+    "blurb": "Deeply caramelised onions in beef broth under a molten gruyère crouton.",
+    "venue": "home", "cuisine": "french", "protein": "veggie", "carb": "bread",
+    "spicy": 0, "richness": "medium", "mood": ["comfort"], "format": "soup", "diet": ["vegetarian"],
+    "effort": "medium", "timeMinutes": 75, "onePan": true, "servings": 4,
+    "ingredients": [
+      "1kg onions, thinly sliced", "50g butter, 1 tbsp oil, 1 tsp sugar", "150ml white wine",
+      "1.2 litres beef or vegetable stock", "1 tbsp flour, 1 bay leaf, thyme",
+      "Baguette slices and 150g gruyère"
+    ],
+    "method": [
+      "Cook the onions low and slow in the butter and oil for 40-45 minutes until deep brown; add the sugar near the end.",
+      "Stir in the flour, then the wine and let it reduce.",
+      "Add the stock, bay and thyme and simmer 20 minutes. Season.",
+      "Ladle into bowls, float a baguette slice on each, pile with gruyère and grill until bubbling."
+    ]
+  },
+  {
+    "id": "home-ss-harira",
+    "name": "Harira (Moroccan Lentil & Chickpea Soup)",
+    "blurb": "A thick, spiced tomato soup with lentils, chickpeas and fresh herbs.",
+    "venue": "home", "cuisine": "middle-eastern", "protein": "vegan", "carb": "none",
+    "spicy": 1, "richness": "hearty", "mood": ["comfort", "healthy"], "format": "soup", "diet": ["vegetarian", "vegan", "dairy-free"],
+    "effort": "quick", "timeMinutes": 45, "onePan": true, "servings": 6,
+    "ingredients": [
+      "150g brown lentils", "400g tin chickpeas, drained", "1 onion, 2 celery sticks, diced",
+      "2 tsp each cumin, ginger, cinnamon, 1 tsp turmeric, pinch of saffron", "2 x 400g tins chopped tomatoes",
+      "1.5 litres vegetable stock", "Big handful each parsley and coriander", "Lemon wedges"
+    ],
+    "method": [
+      "Soften the onion and celery, add the spices for 1 minute.",
+      "Add the lentils, tomatoes and stock and simmer for 25 minutes.",
+      "Add the chickpeas and cook 10 minutes more, mashing a few for body.",
+      "Stir through the herbs and serve with lemon."
+    ]
+  },
+  {
+    "id": "home-ss-lamb-lentil-stew",
+    "name": "Lamb & Lentil Stew",
+    "blurb": "Braised lamb with green lentils, carrots and rosemary — a one-pot bowl of comfort.",
+    "venue": "home", "cuisine": "french", "protein": "lamb", "carb": "none",
+    "spicy": 0, "richness": "hearty", "mood": ["comfort"], "format": "bowl", "diet": ["gluten-free", "dairy-free"],
+    "effort": "medium", "timeMinutes": 90, "onePan": true, "servings": 4,
+    "ingredients": [
+      "700g diced lamb shoulder", "250g green or Puy lentils", "1 onion, 3 carrots, 2 celery sticks, diced",
+      "3 garlic cloves, 2 tbsp tomato purée", "1 litre lamb or chicken stock", "1 rosemary sprig, 2 bay leaves",
+      "Parsley to finish"
+    ],
+    "method": [
+      "Brown the lamb in a casserole, then set aside.",
+      "Soften the vegetables, add the garlic and purée.",
+      "Return the lamb, add the lentils, stock and herbs, cover and simmer gently for 1 hour until the lamb is tender and the lentils soft.",
+      "Season and finish with parsley."
+    ]
+  },
+  {
+    "id": "home-ss-roasted-tomato-soup",
+    "name": "Roasted Tomato & Basil Soup",
+    "blurb": "Slow-roasted tomatoes blitzed silky, with basil and a crème fraîche swirl.",
+    "venue": "home", "cuisine": "other", "protein": "veggie", "carb": "none",
+    "spicy": 0, "richness": "light", "mood": ["comfort", "light"], "format": "soup", "diet": ["vegetarian", "gluten-free"],
+    "effort": "quick", "timeMinutes": 45, "onePan": false, "servings": 4,
+    "ingredients": [
+      "1kg ripe tomatoes, halved", "1 onion and 1 whole garlic bulb", "4 tbsp olive oil",
+      "1 tbsp tomato purée, 1 tsp sugar, 500ml stock", "Big handful of basil, splash of crème fraîche"
+    ],
+    "method": [
+      "Roast the tomatoes, onion and garlic with the oil at 200C fan for 30 minutes until charred.",
+      "Squeeze the garlic out of its skins and blitz everything with the purée, sugar and stock.",
+      "Simmer 5 minutes and season; add most of the basil.",
+      "Serve with a swirl of crème fraîche and the rest of the basil."
+    ]
+  },
+  {
+    "id": "home-ss-pea-ham-soup",
+    "name": "Pea & Ham Soup",
+    "blurb": "Split peas simmered soft with a ham hock, blitzed to a thick green bowlful.",
+    "venue": "home", "cuisine": "british", "protein": "pork", "carb": "none",
+    "spicy": 0, "richness": "hearty", "mood": ["comfort"], "format": "soup", "diet": ["gluten-free", "dairy-free"],
+    "effort": "showoff", "timeMinutes": 150, "onePan": true, "servings": 6,
+    "ingredients": [
+      "1 smoked ham hock", "400g green split peas, rinsed", "1 onion, 2 carrots, 2 celery sticks, diced",
+      "2 bay leaves, thyme", "2 litres water", "Croutons and black pepper to serve"
+    ],
+    "method": [
+      "Simmer the ham hock in the water with the bay for 1.5 hours, skimming.",
+      "Lift out the hock, add the split peas and vegetables, and simmer 45 minutes until the peas break down.",
+      "Shred the ham off the bone and stir it back in.",
+      "Blitz half for a thick texture, season well and serve with croutons."
+    ]
+  },
+  {
+    "id": "home-ss-white-bean-chorizo-stew",
+    "name": "White Bean & Chorizo Stew",
+    "blurb": "Smoky chorizo, butter beans and spinach in a paprika tomato broth — 20 minutes.",
+    "venue": "home", "cuisine": "med", "protein": "pork", "carb": "none",
+    "spicy": 1, "richness": "medium", "mood": ["comfort", "healthy"], "format": "bowl", "diet": ["gluten-free", "dairy-free"],
+    "effort": "quick", "timeMinutes": 25, "onePan": true, "servings": 4,
+    "ingredients": [
+      "200g cooking chorizo, sliced", "1 onion, 3 garlic cloves", "1 tbsp smoked paprika",
+      "400g tin chopped tomatoes", "2 x 400g tins butter beans, drained", "400ml stock",
+      "150g spinach", "Crusty bread to serve"
+    ],
+    "method": [
+      "Fry the chorizo until its oil runs, then add the onion and garlic.",
+      "Stir in the paprika, then the tomatoes, beans and stock, and simmer 10 minutes.",
+      "Stir through the spinach until wilted.",
+      "Season and serve with bread to mop up."
+    ]
+  },
+  {
+    "id": "home-ss-mushroom-soup",
+    "name": "Creamy Mushroom Soup",
+    "blurb": "Deeply browned mushrooms, thyme, a splash of sherry and cream.",
+    "venue": "home", "cuisine": "french", "protein": "veggie", "carb": "none",
+    "spicy": 0, "richness": "medium", "mood": ["comfort"], "format": "soup", "diet": ["vegetarian", "gluten-free"],
+    "effort": "quick", "timeMinutes": 35, "onePan": true, "servings": 4,
+    "ingredients": [
+      "600g mixed mushrooms, sliced", "1 onion, 2 garlic cloves", "40g butter",
+      "Few thyme sprigs", "3 tbsp dry sherry or white wine", "800ml vegetable stock",
+      "100ml double cream", "Parsley to finish"
+    ],
+    "method": [
+      "Fry the mushrooms in the butter over high heat until deeply golden — do this in batches so they colour.",
+      "Add the onion, garlic and thyme and soften.",
+      "Add the sherry, let it bubble, then the stock, and simmer 15 minutes.",
+      "Blitz until smooth (or leave chunky), stir in the cream and finish with parsley."
+    ]
+  },
+  {
+    "id": "home-ss-caldo-verde",
+    "name": "Caldo Verde",
+    "blurb": "Portuguese potato and kale soup with slices of smoky chouriço.",
+    "venue": "home", "cuisine": "med", "protein": "pork", "carb": "potato",
+    "spicy": 0, "richness": "medium", "mood": ["comfort", "healthy"], "format": "soup", "diet": ["gluten-free", "dairy-free"],
+    "effort": "quick", "timeMinutes": 35, "onePan": true, "servings": 4,
+    "ingredients": [
+      "600g potatoes, peeled and chunked", "1 onion, 3 garlic cloves", "1.2 litres stock",
+      "200g chouriço or chorizo, thinly sliced", "200g cavolo nero or kale, very finely shredded",
+      "4 tbsp olive oil"
+    ],
+    "method": [
+      "Soften the onion and garlic in oil, add the potatoes and stock, and simmer until the potatoes are soft.",
+      "Blitz smooth for a silky base.",
+      "Fry the chouriço slices until crisp; add most to the soup with the shredded greens and simmer 5 minutes.",
+      "Serve topped with the reserved chouriço and a good drizzle of oil."
+    ]
+  },
+  {
+    "id": "home-ss-chicken-sweetcorn-soup",
+    "name": "Chicken & Sweetcorn Soup",
+    "blurb": "Silky Chinese-style soup with shredded chicken, creamed corn and egg ribbons.",
+    "venue": "home", "cuisine": "east-asian", "protein": "chicken", "carb": "none",
+    "spicy": 0, "richness": "light", "mood": ["comfort", "light"], "format": "soup", "diet": ["dairy-free"],
+    "effort": "quick", "timeMinutes": 25, "onePan": true, "servings": 4,
+    "ingredients": [
+      "300g cooked chicken, shredded", "1 litre chicken stock", "400g tin creamed corn plus 200g sweetcorn",
+      "2 tbsp cornflour in 4 tbsp water", "2 eggs, beaten", "1 tbsp soy sauce, 1 tsp sesame oil",
+      "3 spring onions, white pepper"
+    ],
+    "method": [
+      "Bring the stock to a simmer with both corns and the soy.",
+      "Stir in the cornflour slurry and simmer until slightly thickened.",
+      "Add the chicken, then slowly pour in the beaten egg while stirring to make ribbons.",
+      "Finish with sesame oil, spring onions and white pepper."
+    ]
+  },
+  {
+    "id": "home-ss-goulash",
+    "name": "Hungarian Beef Goulash",
+    "blurb": "Beef braised with masses of sweet paprika, peppers and caraway.",
+    "venue": "home", "cuisine": "other", "protein": "beef", "carb": "none",
+    "spicy": 1, "richness": "hearty", "mood": ["comfort"], "format": "bowl", "diet": ["gluten-free"],
+    "effort": "showoff", "timeMinutes": 150, "onePan": true, "servings": 6,
+    "ingredients": [
+      "1kg stewing beef, cubed", "3 onions, sliced", "3 peppers, sliced", "4 tbsp sweet paprika, 1 tsp caraway seeds",
+      "2 tbsp tomato purée", "400g tin chopped tomatoes", "800ml beef stock", "2 potatoes, chunked",
+      "Soured cream and parsley to serve"
+    ],
+    "method": [
+      "Brown the beef, then set aside. Soften the onions until deep golden.",
+      "Off the heat stir in the paprika and caraway (don't let it burn), then the purée.",
+      "Add the beef, peppers, tomatoes and stock, cover and simmer 1.5 hours.",
+      "Add the potatoes for the last 30 minutes. Serve with soured cream and parsley."
+    ]
+  }
+]

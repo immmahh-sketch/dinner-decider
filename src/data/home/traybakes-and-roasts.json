@@ -1,0 +1,278 @@
+[
+  {
+    "id": "home-tr-harissa-chicken-tray",
+    "name": "Harissa Chicken & Chickpea Traybake",
+    "blurb": "Rose harissa chicken thighs roasted with chickpeas, peppers and red onion.",
+    "venue": "home", "cuisine": "middle-eastern", "protein": "chicken", "carb": "none",
+    "spicy": 2, "richness": "medium", "mood": ["comfort", "healthy"], "format": "plate", "diet": ["gluten-free", "dairy-free"],
+    "effort": "quick", "timeMinutes": 45, "onePan": true, "servings": 4,
+    "ingredients": [
+      "8 chicken thighs, skin on", "2 tbsp rose harissa", "3 tbsp olive oil, juice of 1 lemon",
+      "2 x 400g tins chickpeas, drained", "2 peppers and 2 red onions, in wedges", "1 tsp cumin",
+      "Yoghurt and coriander to serve"
+    ],
+    "method": [
+      "Rub the chicken with the harissa, half the oil and the lemon; leave 20 minutes.",
+      "Toss the chickpeas, peppers and onions with the rest of the oil and the cumin in a large tray.",
+      "Sit the chicken on top and roast at 200C fan for 35-40 minutes until charred and cooked.",
+      "Serve with dollops of yoghurt and plenty of coriander."
+    ]
+  },
+  {
+    "id": "home-tr-sausage-gnocchi-tray",
+    "name": "Sausage, Gnocchi & Tomato Traybake",
+    "blurb": "Sausage meat, gnocchi and cherry tomatoes roasted together until crisp and sticky.",
+    "venue": "home", "cuisine": "italian", "protein": "pork", "carb": "potato",
+    "spicy": 1, "richness": "hearty", "mood": ["comfort"], "format": "bowl", "diet": [],
+    "effort": "quick", "timeMinutes": 35, "onePan": true, "servings": 4,
+    "ingredients": [
+      "6 good sausages, skins removed, torn into chunks", "500g fresh gnocchi",
+      "400g cherry tomatoes", "1 red onion, in wedges", "3 garlic cloves, sliced",
+      "1 tsp fennel seeds, 1/2 tsp chilli flakes, 3 tbsp olive oil", "125g mozzarella, torn, basil"
+    ],
+    "method": [
+      "Toss everything except the mozzarella and basil in a large tray.",
+      "Roast at 220C fan for 25 minutes, stirring once, until the sausage is browned and tomatoes burst.",
+      "Scatter over the mozzarella and return for 5 minutes.",
+      "Finish with basil."
+    ]
+  },
+  {
+    "id": "home-tr-salmon-traybake",
+    "name": "Salmon, Potato & Green Bean Traybake",
+    "blurb": "Salmon roasted over crushed new potatoes and beans with lemon and dill.",
+    "venue": "home", "cuisine": "other", "protein": "fish", "carb": "potato",
+    "spicy": 0, "richness": "medium", "mood": ["healthy", "fresh"], "format": "plate", "diet": ["pescatarian", "gluten-free"],
+    "effort": "quick", "timeMinutes": 40, "onePan": true, "servings": 4,
+    "ingredients": [
+      "4 salmon fillets", "700g new potatoes, halved", "200g green beans",
+      "3 tbsp olive oil", "1 lemon, sliced", "Handful of dill", "Crème fraîche to serve"
+    ],
+    "method": [
+      "Toss the potatoes with oil and roast at 200C fan for 20 minutes.",
+      "Add the beans and lemon slices, sit the salmon on top and season.",
+      "Roast 12-14 minutes until the salmon flakes.",
+      "Scatter with dill and serve with crème fraîche."
+    ]
+  },
+  {
+    "id": "home-tr-greek-lamb-tray",
+    "name": "Greek Lamb & Potato Traybake",
+    "blurb": "Lemon-oregano lamb steaks roasted with potatoes, olives and feta.",
+    "venue": "home", "cuisine": "med", "protein": "lamb", "carb": "potato",
+    "spicy": 0, "richness": "hearty", "mood": ["comfort"], "format": "plate", "diet": ["gluten-free"],
+    "effort": "quick", "timeMinutes": 55, "onePan": true, "servings": 4,
+    "ingredients": [
+      "4 lamb leg steaks", "800g potatoes, in wedges", "Juice of 2 lemons, 6 tbsp olive oil",
+      "4 garlic cloves, 2 tbsp dried oregano", "150g Kalamata olives", "200g feta"
+    ],
+    "method": [
+      "Toss the potatoes with the lemon, oil, garlic and oregano in a large tray. Roast at 200C fan for 25 minutes.",
+      "Nestle in the seasoned lamb and the olives.",
+      "Roast 15-20 minutes more until the lamb is pink and the potatoes tender.",
+      "Crumble over the feta and rest 5 minutes."
+    ]
+  },
+  {
+    "id": "home-tr-chorizo-chicken-rice-tray",
+    "name": "Spanish Chicken & Chorizo Rice Traybake",
+    "blurb": "Smoky one-tray rice with chicken thighs, chorizo, peppers and peas.",
+    "venue": "home", "cuisine": "med", "protein": "mixed", "carb": "rice",
+    "spicy": 1, "richness": "hearty", "mood": ["comfort"], "format": "bowl", "diet": ["gluten-free", "dairy-free"],
+    "effort": "quick", "timeMinutes": 55, "onePan": true, "servings": 4,
+    "ingredients": [
+      "8 chicken thighs", "200g cooking chorizo, sliced", "1 onion and 1 red pepper, chopped",
+      "3 garlic cloves, 1 tbsp smoked paprika", "300g long-grain rice", "700ml hot chicken stock",
+      "150g frozen peas, lemon and parsley"
+    ],
+    "method": [
+      "Brown the chicken and chorizo in a roasting tin on the hob, then stir in the onion, pepper, garlic and paprika.",
+      "Stir in the rice, pour over the hot stock, and arrange the chicken on top.",
+      "Cover with foil and bake at 190C fan for 30 minutes.",
+      "Stir through the peas, re-cover for 5 minutes, then rest and finish with lemon and parsley."
+    ]
+  },
+  {
+    "id": "home-tr-sunday-roast-pork",
+    "name": "Roast Pork with Crackling & Apple Sauce",
+    "blurb": "Slow-roast pork shoulder with crisp crackling, roast potatoes and gravy.",
+    "venue": "home", "cuisine": "british", "protein": "pork", "carb": "potato",
+    "spicy": 0, "richness": "hearty", "mood": ["comfort", "fancy"], "format": "plate", "diet": ["gluten-free"],
+    "effort": "showoff", "timeMinutes": 240, "onePan": false, "servings": 6,
+    "ingredients": [
+      "2kg pork shoulder, skin scored", "Flaky salt and oil", "1.2kg potatoes for roasting",
+      "4 tbsp goose fat or oil", "Apple sauce: 3 Bramley apples, 2 tbsp sugar, knob of butter",
+      "Gravy: 1 tbsp flour, 400ml stock, splash of cider"
+    ],
+    "method": [
+      "Rub the skin with oil and lots of salt. Roast at 240C fan for 30 minutes, then 160C fan for about 3 hours until tender.",
+      "Turn the oven back up, parboil and roughen the potatoes, and roast in hot fat for 45-55 minutes.",
+      "Simmer the apples with a splash of water and the sugar to a sauce; beat in the butter.",
+      "Rest the pork 20 minutes; make gravy in the tin with the flour, cider and stock. Carve and serve."
+    ]
+  },
+  {
+    "id": "home-tr-baharat-cauliflower-tray",
+    "name": "Whole Roasted Baharat Cauliflower",
+    "blurb": "A whole spiced cauliflower roasted until charred, with tahini and pomegranate.",
+    "venue": "home", "cuisine": "middle-eastern", "protein": "vegan", "carb": "none",
+    "spicy": 1, "richness": "medium", "mood": ["healthy", "fresh"], "format": "sharing", "diet": ["vegetarian", "vegan", "gluten-free", "dairy-free"],
+    "effort": "quick", "timeMinutes": 55, "onePan": true, "servings": 4,
+    "ingredients": [
+      "1 large cauliflower, leaves trimmed", "4 tbsp olive oil", "2 tbsp baharat or ras el hanout",
+      "Tahini sauce: 4 tbsp tahini, juice of 1 lemon, 1 garlic clove, water",
+      "Seeds of 1 pomegranate, handful of parsley, toasted flaked almonds"
+    ],
+    "method": [
+      "Steam or parboil the whole cauliflower for 8 minutes, then drain well.",
+      "Rub all over with the oil and spice and sit in a tray.",
+      "Roast at 200C fan for 40-45 minutes until deeply charred and tender.",
+      "Cut into wedges and serve drizzled with tahini and scattered with pomegranate, parsley and almonds."
+    ]
+  },
+  {
+    "id": "home-tr-jerk-chicken-tray",
+    "name": "Jerk Chicken Traybake",
+    "blurb": "Marinated jerk chicken thighs roasted with sweet potato, pepper and pineapple.",
+    "venue": "home", "cuisine": "caribbean", "protein": "chicken", "carb": "potato",
+    "spicy": 3, "richness": "hearty", "mood": ["comfort"], "format": "plate", "diet": ["gluten-free", "dairy-free"],
+    "effort": "quick", "timeMinutes": 50, "onePan": true, "servings": 4,
+    "ingredients": [
+      "8 chicken thighs", "4 tbsp jerk paste (or blitz: 3 spring onions, 2 Scotch bonnets, 4 garlic cloves, 3cm ginger, 1 tbsp allspice, 1 tbsp thyme, 2 tbsp soy, 2 tbsp brown sugar, juice of 1 lime)",
+      "2 sweet potatoes, in chunks", "2 peppers, in chunks", "200g pineapple chunks", "Lime wedges"
+    ],
+    "method": [
+      "Coat the chicken in the jerk paste and marinate at least 1 hour.",
+      "Spread the sweet potato and peppers in a tray with a little oil and roast at 200C fan for 15 minutes.",
+      "Add the chicken and pineapple and roast 30-35 minutes more until charred and cooked.",
+      "Serve with lime wedges (and rice and peas if you like)."
+    ]
+  },
+  {
+    "id": "home-tr-halloumi-veg-tray",
+    "name": "Roasted Veg & Halloumi Traybake",
+    "blurb": "Mediterranean veg and thick halloumi slabs roasted with honey and oregano.",
+    "venue": "home", "cuisine": "med", "protein": "veggie", "carb": "none",
+    "spicy": 0, "richness": "medium", "mood": ["healthy", "comfort"], "format": "plate", "diet": ["vegetarian", "gluten-free"],
+    "effort": "quick", "timeMinutes": 40, "onePan": true, "servings": 4,
+    "ingredients": [
+      "2 courgettes, 2 peppers, 1 red onion, 250g cherry tomatoes, chopped", "2 x 225g blocks halloumi, thickly sliced",
+      "4 tbsp olive oil, 1 tbsp honey, 1 tbsp dried oregano", "Flatbreads and lemon to serve"
+    ],
+    "method": [
+      "Toss the vegetables with the oil and oregano in a large tray and roast at 200C fan for 20 minutes.",
+      "Nestle in the halloumi, drizzle with the honey.",
+      "Roast 12-15 minutes more until the halloumi is golden and the veg is soft.",
+      "Serve with warm flatbreads and a squeeze of lemon."
+    ]
+  },
+  {
+    "id": "home-tr-lemon-thyme-roast-chicken",
+    "name": "One-Tray Lemon & Thyme Roast Chicken",
+    "blurb": "A whole chicken roasted over potatoes, lemon and garlic — the whole dinner in one tin.",
+    "venue": "home", "cuisine": "french", "protein": "chicken", "carb": "potato",
+    "spicy": 0, "richness": "hearty", "mood": ["comfort", "fancy"], "format": "plate", "diet": ["gluten-free"],
+    "effort": "medium", "timeMinutes": 100, "onePan": true, "servings": 4,
+    "ingredients": [
+      "1 whole chicken (about 1.6kg)", "1kg baby potatoes, halved", "1 whole garlic bulb, halved",
+      "2 lemons, quartered", "Few thyme sprigs", "50g soft butter, 3 tbsp olive oil"
+    ],
+    "method": [
+      "Toss the potatoes, garlic and half the lemon with the oil in a large deep tray.",
+      "Rub the chicken with butter and season; put the rest of the lemon and thyme in the cavity and sit it on the potatoes.",
+      "Roast at 200C fan for 75-85 minutes, basting once, until the juices run clear.",
+      "Rest 15 minutes; squeeze the roasted garlic and lemon over everything to serve."
+    ]
+  },
+  {
+    "id": "home-tr-gochujang-chicken-tray",
+    "name": "Sticky Gochujang Chicken Traybake",
+    "blurb": "Korean chilli-glazed chicken roasted with spring onion and sesame, over rice.",
+    "venue": "home", "cuisine": "east-asian", "protein": "chicken", "carb": "rice",
+    "spicy": 2, "richness": "hearty", "mood": ["comfort", "indulgent"], "format": "plate", "diet": ["dairy-free"],
+    "effort": "quick", "timeMinutes": 45, "onePan": true, "servings": 4,
+    "ingredients": [
+      "8 chicken thighs", "Glaze: 3 tbsp gochujang, 2 tbsp soy, 2 tbsp honey, 1 tbsp rice vinegar, 1 tbsp sesame oil, 3 garlic cloves, 2cm ginger",
+      "1 bunch spring onions, cut into lengths", "Sesame seeds", "Rice and quick-pickled cucumber to serve"
+    ],
+    "method": [
+      "Mix the glaze and toss with the chicken; marinate 20 minutes.",
+      "Spread in a tray with the spring onions and roast at 200C fan for 30-35 minutes, basting once, until sticky and charred.",
+      "Scatter with sesame seeds.",
+      "Serve over rice with pickled cucumber."
+    ]
+  },
+  {
+    "id": "home-tr-cod-chorizo-tray",
+    "name": "Cod, Chorizo & Butter Bean Traybake",
+    "blurb": "Cod roasted on smoky chorizo, butter beans and cherry tomatoes.",
+    "venue": "home", "cuisine": "med", "protein": "fish", "carb": "none",
+    "spicy": 1, "richness": "medium", "mood": ["comfort", "healthy"], "format": "plate", "diet": ["pescatarian", "gluten-free", "dairy-free"],
+    "effort": "quick", "timeMinutes": 35, "onePan": true, "servings": 4,
+    "ingredients": [
+      "4 thick cod or hake fillets", "150g cooking chorizo, sliced", "2 x 400g tins butter beans, drained",
+      "300g cherry tomatoes", "1 red onion, sliced", "3 tbsp olive oil, 1 tsp smoked paprika", "Parsley and lemon"
+    ],
+    "method": [
+      "Toss the chorizo, beans, tomatoes and onion with the oil and paprika in a tray.",
+      "Roast at 200C fan for 15 minutes until the chorizo oil runs and the tomatoes soften.",
+      "Sit the seasoned cod on top and roast 10-12 minutes until it flakes.",
+      "Finish with parsley and a squeeze of lemon."
+    ]
+  },
+  {
+    "id": "home-tr-tandoori-paneer-tray",
+    "name": "Tandoori Paneer & Pepper Traybake",
+    "blurb": "Yoghurt-and-spice marinated paneer roasted with peppers and red onion.",
+    "venue": "home", "cuisine": "indian", "protein": "veggie", "carb": "none",
+    "spicy": 2, "richness": "medium", "mood": ["healthy", "comfort"], "format": "plate", "diet": ["vegetarian", "gluten-free"],
+    "effort": "quick", "timeMinutes": 35, "onePan": true, "servings": 4,
+    "ingredients": [
+      "450g paneer, in 3cm cubes", "3 peppers and 2 red onions, in chunks",
+      "150g thick yoghurt, 3 tbsp tandoori spice mix, 2 garlic cloves and 2cm ginger crushed, juice of half a lemon, 2 tbsp oil",
+      "Naan and mint yoghurt to serve"
+    ],
+    "method": [
+      "Mix the yoghurt, spice mix, garlic, ginger, lemon and oil and fold through the paneer and vegetables.",
+      "Marinate 20 minutes, then spread on a tray.",
+      "Roast at 220C fan for 20-25 minutes until charred at the edges.",
+      "Serve with warm naan and mint yoghurt."
+    ]
+  },
+  {
+    "id": "home-tr-toulouse-sausage-tray",
+    "name": "Sausage, Apple & Red Cabbage Tray Roast",
+    "blurb": "Sausages roasted with wedges of red cabbage, apple and red onion in balsamic.",
+    "venue": "home", "cuisine": "other", "protein": "pork", "carb": "none",
+    "spicy": 0, "richness": "hearty", "mood": ["comfort"], "format": "plate", "diet": ["gluten-free", "dairy-free"],
+    "effort": "quick", "timeMinutes": 45, "onePan": true, "servings": 4,
+    "ingredients": [
+      "8 good pork sausages", "Half a red cabbage, in thin wedges", "2 apples, in wedges",
+      "2 red onions, in wedges", "3 tbsp olive oil, 2 tbsp balsamic vinegar, 1 tbsp wholegrain mustard, 1 tbsp honey",
+      "Few thyme sprigs", "Mash to serve"
+    ],
+    "method": [
+      "Toss the cabbage, apple and onion with the oil, balsamic, mustard, honey and thyme in a large tray.",
+      "Roast at 200C fan for 15 minutes.",
+      "Add the sausages and roast 25-30 minutes more, turning once, until browned and the cabbage is tender.",
+      "Serve with mash."
+    ]
+  },
+  {
+    "id": "home-tr-maple-mustard-chicken-tray",
+    "name": "Maple-Mustard Chicken & Root Veg Traybake",
+    "blurb": "Chicken thighs roasted with carrots, parsnips and new potatoes in a maple-mustard glaze.",
+    "venue": "home", "cuisine": "british", "protein": "chicken", "carb": "potato",
+    "spicy": 0, "richness": "hearty", "mood": ["comfort"], "format": "plate", "diet": ["gluten-free", "dairy-free"],
+    "effort": "quick", "timeMinutes": 55, "onePan": true, "servings": 4,
+    "ingredients": [
+      "8 chicken thighs", "500g new potatoes, halved", "3 carrots and 2 parsnips, in batons",
+      "2 red onions, in wedges", "Glaze: 2 tbsp maple syrup, 2 tbsp wholegrain mustard, 3 tbsp olive oil, few rosemary sprigs"
+    ],
+    "method": [
+      "Toss the potatoes, carrots, parsnips and onions with half the glaze in a large tray and roast at 200C fan for 20 minutes.",
+      "Add the chicken, brush with the rest of the glaze, and roast 30-35 minutes more.",
+      "Baste with the pan juices and serve."
+    ]
+  }
+]

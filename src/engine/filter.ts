@@ -1,5 +1,5 @@
 import { Dish } from './types';
-import { AnswerOption, Question, QUESTIONS } from './questions';
+import { Answers, AnswerOption, Question, QUESTIONS, QUESTION_ORDER } from './questions';
 
 export interface AnsweredStep {
   questionId: string;
@@ -8,12 +8,14 @@ export interface AnsweredStep {
   ignored: boolean;
 }
 
-export interface DeciderState {
-  steps: AnsweredStep[];
-}
-
 const optionFor = (questionId: string, optionId: string): AnswerOption | undefined =>
   QUESTIONS[questionId]?.options.find((o) => o.id === optionId);
+
+export function answersFromSteps(steps: AnsweredStep[]): Answers {
+  const a: Answers = {};
+  for (const s of steps) a[s.questionId] = s.optionId;
+  return a;
+}
 
 /**
  * Fold every kept answer's predicate over the full deck.
@@ -60,14 +62,18 @@ export function applyAnswer(
   return { steps: nextSteps, pool: poolFor(all, nextSteps), ignored };
 }
 
-/** Resolve the next question id from the current question + chosen option. */
-export function nextQuestionId(questionId: string, optionId: string): string | null {
-  const q = QUESTIONS[questionId];
-  const opt = optionFor(questionId, optionId);
-  const target = opt?.nextId !== undefined ? opt.nextId : q?.nextId ?? null;
-  if (!target) return null;
-  // Skip any question that is not applicable for the answers gathered so far.
-  return target;
+/**
+ * Walk QUESTION_ORDER from just after `currentId` and return the first question
+ * that applies for the answers gathered so far. null = go to results.
+ */
+export function nextQuestionId(currentId: string, answers: Answers): string | null {
+  const from = QUESTION_ORDER.indexOf(currentId);
+  for (let i = from + 1; i < QUESTION_ORDER.length; i++) {
+    const q = QUESTIONS[QUESTION_ORDER[i]];
+    if (!q) continue;
+    if (!q.when || q.when(answers)) return q.id;
+  }
+  return null;
 }
 
 export function questionById(id: string): Question | undefined {

@@ -1,5 +1,4 @@
-import { useMemo } from 'react';
-import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TopBar } from '@/components/TopBar';
@@ -7,6 +6,7 @@ import { AdBanner } from '@/components/AdBanner';
 import { DishCard } from '@/components/DishCard';
 import { Button } from '@/components/Button';
 import { useDecider } from '@/store/decider';
+import { useResults } from '@/store/pool';
 import { isHome } from '@/engine/types';
 import { RESULT_THRESHOLD } from '@/engine/filter';
 import { findNearMeQuery, mapsSearchUrl, openExternal } from '@/lib/links';
@@ -14,19 +14,17 @@ import { colors } from '@/theme';
 
 export default function Results() {
   const router = useRouter();
-  const total = useDecider((s) => s.count());
-  const shuffleSeed = useDecider((s) => s.shuffleSeed);
-  const results = useDecider((s) => s.results());
+  const { results, total } = useResults();
   const reshuffle = useDecider((s) => s.reshuffle);
   const start = useDecider((s) => s.start);
 
   const overflow = total > RESULT_THRESHOLD;
-  // recompute label when seed changes
-  const subtitle = useMemo(() => {
-    if (total === 0) return 'No exact matches — try starting over';
-    if (overflow) return `Still ${total} to choose from — here are 10 to spark ideas`;
-    return `Narrowed down to ${total} — pick one`;
-  }, [total, overflow, shuffleSeed]);
+  const subtitle =
+    total === 0
+      ? 'Nothing matched every answer — start over and loosen a choice'
+      : overflow
+        ? `${total} match — here are ${RESULT_THRESHOLD} to spark ideas`
+        : `Narrowed down to ${total} — pick one`;
 
   const openDish = (id: string) => {
     const dish = results.find((d) => d.id === id);
@@ -65,7 +63,7 @@ export default function Results() {
         ListFooterComponent={
           <View style={styles.footer}>
             {overflow && (
-              <Button label="Shuffle these 10" variant="outline" onPress={reshuffle} />
+              <Button label={`Shuffle these ${RESULT_THRESHOLD}`} variant="outline" onPress={reshuffle} />
             )}
             <Button label="Start over" variant="ghost" onPress={restart} />
           </View>
