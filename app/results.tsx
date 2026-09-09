@@ -8,10 +8,8 @@ import { Button } from '@/components/Button';
 import { useDecider } from '@/store/decider';
 import { useResults } from '@/store/pool';
 import { usePrefs } from '@/store/prefs';
-import { isHome } from '@/engine/types';
 import { answersFromSteps, RESULT_THRESHOLD } from '@/engine/filter';
 import { planLabel } from '@/engine/estimate';
-import { findNearMeQuery, mapsSearchUrl, openExternal } from '@/lib/links';
 import { shareDish } from '@/lib/share';
 import { colors } from '@/theme';
 
@@ -39,13 +37,7 @@ export default function Results() {
         : `Narrowed down to ${total} — pick one`;
 
   const openDish = (id: string) => {
-    const dish = results.find((d) => d.id === id);
-    if (!dish) return;
-    if (isHome(dish)) {
-      router.push({ pathname: '/dish/[id]', params: { id } });
-    } else {
-      openExternal(mapsSearchUrl(findNearMeQuery(dish)));
-    }
+    router.push({ pathname: '/dish/[id]', params: { id } });
   };
 
   const restart = () => {

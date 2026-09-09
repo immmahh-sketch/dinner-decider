@@ -7,14 +7,14 @@ import { AdBanner } from '@/components/AdBanner';
 import { Button } from '@/components/Button';
 import { dishById, loadCatalog } from '@/data/dishes';
 import { hydrateDish } from '@/engine/hydrate';
-import { Dish, isHome } from '@/engine/types';
+import { Dish, isHome, isTakeaway } from '@/engine/types';
 import { estimateDish, planLabel } from '@/engine/estimate';
 import { answersFromSteps } from '@/engine/filter';
 import { useShoppingList } from '@/store/shoppingList';
 import { useDecider } from '@/store/decider';
 import { usePrefs } from '@/store/prefs';
 import { useCatalogVersion } from '@/store/catalog';
-import { findNearMeQuery, mapsSearchUrl, openExternal } from '@/lib/links';
+import { findNearMeQuery, justEatUrl, mapsSearchUrl, openExternal } from '@/lib/links';
 import { shareDish } from '@/lib/share';
 import { colors, radius, shadowCard } from '@/theme';
 
@@ -64,11 +64,24 @@ export default function DishDetail() {
           <Text style={styles.title}>{dish.name}</Text>
           <Text style={styles.blurb}>{dish.blurb}</Text>
           <NutritionCard dish={dish} plan={plan} />
+          {isTakeaway(dish) && (
+            <Button
+              label="Order on Just Eat"
+              variant="primary"
+              onPress={() => openExternal(justEatUrl(dish))}
+            />
+          )}
           <Button
-            label="Find this near me"
-            variant="primary"
+            label={isTakeaway(dish) ? 'See takeaways near me' : 'Find this restaurant near me'}
+            variant={isTakeaway(dish) ? 'outline' : 'primary'}
             onPress={() => openExternal(mapsSearchUrl(findNearMeQuery(dish)))}
           />
+          {isTakeaway(dish) && (
+            <Text style={styles.orderNote}>
+              Just Eat has no public menu feed, so we can&apos;t show only what your area
+              stocks — this opens Just Eat where you pop in your postcode.
+            </Text>
+          )}
           <Button
             label="Share this idea"
             variant="outline"
@@ -218,6 +231,7 @@ const styles = StyleSheet.create({
   scroll: { padding: 20, paddingBottom: 8 },
   pad: { padding: 20, gap: 16 },
   missing: { textAlign: 'center', color: colors.inkSoft, padding: 32 },
+  orderNote: { fontSize: 11.5, color: colors.inkSoft, lineHeight: 16, marginTop: -4 },
   title: { fontSize: 26, fontWeight: '900', color: colors.ink },
   blurb: { fontSize: 14.5, color: colors.inkSoft, marginTop: 6, lineHeight: 20 },
   metaRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 16 },

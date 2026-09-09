@@ -2,6 +2,44 @@ import { Platform } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { Dish, isRestaurant, isTakeaway } from '@/engine/types';
 
+// Just Eat has no public menu API, so the app can't pre-filter its deck to what
+// a given postcode can actually order. What it can do is drop the user on the
+// right cuisine page, where they enter their postcode and see real local menus.
+// Their address never leaves the device — Just Eat asks for it, we don't.
+const JUST_EAT_CUISINE: Record<string, string> = {
+  pizza: 'pizza',
+  italian: 'italian',
+  indian: 'indian',
+  chinese: 'chinese',
+  thai: 'thai',
+  japanese: 'japanese',
+  sushi: 'sushi',
+  korean: 'korean',
+  vietnamese: 'vietnamese',
+  burger: 'burgers',
+  kebab: 'kebab',
+  'peri-peri': 'peri-peri',
+  'middle-eastern': 'lebanese',
+  greek: 'greek',
+  turkish: 'turkish',
+  caribbean: 'caribbean',
+  mexican: 'mexican',
+  'fried-chicken': 'chicken',
+  chippy: 'fish-and-chips',
+  deli: 'sandwiches',
+  healthy: 'healthy',
+};
+
+/** Deep link into Just Eat for this kind of takeaway. Falls back to the Just
+ *  Eat home page (postcode prompt) when the cuisine isn't mapped. */
+export function justEatUrl(dish: Dish): string {
+  const type = isTakeaway(dish) ? (dish as { takeawayType?: string }).takeawayType ?? '' : '';
+  const slug = JUST_EAT_CUISINE[type];
+  return slug
+    ? `https://www.just-eat.co.uk/${slug}-takeaway`
+    : 'https://www.just-eat.co.uk/';
+}
+
 /**
  * Build a Google Maps "near me" search for a dish + venue type.
  * Maps uses the device's own location for "near me", so we never send coordinates.

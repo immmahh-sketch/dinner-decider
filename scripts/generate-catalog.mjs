@@ -352,6 +352,205 @@ function takeawaySet() {
     const deli = /Wrap|Panini|Sub|Bagel|Rye|Ciabatta|Sourdough|Burrito/.test(c);
     add(c, { cuisine: /Poke|Teriyaki|Katsu|Miso|Noodle|Sushi/.test(c) ? 'east-asian' : /Shawarma|Falafel|Halloumi|Lentil|Hummus/.test(c) ? 'middle-eastern' : /Italian|Caprese|Meatball|Pesto|Greek/.test(c) ? 'med' : /Peri/.test(c) ? 'other' : 'american', protein: vegan ? 'vegan' : /Salmon|Tuna/.test(c) && !/Chicken/.test(c) ? 'fish' : /Prawn/.test(c) ? 'seafood' : /Halloumi|Caprese/.test(c) ? 'veggie' : /Beef|Pastrami|Meatball/.test(c) ? 'beef' : 'chicken', carb: /Bowl|Box|Rice|Grain|Quinoa|Poke/.test(c) ? (/Grain|Quinoa/.test(c) ? 'grains' : 'rice') : deli ? 'bread' : /Soup/.test(c) ? 'none' : 'salad', spicy: /Spicy|Peri|Shawarma/.test(c) ? 1 : 0, richness: deli ? 'medium' : /Soup|Salad/.test(c) ? 'light' : 'medium', mood: deli ? ['comfort', 'fresh'] : ['healthy', 'fresh', 'light'], format: /Soup/.test(c) ? 'soup' : /Wrap|Panini|Sub|Bagel|Rye|Ciabatta|Burrito/.test(c) ? 'handheld' : /Salad/.test(c) ? 'salad' : 'bowl', diet: vegan ? ['vegetarian', 'vegan', 'dairy-free'] : /Salmon|Tuna|Prawn/.test(c) && !/Chicken/.test(c) ? ['pescatarian'] : /Halloumi|Caprese/.test(c) ? ['vegetarian'] : [], takeawayType: deli ? 'deli' : 'healthy', blurb: `${c} — freshly made to order.` });
   }
+
+  // ---------- ITALIAN / PASTA takeaway ----------
+  const itDish = [
+    ['Spaghetti Bolognese', 'beef', 'pasta', 0], ['Spaghetti Carbonara', 'pork', 'pasta', 0],
+    ['Penne Arrabbiata', 'veggie', 'pasta', 2], ['Penne alla Vodka', 'veggie', 'pasta', 1],
+    ['Lasagne al Forno', 'beef', 'pasta', 0], ['Vegetable Lasagne', 'veggie', 'pasta', 0],
+    ['Tagliatelle Bolognese', 'beef', 'pasta', 0], ['Rigatoni Amatriciana', 'pork', 'pasta', 1],
+    ['Spaghetti Pomodoro', 'veggie', 'pasta', 0], ['Spaghetti & Meatballs', 'beef', 'pasta', 0],
+    ['Chicken Alfredo Pasta', 'chicken', 'pasta', 0], ['Prawn Linguine', 'seafood', 'pasta', 1],
+    ['Pesto Pasta', 'veggie', 'pasta', 0], ['Chicken Pesto Pasta', 'chicken', 'pasta', 0],
+    ['Chicken Parmigiana', 'chicken', 'none', 0], ['Aubergine Parmigiana', 'veggie', 'none', 0],
+    ['Mushroom Risotto', 'veggie', 'rice', 0], ['Chicken & Mushroom Risotto', 'chicken', 'rice', 0],
+    ['Gnocchi al Pomodoro', 'veggie', 'pasta', 0], ['Four Cheese Gnocchi Bake', 'veggie', 'pasta', 0],
+    ['Beef Cannelloni', 'beef', 'pasta', 0], ['Spinach & Ricotta Cannelloni', 'veggie', 'pasta', 0],
+    ['Ham & Ricotta Calzone', 'pork', 'bread', 0], ['Vegetable Calzone', 'veggie', 'bread', 0],
+    ['Garlic Bread with Cheese', 'veggie', 'bread', 0], ['Arancini', 'veggie', 'rice', 0],
+    ['Chicken Milanese', 'chicken', 'none', 0], ['Nduja Rigatoni', 'pork', 'pasta', 2],
+    ['Seafood Linguine', 'seafood', 'pasta', 1], ['Tuna Pasta Bake', 'fish', 'pasta', 0],
+    ['Spicy Sausage Rigatoni', 'pork', 'pasta', 2], ['Carbonara Gnocchi Bake', 'pork', 'pasta', 0],
+  ];
+  for (const [n, pk, cb, sp] of itDish) {
+    add(n, {
+      cuisine: 'italian', protein: pk, carb: cb, spicy: sp, richness: 'hearty',
+      mood: sp >= 2 ? ['comfort'] : ['comfort', 'indulgent'],
+      format: /Calzone|Garlic Bread/.test(n) ? 'handheld' : /Risotto|Gnocchi|Bake/.test(n) ? 'bowl' : 'plate',
+      diet: pk === 'veggie' ? ['vegetarian'] : /Prawn|Seafood|Tuna/.test(n) ? ['pescatarian'] : [],
+      takeawayType: 'italian', blurb: `${n} — freshly made and boxed for delivery.`,
+    });
+  }
+
+  // ---------- CARIBBEAN takeaway ----------
+  const carib = [
+    ['Jerk Chicken', 'chicken', 3], ['Jerk Pork', 'pork', 3], ['Jerk Chicken Wings', 'chicken', 3],
+    ['Curry Goat', 'lamb', 2], ['Curry Mutton', 'lamb', 2], ['Curry Chicken', 'chicken', 2],
+    ['Brown Stew Chicken', 'chicken', 2], ['Brown Stew Fish', 'fish', 2], ['Stew Peas & Beef', 'beef', 1],
+    ['Oxtail & Butter Beans', 'beef', 1], ['Escovitch Fish', 'fish', 2], ['Fried Snapper', 'fish', 1],
+    ['Ackee & Saltfish', 'fish', 1], ['Callaloo & Saltfish', 'fish', 1],
+    ['Jamaican Beef Patty', 'beef', 1], ['Chicken Patty', 'chicken', 1], ['Vegetable Patty', 'veggie', 1],
+    ['Jerk Salmon', 'fish', 2], ['Chicken Roti', 'chicken', 1], ['Goat Roti', 'lamb', 2],
+    ['Vegetable Roti', 'veggie', 1], ['Pepper Shrimp', 'seafood', 3], ['BBQ Jerk Ribs', 'pork', 2],
+    ['Jerk Chicken Rice Bowl', 'chicken', 3], ['Curry Chickpea & Potato', 'vegan', 2],
+  ];
+  for (const [n, pk, sp] of carib) {
+    const veg = /veggie|vegan/.test(pk);
+    add(n, {
+      cuisine: 'caribbean', protein: pk,
+      carb: /Patty|Roti/.test(n) ? 'bread' : 'rice',
+      spicy: sp, richness: 'hearty', mood: ['comfort', 'indulgent'],
+      format: /Patty|Roti/.test(n) ? 'handheld' : /Wings|Ribs/.test(n) ? 'sharing' : /Bowl/.test(n) ? 'bowl' : 'plate',
+      diet: pk === 'vegan' ? ['vegetarian', 'vegan', 'dairy-free'] : pk === 'veggie' ? ['vegetarian'] : /Fish|Shrimp|Salmon|Saltfish|Snapper/.test(n) ? ['pescatarian', 'dairy-free'] : ['dairy-free'],
+      takeawayType: 'caribbean', blurb: `${n}, with rice & peas, festival or hard-dough bread.`,
+    });
+  }
+
+  // ---------- GREEK / TURKISH mains ----------
+  const grtr = [
+    ['Chicken Gyros Wrap', 'chicken', 'med', 1], ['Pork Gyros Wrap', 'pork', 'med', 1],
+    ['Chicken Gyros Plate', 'chicken', 'med', 1], ['Lamb Gyros Plate', 'lamb', 'med', 1],
+    ['Chicken Souvlaki Skewers', 'chicken', 'med', 1], ['Lamb Souvlaki Plate', 'lamb', 'med', 1],
+    ['Moussaka', 'beef', 'med', 0], ['Vegetable Moussaka', 'veggie', 'med', 0],
+    ['Grilled Halloumi Plate', 'veggie', 'med', 0], ['Lamb Kleftiko', 'lamb', 'med', 0],
+    ['Beef Stifado', 'beef', 'med', 0], ['Greek Salad with Halloumi', 'veggie', 'med', 0],
+    ['Mixed Meze Platter', 'mixed', 'med', 1], ['Falafel Souvlaki Wrap', 'vegan', 'med', 1],
+    ['Chicken Shish Kebab', 'chicken', 'middle-eastern', 1], ['Lamb Shish Kebab', 'lamb', 'middle-eastern', 1],
+    ['Adana Kebab', 'lamb', 'middle-eastern', 2], ['Chicken Beyti', 'chicken', 'middle-eastern', 1],
+    ['Iskender Kebab', 'lamb', 'middle-eastern', 1], ['Lahmacun', 'lamb', 'middle-eastern', 1],
+    ['Chicken Pide', 'chicken', 'middle-eastern', 0], ['Cheese & Spinach Pide', 'veggie', 'middle-eastern', 0],
+    ['Spinach & Feta Borek', 'veggie', 'middle-eastern', 0], ['Chicken Gozleme', 'chicken', 'middle-eastern', 0],
+    ['Manti', 'beef', 'middle-eastern', 1], ['Lamb Chops Plate', 'lamb', 'middle-eastern', 1],
+    ['Turkish Mixed Grill', 'mixed', 'middle-eastern', 1],
+  ];
+  for (const [n, pk, cu, sp] of grtr) {
+    add(n, {
+      cuisine: cu, protein: pk,
+      carb: /Wrap|Lahmacun|Pide|Borek|Gozleme/.test(n) ? 'bread' : /Salad/.test(n) ? 'salad' : /Manti/.test(n) ? 'pasta' : 'rice',
+      spicy: sp, richness: /Salad/.test(n) ? 'light' : 'hearty',
+      mood: /Salad|Meze/.test(n) ? ['fresh', 'light'] : ['comfort'],
+      format: /Wrap|Lahmacun|Gozleme/.test(n) ? 'handheld' : /Platter|Meze|Grill/.test(n) ? 'sharing' : /Salad/.test(n) ? 'salad' : 'plate',
+      diet: pk === 'vegan' ? ['vegetarian', 'vegan', 'dairy-free'] : pk === 'veggie' ? ['vegetarian'] : ['dairy-free'],
+      takeawayType: cu === 'med' ? 'greek' : 'turkish',
+      blurb: `${n} with salad, pittas and dips.`,
+    });
+  }
+
+  // ---------- KOREAN takeaway ----------
+  const kr = [
+    ['Korean Fried Chicken (Soy Garlic)', 'chicken', 1], ['Korean Fried Chicken (Yangnyeom)', 'chicken', 2],
+    ['Korean Fried Chicken (Honey Butter)', 'chicken', 0], ['Korean Wings Box', 'chicken', 2],
+    ['Beef Bulgogi Box', 'beef', 1], ['Pork Bulgogi Box', 'pork', 2], ['Chicken Bulgogi Box', 'chicken', 1],
+    ['Bibimbap', 'veggie', 1], ['Beef Bibimbap', 'beef', 1], ['Tofu Bibimbap', 'vegan', 1],
+    ['Japchae', 'veggie', 0], ['Tteokbokki', 'veggie', 3], ['Kimchi Fried Rice', 'veggie', 2],
+    ['Kimchi Jjigae', 'pork', 2], ['Spicy Pork Bowl (Jeyuk Bokkeum)', 'pork', 3],
+    ['Gochujang Chicken Bowl', 'chicken', 2], ['Korean BBQ Beef Bowl', 'beef', 1],
+    ['Fried Chicken & Chips', 'chicken', 1], ['Kimbap', 'veggie', 0], ['Corn Cheese', 'veggie', 0],
+  ];
+  for (const [n, pk, sp] of kr) {
+    add(n, {
+      cuisine: 'east-asian', protein: pk,
+      carb: /Japchae/.test(n) ? 'noodles' : /Chips/.test(n) ? 'potato' : /Wings|Corn Cheese/.test(n) ? 'none' : 'rice',
+      spicy: sp, richness: 'hearty', mood: sp >= 3 ? ['comfort'] : ['comfort', 'indulgent'],
+      format: /Box|Wings/.test(n) ? 'sharing' : /Jjigae/.test(n) ? 'soup' : 'bowl',
+      diet: pk === 'vegan' ? ['vegetarian', 'vegan', 'dairy-free'] : pk === 'veggie' ? ['vegetarian'] : ['dairy-free'],
+      takeawayType: 'korean', blurb: `${n} — Korean comfort food, boxed for delivery.`,
+    });
+  }
+
+  // ---------- VIETNAMESE takeaway ----------
+  const vn = [
+    ['Beef Pho', 'beef', 1], ['Chicken Pho', 'chicken', 1], ['Vegetable Pho', 'veggie', 1], ['Prawn Pho', 'seafood', 1],
+    ['Grilled Pork Vermicelli Bowl', 'pork', 1], ['Lemongrass Chicken Vermicelli Bowl', 'chicken', 1],
+    ['Tofu Vermicelli Bowl', 'vegan', 1], ['Bun Cha', 'pork', 1],
+    ['Chicken Banh Mi', 'chicken', 1], ['Pork Belly Banh Mi', 'pork', 1], ['Lemongrass Tofu Banh Mi', 'vegan', 1],
+    ['Grilled Chicken Broken Rice', 'chicken', 1], ['Grilled Pork Chop Broken Rice', 'pork', 1],
+    ['Prawn Summer Rolls', 'seafood', 0], ['Tofu Summer Rolls', 'vegan', 0], ['Crispy Spring Rolls', 'pork', 0],
+    ['Caramel Clay Pot Chicken', 'chicken', 1], ['Lemongrass Chilli Beef', 'beef', 2], ['Shaking Beef', 'beef', 1],
+  ];
+  for (const [n, pk, sp] of vn) {
+    add(n, {
+      cuisine: 'east-asian', protein: pk,
+      carb: /Pho|Vermicelli/.test(n) ? 'noodles' : /Banh Mi/.test(n) ? 'bread' : /Rolls/.test(n) ? 'none' : 'rice',
+      spicy: sp, richness: /Summer Rolls/.test(n) ? 'light' : 'medium',
+      mood: /Pho|Summer Rolls|Vermicelli/.test(n) ? ['fresh', 'light', 'healthy'] : ['comfort', 'fresh'],
+      format: /Pho/.test(n) ? 'soup' : /Banh Mi/.test(n) ? 'handheld' : /Rolls/.test(n) ? 'sharing' : 'bowl',
+      diet: pk === 'vegan' ? ['vegetarian', 'vegan', 'dairy-free'] : pk === 'veggie' ? ['vegetarian'] : /Prawn/.test(n) ? ['pescatarian', 'dairy-free'] : ['dairy-free'],
+      takeawayType: 'vietnamese', blurb: `${n} — fresh Vietnamese, made to order.`,
+    });
+  }
+
+  // ---------- JAPANESE / SUSHI depth ----------
+  const jp = [
+    ['Chicken Katsu Curry', 'chicken', 1], ['Pork Katsu Curry', 'pork', 1], ['Prawn Katsu Curry', 'seafood', 1],
+    ['Sweet Potato Katsu Curry', 'vegan', 1], ['Chicken Katsudon', 'chicken', 0], ['Beef Yakiniku Don', 'beef', 1],
+    ['Chicken Teriyaki Don', 'chicken', 0], ['Salmon Teriyaki Don', 'fish', 0], ['Chicken Karaage Box', 'chicken', 1],
+    ['Chicken Ramen', 'chicken', 1], ['Tonkotsu Ramen', 'pork', 1], ['Miso Ramen', 'veggie', 1], ['Spicy Miso Ramen', 'pork', 2],
+    ['Prawn Yaki Udon', 'seafood', 1], ['Chicken Yakisoba', 'chicken', 1], ['Vegetable Gyoza', 'veggie', 0], ['Pork Gyoza', 'pork', 0],
+    ['Chicken Katsu Wrap', 'chicken', 1], ['Salmon Nigiri Set', 'fish', 0], ['Salmon & Tuna Sashimi', 'fish', 0],
+    ['Rainbow Roll', 'fish', 0], ['California Roll', 'seafood', 0], ['Katsu Chicken Roll', 'chicken', 1], ['Veggie Maki Set', 'vegan', 0],
+    ['Chirashi Bowl', 'fish', 0], ['Salmon Poke Bowl', 'fish', 1], ['Tofu Poke Bowl', 'vegan', 1], ['Tuna Poke Bowl', 'fish', 1],
+    ['Chicken Teriyaki Bento', 'chicken', 0], ['Katsu Curry Bento', 'chicken', 1], ['Pork Bao Buns', 'pork', 0], ['Chicken Katsu Bao Buns', 'chicken', 1],
+  ];
+  for (const [n, pk, sp] of jp) {
+    const fishy = /Salmon|Tuna|Sashimi|Nigiri|Chirashi|Rainbow|Poke Bowl/.test(n) && !/Chicken/.test(n);
+    add(n, {
+      cuisine: 'east-asian', protein: pk,
+      carb: /Ramen|Udon|Yakisoba/.test(n) ? 'noodles' : /Wrap/.test(n) ? 'bread' : /Gyoza|Sashimi|Bao/.test(n) ? 'none' : 'rice',
+      spicy: sp,
+      richness: /Sashimi|Nigiri|Poke|Maki/.test(n) ? 'light' : /Ramen|Katsu|Karaage|Katsudon/.test(n) ? 'hearty' : 'medium',
+      mood: /Sashimi|Nigiri|Poke|Maki|Chirashi|Roll/.test(n) ? ['light', 'fresh', 'healthy'] : ['comfort'],
+      format: /Ramen/.test(n) ? 'soup' : /Set|Sashimi|Bento|Gyoza|Bao/.test(n) ? 'sharing' : /Wrap/.test(n) ? 'handheld' : 'bowl',
+      diet: pk === 'vegan' ? ['vegetarian', 'vegan', 'dairy-free'] : pk === 'veggie' ? ['vegetarian'] : pk === 'seafood' || fishy ? ['pescatarian'] : ['dairy-free'],
+      takeawayType: /Nigiri|Sashimi|Roll|Maki|Chirashi|Poke/.test(n) ? 'sushi' : 'japanese',
+      blurb: `${n} — a Japanese delivery favourite.`,
+    });
+  }
+
+  // ---------- PERI-PERI / GRILLED CHICKEN ----------
+  const peri = [
+    ['Peri Peri Quarter Chicken (Lemon & Herb)', 0], ['Peri Peri Quarter Chicken (Medium)', 2],
+    ['Peri Peri Quarter Chicken (Hot)', 3], ['Peri Peri Half Chicken', 2], ['Peri Peri Whole Chicken', 2],
+    ['Peri Peri Chicken Wrap', 2], ['Peri Peri Chicken Pitta', 2], ['Peri Peri Chicken Burger', 2],
+    ['Peri Peri Chicken Thighs', 2], ['Peri Peri Chicken Livers', 2], ['Peri Peri Wings', 2],
+    ['Peri Peri Chicken Salad', 1], ['Peri Peri Chicken & Chips', 2], ['Butterfly Chicken Breast', 2],
+    ['Peri Peri Chicken Rice Bowl', 2], ['Peri Peri Halloumi', 1],
+  ];
+  for (const [n, sp] of peri) {
+    const halloumi = /Halloumi/.test(n);
+    add(n, {
+      cuisine: 'other', protein: halloumi ? 'veggie' : 'chicken',
+      carb: /Wrap|Pitta|Burger/.test(n) ? 'bread' : /Rice Bowl/.test(n) ? 'rice' : /Salad/.test(n) ? 'salad' : /Chips/.test(n) ? 'potato' : 'none',
+      spicy: sp, richness: /Salad/.test(n) ? 'light' : 'hearty',
+      mood: /Salad/.test(n) ? ['fresh', 'healthy', 'light'] : ['comfort', 'indulgent'],
+      format: /Wrap|Pitta|Burger/.test(n) ? 'handheld' : /Whole|Wings/.test(n) ? 'sharing' : /Bowl/.test(n) ? 'bowl' : /Salad/.test(n) ? 'salad' : 'plate',
+      diet: halloumi ? ['vegetarian', 'gluten-free'] : ['dairy-free', 'gluten-free'],
+      takeawayType: 'peri-peri', blurb: `${n} — flame-grilled with peri peri and a choice of sides.`,
+    });
+  }
+
+  // ---------- MIDDLE EASTERN / SHAWARMA ----------
+  const shaw = [
+    ['Chicken Shawarma Wrap', 'chicken', 1], ['Lamb Shawarma Wrap', 'lamb', 1], ['Mixed Shawarma Wrap', 'mixed', 1],
+    ['Chicken Shawarma Plate', 'chicken', 1], ['Lamb Shawarma Plate', 'lamb', 1], ['Chicken Shawarma Box', 'chicken', 1],
+    ['Falafel Wrap', 'vegan', 1], ['Falafel Plate', 'vegan', 1], ['Halloumi Wrap', 'veggie', 0],
+    ['Chicken Shish Taouk Plate', 'chicken', 1], ['Lamb Kofta Wrap', 'lamb', 1], ['Mixed Grill Platter', 'mixed', 1],
+    ['Hummus & Chicken Bowl', 'chicken', 0], ['Falafel & Moutabal Bowl', 'vegan', 0],
+    ['Zaatar Manakish', 'veggie', 0], ['Cheese Manakish', 'veggie', 0], ['Fattoush with Chicken', 'chicken', 0],
+    ['Chicken Musakhan', 'chicken', 1],
+  ];
+  for (const [n, pk, sp] of shaw) {
+    add(n, {
+      cuisine: 'middle-eastern', protein: pk,
+      carb: /Wrap|Manakish|Musakhan/.test(n) ? 'bread' : /Bowl|Fattoush/.test(n) ? 'grains' : 'rice',
+      spicy: sp, richness: /Bowl|Fattoush/.test(n) ? 'light' : 'hearty',
+      mood: /Bowl|Fattoush/.test(n) ? ['fresh', 'healthy'] : ['comfort'],
+      format: /Wrap/.test(n) ? 'handheld' : /Platter|Grill/.test(n) ? 'sharing' : /Bowl|Fattoush/.test(n) ? 'bowl' : 'plate',
+      diet: pk === 'vegan' ? ['vegetarian', 'vegan', 'dairy-free'] : pk === 'veggie' ? ['vegetarian'] : ['dairy-free'],
+      takeawayType: 'middle-eastern', blurb: `${n} with salad, pickles, garlic sauce and chilli.`,
+    });
+  }
+
   return out;
 }
 
