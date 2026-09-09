@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
-import Animated, { FadeIn } from 'react-native-reanimated';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Button } from '@/components/Button';
+import { FadeInView } from '@/components/FadeInView';
 import { colors, radius, shadowCard } from '@/theme';
 
 export default function Peek() {
@@ -11,8 +11,8 @@ export default function Peek() {
   const wasIgnored = ignored === '1';
 
   return (
-    <Animated.View entering={FadeIn.duration(180)} style={styles.backdrop}>
-      <Animated.View entering={FadeIn.duration(220)} style={[styles.card, shadowCard]}>
+    <FadeInView from="none" duration={180} style={styles.backdrop}>
+      <FadeInView from="none" duration={220} style={[styles.card, shadowCard]}>
         <Text style={styles.big}>{n}</Text>
         <Text style={styles.label}>
           {n === 1 ? 'dinner idea matches' : 'dinner ideas match so far'}
@@ -32,8 +32,8 @@ export default function Peek() {
           />
           <Button label="Keep narrowing it down" variant="outline" onPress={() => router.back()} />
         </View>
-      </Animated.View>
-    </Animated.View>
+      </FadeInView>
+    </FadeInView>
   );
 }
 

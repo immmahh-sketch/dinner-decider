@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import Animated, { FadeIn, FadeInRight } from 'react-native-reanimated';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TopBar } from '@/components/TopBar';
+import { FadeInView } from '@/components/FadeInView';
 import { AdBanner } from '@/components/AdBanner';
 import { useDecider } from '@/store/decider';
 import { usePoolCount } from '@/store/pool';
@@ -60,16 +60,18 @@ export default function QuestionScreen() {
       </Pressable>
 
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-        <Animated.View key={currentQuestionId} entering={FadeIn.duration(250)}>
+        <FadeInView key={currentQuestionId} from="none" duration={250}>
           <Text style={styles.qTitle}>{question.title}</Text>
           {question.subtitle && <Text style={styles.qSub}>{question.subtitle}</Text>}
-        </Animated.View>
+        </FadeInView>
 
         <View style={styles.options}>
           {question.options.map((opt, i) => (
-            <Animated.View
+            <FadeInView
               key={`${currentQuestionId}-${opt.id}`}
-              entering={FadeInRight.delay(60 * i).duration(220)}
+              from="right"
+              delay={60 * i}
+              duration={220}
             >
               <Pressable
                 onPress={() => choose(opt.id)}
@@ -83,7 +85,7 @@ export default function QuestionScreen() {
                 <Text style={styles.optionLabel}>{opt.label}</Text>
                 <Text style={styles.optionChevron}>›</Text>
               </Pressable>
-            </Animated.View>
+            </FadeInView>
           ))}
         </View>
       </ScrollView>

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import Animated, { FadeInDown } from 'react-native-reanimated';
 import { Redirect, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Wheel } from '@/components/Wheel';
+import { FadeInView } from '@/components/FadeInView';
 import { Button } from '@/components/Button';
 import { WHEEL_TITLES } from '@/data/dishes';
 import { useDecider } from '@/store/decider';
@@ -47,7 +47,7 @@ export default function Welcome() {
 
       <View style={styles.bottom}>
         {revealed && (
-          <Animated.View entering={FadeInDown.duration(400)} style={styles.cta}>
+          <FadeInView from="down" duration={400} style={styles.cta}>
             <Button label="Help me decide" onPress={begin} variant="primary" />
             <Text style={styles.count}>
               {stats.total.toLocaleString()} dinners in the deck
@@ -64,7 +64,7 @@ export default function Welcome() {
                 </Text>
               </Pressable>
             )}
-          </Animated.View>
+          </FadeInView>
         )}
       </View>
 

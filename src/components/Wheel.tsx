@@ -1,12 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Animated, {
-  Easing,
-  useAnimatedStyle,
-  useSharedValue,
-  withDelay,
-  withTiming,
-} from 'react-native-reanimated';
+import { Animated, Easing, StyleSheet, Text, View } from 'react-native';
 import Svg, { Circle, G, Path, Polygon, Text as SvgText } from 'react-native-svg';
 import { colors, wheelColors } from '@/theme';
 
@@ -44,29 +37,40 @@ interface Props {
 }
 
 export function Wheel({ titles, onRevealed }: Props) {
-  const spin = useSharedValue(0);
-  const titleScale = useSharedValue(0);
-  const titleRotate = useSharedValue(-9);
-  const taglineOpacity = useSharedValue(0);
+  // Plain RN Animated (no reanimated / worklets native module).
+  const spin = useRef(new Animated.Value(0)).current;
+  const titleScale = useRef(new Animated.Value(0)).current;
+  const taglineOpacity = useRef(new Animated.Value(0)).current;
   const started = useRef(false);
   const done = useRef(false);
 
+  const totalDeg = useRef(360 * (4 + Math.random() * 2) + Math.random() * 300).current;
+
   useEffect(() => {
-    if (started.current) return; // guard against dev double-invoke / fast refresh
+    if (started.current) return;
     started.current = true;
 
-    const turns = 4 + Math.random() * 2;
-    spin.value = withTiming(360 * turns + Math.random() * 300, {
+    Animated.timing(spin, {
+      toValue: 1,
       duration: SPIN_MS,
       easing: Easing.out(Easing.cubic),
-    });
+      useNativeDriver: true,
+    }).start();
 
-    // Reveal is driven by plain JS timers, and the pop uses withTiming + a back
-    // easing so it always settles at exactly 1 (springs can overshoot on web).
     const revealAt = setTimeout(() => {
-      titleRotate.value = withTiming(0, { duration: 500, easing: Easing.out(Easing.cubic) });
-      titleScale.value = withTiming(1, { duration: 520, easing: Easing.out(Easing.back(2.2)) });
-      taglineOpacity.value = withDelay(400, withTiming(1, { duration: 350 }));
+      Animated.timing(titleScale, {
+        toValue: 1,
+        duration: 520,
+        easing: Easing.out(Easing.back(2.2)),
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(taglineOpacity, {
+        toValue: 1,
+        duration: 350,
+        delay: 400,
+        easing: Easing.out(Easing.cubic),
+        useNativeDriver: true,
+      }).start();
     }, SPIN_MS - 250);
 
     const finishAt = setTimeout(() => {
@@ -82,18 +86,16 @@ export function Wheel({ titles, onRevealed }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const wheelStyle = useAnimatedStyle(() => ({
-    transform: [{ rotate: `${spin.value}deg` }],
-  }));
-  const titleStyle = useAnimatedStyle(() => ({
-    opacity: titleScale.value <= 0.01 ? 0 : 1,
-    transform: [{ scale: titleScale.value }, { rotate: `${titleRotate.value}deg` }],
-  }));
-  const taglineStyle = useAnimatedStyle(() => ({ opacity: taglineOpacity.value }));
+  const rotate = spin.interpolate({ inputRange: [0, 1], outputRange: ['0deg', `${totalDeg}deg`] });
+  const titleRotate = titleScale.interpolate({ inputRange: [0, 1], outputRange: ['-9deg', '0deg'] });
+  const titleOpacity = titleScale.interpolate({
+    inputRange: [0, 0.02, 1],
+    outputRange: [0, 1, 1],
+  });
 
   return (
     <View style={styles.wrap}>
-      <Animated.View style={wheelStyle}>
+      <Animated.View style={{ transform: [{ rotate }] }}>
         <Svg width={SIZE} height={SIZE}>
           <G>
             {titles.map((t, i) => (
@@ -106,7 +108,7 @@ export function Wheel({ titles, onRevealed }: Props) {
               />
             ))}
             {titles.map((t, i) => {
-              const { x, y, rotate } = labelPos(i, titles.length);
+              const { x, y, rotate: rot } = labelPos(i, titles.length);
               return (
                 <SvgText
                   key={`t-${i}`}
@@ -116,7 +118,7 @@ export function Wheel({ titles, onRevealed }: Props) {
                   fontSize={8.5}
                   fontWeight="bold"
                   textAnchor="middle"
-                  transform={`rotate(${rotate} ${x} ${y})`}
+                  transform={`rotate(${rot} ${x} ${y})`}
                 >
                   {t.length > 15 ? t.slice(0, 14) + '…' : t}
                 </SvgText>
@@ -135,14 +137,20 @@ export function Wheel({ titles, onRevealed }: Props) {
       </View>
 
       {/* Cartoon title that pops out from the centre */}
-      <Animated.View pointerEvents="none" style={[styles.titleWrap, titleStyle]}>
+      <Animated.View
+        pointerEvents="none"
+        style={[
+          styles.titleWrap,
+          { opacity: titleOpacity, transform: [{ scale: titleScale }, { rotate: titleRotate }] },
+        ]}
+      >
         <View style={styles.titlePlate}>
           <CartoonWord text="DINNER" />
           <CartoonWord text="DECIDER" />
         </View>
       </Animated.View>
 
-      <Animated.Text style={[styles.tagline, taglineStyle]}>
+      <Animated.Text style={[styles.tagline, { opacity: taglineOpacity }]}>
         Spin • Answer a few questions • Eat well
       </Animated.Text>
     </View>
