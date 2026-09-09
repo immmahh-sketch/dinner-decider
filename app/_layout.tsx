@@ -59,8 +59,13 @@ export default function RootLayout() {
   }, []);
 
   useEffect(() => {
-    prefetchUpdate();
-    loadCatalog();
+    // Kept off the launch critical path: give the UI a moment to mount before
+    // any networking (catalogue fetch / OTA check) kicks off.
+    const t = setTimeout(() => {
+      loadCatalog();
+      prefetchUpdate();
+    }, 2500);
+    return () => clearTimeout(t);
   }, []);
 
   return (
