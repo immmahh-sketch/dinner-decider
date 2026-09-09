@@ -39,8 +39,13 @@ interface PrefsState {
   hideHowItWorks: boolean;
   adsRemoved: boolean;
   hydrated: boolean;
+  /** true once the first-run setup screen has been seen (or skipped) */
+  onboarded: boolean;
   /** display name used when sharing a pick with someone */
   username: string;
+  /** UK postcode — stored ONLY on this device, used to open delivery apps
+   *  and local searches for the right area. Never sent anywhere else. */
+  postcode: string;
   /** free-text "never show me this" ingredient terms, lowercased */
   avoid: string[];
   /** hard dietary requirements */
@@ -49,7 +54,9 @@ interface PrefsState {
   allergens: Allergen[];
   setHideHowItWorks: (v: boolean) => void;
   setAdsRemoved: (v: boolean) => void;
+  setOnboarded: (v: boolean) => void;
   setUsername: (v: string) => void;
+  setPostcode: (v: string) => void;
   addAvoid: (term: string) => void;
   removeAvoid: (term: string) => void;
   toggleDiet: (d: Diet) => void;
@@ -59,19 +66,35 @@ interface PrefsState {
 const toggle = <T,>(list: T[], item: T): T[] =>
   list.includes(item) ? list.filter((x) => x !== item) : [...list, item];
 
+/** Tidy a typed postcode: uppercase, single gap before the last 3 chars. */
+export function tidyPostcode(v: string): string {
+  const raw = v.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 7);
+  if (raw.length <= 3) return raw;
+  return `${raw.slice(0, -3)} ${raw.slice(-3)}`;
+}
+
+/** Loose UK-postcode shape check, for gentle UI feedback only. */
+export function looksLikePostcode(v: string): boolean {
+  return /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/i.test(v.trim());
+}
+
 export const usePrefs = create<PrefsState>()(
   persist(
     (set) => ({
       hideHowItWorks: false,
       adsRemoved: false,
       hydrated: false,
+      onboarded: false,
       username: '',
+      postcode: '',
       avoid: [],
       diets: [],
       allergens: [],
       setHideHowItWorks: (v) => set({ hideHowItWorks: v }),
       setAdsRemoved: (v) => set({ adsRemoved: v }),
+      setOnboarded: (v) => set({ onboarded: v }),
       setUsername: (v) => set({ username: v.slice(0, 24) }),
+      setPostcode: (v) => set({ postcode: tidyPostcode(v) }),
       addAvoid: (term) =>
         set((s) => {
           const clean = term.toLowerCase().trim();
@@ -88,7 +111,9 @@ export const usePrefs = create<PrefsState>()(
       partialize: (s) => ({
         hideHowItWorks: s.hideHowItWorks,
         adsRemoved: s.adsRemoved,
+        onboarded: s.onboarded,
         username: s.username,
+        postcode: s.postcode,
         avoid: s.avoid,
         diets: s.diets,
         allergens: s.allergens,

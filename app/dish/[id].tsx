@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TopBar } from '@/components/TopBar';
@@ -14,7 +14,13 @@ import { useShoppingList } from '@/store/shoppingList';
 import { useDecider } from '@/store/decider';
 import { usePrefs } from '@/store/prefs';
 import { useCatalogVersion } from '@/store/catalog';
-import { findNearMeQuery, justEatUrl, mapsSearchUrl, openExternal } from '@/lib/links';
+import {
+  DELIVERY_SERVICES,
+  deliveryUrl,
+  findNearMeQuery,
+  mapsSearchUrl,
+  openExternal,
+} from '@/lib/links';
 import { shareDish } from '@/lib/share';
 import { colors, radius, shadowCard } from '@/theme';
 
@@ -41,6 +47,7 @@ export default function DishDetail() {
 
   const steps = useDecider((s) => s.steps);
   const username = usePrefs((s) => s.username);
+  const postcode = usePrefs((s) => s.postcode);
   const plan = planLabel(answersFromSteps(steps).q_plan);
 
   const addForDish = useShoppingList((s) => s.addForDish);
@@ -64,24 +71,36 @@ export default function DishDetail() {
           <Text style={styles.title}>{dish.name}</Text>
           <Text style={styles.blurb}>{dish.blurb}</Text>
           <NutritionCard dish={dish} plan={plan} />
+
           {isTakeaway(dish) && (
-            <Button
-              label="Order on Just Eat"
-              variant="primary"
-              onPress={() => openExternal(justEatUrl(dish))}
-            />
+            <>
+              <Text style={styles.orderHead}>Order it</Text>
+              <View style={styles.orderRow}>
+                {DELIVERY_SERVICES.map((s) => (
+                  <Pressable
+                    key={s.key}
+                    style={({ pressed }) => [styles.orderBtn, pressed && styles.orderBtnPressed]}
+                    onPress={() => openExternal(deliveryUrl(s.key, dish, postcode))}
+                  >
+                    <Text style={styles.orderBtnText}>{s.label}</Text>
+                  </Pressable>
+                ))}
+              </View>
+              <Text style={styles.orderNote}>
+                {postcode
+                  ? `Opens each app for ${postcode}. `
+                  : 'Opens each app at its postcode prompt. '}
+                None of them share their menus with other apps, so this can&apos;t show only
+                what your area stocks — it drops you straight into the real local listings.
+              </Text>
+            </>
           )}
+
           <Button
             label={isTakeaway(dish) ? 'See takeaways near me' : 'Find this restaurant near me'}
             variant={isTakeaway(dish) ? 'outline' : 'primary'}
-            onPress={() => openExternal(mapsSearchUrl(findNearMeQuery(dish)))}
+            onPress={() => openExternal(mapsSearchUrl(findNearMeQuery(dish, postcode)))}
           />
-          {isTakeaway(dish) && (
-            <Text style={styles.orderNote}>
-              Just Eat has no public menu feed, so we can&apos;t show only what your area
-              stocks — this opens Just Eat where you pop in your postcode.
-            </Text>
-          )}
           <Button
             label="Share this idea"
             variant="outline"
@@ -231,7 +250,20 @@ const styles = StyleSheet.create({
   scroll: { padding: 20, paddingBottom: 8 },
   pad: { padding: 20, gap: 16 },
   missing: { textAlign: 'center', color: colors.inkSoft, padding: 32 },
-  orderNote: { fontSize: 11.5, color: colors.inkSoft, lineHeight: 16, marginTop: -4 },
+  orderHead: { fontSize: 13, fontWeight: '900', color: colors.inkSoft, letterSpacing: 0.8, textTransform: 'uppercase', marginTop: 4 },
+  orderRow: { flexDirection: 'row', gap: 8, marginTop: 10 },
+  orderBtn: {
+    flex: 1,
+    minHeight: 48,
+    borderRadius: radius.pill,
+    backgroundColor: colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 6,
+  },
+  orderBtnPressed: { transform: [{ scale: 0.97 }], opacity: 0.9 },
+  orderBtnText: { color: '#fff', fontSize: 14, fontWeight: '800' },
+  orderNote: { fontSize: 11.5, color: colors.inkSoft, lineHeight: 16, marginTop: 8 },
   title: { fontSize: 26, fontWeight: '900', color: colors.ink },
   blurb: { fontSize: 14.5, color: colors.inkSoft, marginTop: 6, lineHeight: 20 },
   metaRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 16 },

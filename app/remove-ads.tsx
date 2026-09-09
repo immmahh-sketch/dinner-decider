@@ -3,7 +3,7 @@ import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button } from '@/components/Button';
-import { ALLERGENS, DIETS, usePrefs } from '@/store/prefs';
+import { ALLERGENS, DIETS, looksLikePostcode, tidyPostcode, usePrefs } from '@/store/prefs';
 import { openExternal } from '@/lib/links';
 import { useAppUpdates } from '@/lib/updates';
 import { colors, radius, shadowCard } from '@/theme';
@@ -41,6 +41,8 @@ export default function RemoveAds() {
 
   const username = usePrefs((s) => s.username);
   const setUsername = usePrefs((s) => s.setUsername);
+  const postcode = usePrefs((s) => s.postcode);
+  const setPostcode = usePrefs((s) => s.setPostcode);
   const avoid = usePrefs((s) => s.avoid);
   const diets = usePrefs((s) => s.diets);
   const allergens = usePrefs((s) => s.allergens);
@@ -80,12 +82,15 @@ export default function RemoveAds() {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 28 }}>
-        {/* -------------------------------------------------- your name */}
+        {/* -------------------------------------------------- you */}
         <View style={[styles.card, shadowCard]}>
-          <Text style={styles.cardTitle}>Your name</Text>
+          <Text style={styles.cardTitle}>You</Text>
           <Text style={styles.cardBody}>
-            Shown when you share a dinner idea — “Sam reckons we should have…”.
+            Your name shows when you share a dinner idea. Your postcode opens Just Eat,
+            Deliveroo, Uber Eats and local searches for the right area — it&apos;s saved on
+            this phone only and never sent anywhere else.
           </Text>
+          <Text style={styles.groupLabel}>Name</Text>
           <TextInput
             value={username}
             onChangeText={setUsername}
@@ -94,8 +99,23 @@ export default function RemoveAds() {
             autoCapitalize="words"
             autoCorrect={false}
             maxLength={24}
-            style={[styles.input, { marginTop: 12 }]}
+            style={styles.input}
           />
+          <Text style={styles.groupLabel}>Postcode</Text>
+          <TextInput
+            value={postcode}
+            onChangeText={(t) => setPostcode(tidyPostcode(t))}
+            placeholder="e.g. SW1A 1AA"
+            placeholderTextColor={colors.inkSoft}
+            autoCapitalize="characters"
+            autoCorrect={false}
+            autoComplete="postal-code"
+            maxLength={8}
+            style={styles.input}
+          />
+          {!!postcode && !looksLikePostcode(postcode) && (
+            <Text style={styles.error}>That doesn&apos;t look like a UK postcode.</Text>
+          )}
         </View>
 
         {/* -------------------------------------------------- deal-breakers */}

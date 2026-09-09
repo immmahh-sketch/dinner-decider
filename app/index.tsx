@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { useRouter } from 'expo-router';
@@ -17,8 +17,16 @@ export default function Welcome() {
   const [revealed, setRevealed] = useState(false);
   const hideHowItWorks = usePrefs((s) => s.hideHowItWorks);
   const username = usePrefs((s) => s.username);
+  const postcode = usePrefs((s) => s.postcode);
+  const onboarded = usePrefs((s) => s.onboarded);
+  const prefsHydrated = usePrefs((s) => s.hydrated);
   const start = useDecider((s) => s.start);
   const stats = useCatalogStats();
+
+  // First launch: send the user through the one-time set-up screen.
+  useEffect(() => {
+    if (prefsHydrated && !onboarded) router.replace('/setup');
+  }, [prefsHydrated, onboarded, router]);
 
   const begin = () => {
     start();
@@ -45,9 +53,15 @@ export default function Welcome() {
               {stats.total.toLocaleString()} dinners in the deck
               {stats.source === 'bundled' ? ' · loading the full menu…' : ''}
             </Text>
-            {!username && (
+            {(!username || !postcode) && (
               <Pressable onPress={() => router.push('/remove-ads')}>
-                <Text style={styles.nameNudge}>＋ Add your name so you can share picks</Text>
+                <Text style={styles.nameNudge}>
+                  {!username && !postcode
+                    ? '＋ Add your name & postcode in Settings'
+                    : !username
+                      ? '＋ Add your name so you can share picks'
+                      : '＋ Add your postcode to order takeaways faster'}
+                </Text>
               </Pressable>
             )}
           </Animated.View>
