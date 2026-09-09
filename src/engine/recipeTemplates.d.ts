@@ -32,6 +32,14 @@ export const TECHNIQUES: Record<
     richness: string;
     format: string;
     mood: string[];
-    method: (p: string, s: string, c: string, v: string) => string[];
+    verb: string;
+    join: 'in' | 'with';
+    method: (
+      p: string,
+      s: string,
+      c: string,
+      v: string,
+      ctx: { cuisine: string; spicy: number; aromatics: string; finish: string },
+    ) => string[];
   }
 >;
