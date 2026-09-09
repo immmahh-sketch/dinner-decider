@@ -49,3 +49,4 @@ credentials/
 
 # hosted catalogue (uploaded to the "catalog" GitHub release, not committed)
 docs/dishes.json
+dist-check/
