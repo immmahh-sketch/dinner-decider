@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
-import { useRouter } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Wheel } from '@/components/Wheel';
 import { Button } from '@/components/Button';
@@ -24,9 +24,9 @@ export default function Welcome() {
   const stats = useCatalogStats();
 
   // First launch: send the user through the one-time set-up screen.
-  useEffect(() => {
-    if (prefsHydrated && !onboarded) router.replace('/setup');
-  }, [prefsHydrated, onboarded, router]);
+  if (prefsHydrated && !onboarded) {
+    return <Redirect href="/setup" />;
+  }
 
   const begin = () => {
     start();

@@ -129,10 +129,24 @@ export const usePrefs = create<PrefsState>()(
 );
 
 // ---- keep the always-on deal-breaker filter in step with prefs ------------
+// Wrapped defensively: this runs at module load and on every prefs change, and
+// it must never be able to take the whole app down.
 function syncExcluder(s: Pick<PrefsState, 'avoid' | 'diets' | 'allergens'>): void {
-  setActiveExcluder(
-    buildExcluder({ avoid: s.avoid, diets: s.diets, allergens: s.allergens }),
-  );
+  try {
+    setActiveExcluder(
+      buildExcluder({
+        avoid: s.avoid ?? [],
+        diets: s.diets ?? [],
+        allergens: s.allergens ?? [],
+      }),
+    );
+  } catch {
+    setActiveExcluder(null);
+  }
 }
-syncExcluder(usePrefs.getState());
-usePrefs.subscribe(syncExcluder);
+try {
+  syncExcluder(usePrefs.getState());
+  usePrefs.subscribe(syncExcluder);
+} catch {
+  /* deal-breaker filtering just stays off until a prefs change re-tries */
+}
