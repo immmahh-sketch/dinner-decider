@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dinner Decider — full menu</title>
+<style>
+  :root { color-scheme: light dark; --bg:#eef2f6; --card:#fff; --ink:#10202b; --soft:#5c7080; --line:#d8e0e8; --teal:#0fb5a6; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#0f1a20; --card:#16242c; --ink:#e7eef2; --soft:#93a7b3; --line:#26363f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--ink); }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-size: 24px; margin: 0 0 4px; }
+  .muted { color: var(--soft); font-size: 13px; line-height: 1.5; }
+  .stats { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 4px; }
+  .pill { background:var(--card); border:1px solid var(--line); border-radius:999px; padding:4px 10px; font-size:12px; font-weight:700; color:var(--soft); }
+  .controls { position: sticky; top:0; background:var(--bg); padding:12px 0; display:flex; flex-wrap:wrap; gap:8px; border-bottom:1px solid var(--line); z-index:5; }
+  input[type=search], select {
+    font: inherit; padding:9px 12px; border-radius:10px; border:1px solid var(--line);
+    background:var(--card); color:var(--ink); font-weight:600;
+  }
+  input[type=search] { flex:1; min-width:180px; }
+  #count { font-size:12.5px; color:var(--soft); font-weight:700; padding:8px 2px; }
+  ul { list-style:none; margin:0; padding:0; }
+  li { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:11px 14px; margin-top:8px; }
+  .name { font-weight:800; font-size:14.5px; }
+  .tags { margin-top:4px; display:flex; flex-wrap:wrap; gap:5px; }
+  .tag { font-size:10.5px; font-weight:800; letter-spacing:.3px; text-transform:uppercase; color:var(--soft); background:var(--bg); border:1px solid var(--line); border-radius:999px; padding:2px 7px; }
+  .tag.v { color:#fff; background:var(--teal); border-color:var(--teal); }
+  a.back { color:var(--teal); font-weight:800; text-decoration:none; font-size:13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">← Dinner Decider</a>
+  <h1>The full menu</h1>
+  <p class="muted">
+    Every meal in the deck — the hand-written recipes plus the composed catalogue the app
+    pulls in. Home meals are built from combinations of technique + sauce + protein + carb,
+    so expect a lot of variations on a theme. Search or filter to check a slice.
+  </p>
+  <div class="stats" id="stats"></div>
+
+  <div class="controls">
+    <input type="search" id="q" placeholder="Search meal names…" autocomplete="off" />
+    <select id="venue"><option value="">All places</option><option value="h">Home cooking</option><option value="t">Takeaway</option><option value="r">Restaurant</option></select>
+    <select id="cuisine"><option value="">All cuisines</option></select>
+    <select id="protein"><option value="">All proteins</option></select>
+  </div>
+  <div id="count">Loading…</div>
+  <ul id="list"></ul>
+</div>
+
+<script>
+const CAP = 800; // max rows drawn at once — refine the search to see more
+const VN = { h: 'Home', t: 'Takeaway', r: 'Restaurant' };
+let ROWS = [];
+
+const $ = (id) => document.getElementById(id);
+const q = $('q'), fV = $('venue'), fC = $('cuisine'), fP = $('protein');
+
+fetch('list.json')
+  .then((r) => r.json())
+  .then((data) => {
+    ROWS = data.rows;
+    renderStats(data.stats);
+    fillOptions(fC, data.stats.cuisine);
+    fillOptions(fP, data.stats.protein);
+    apply();
+  })
+  .catch(() => { $('count').textContent = 'Could not load the menu list.'; });
+
+function renderStats(s) {
+  const el = $('stats');
+  el.innerHTML =
+    pill(s.total.toLocaleString() + ' meals total') +
+    Object.entries(s.venue).map(([k, v]) => pill(v.toLocaleString() + ' ' + k)).join('');
+}
+const pill = (t) => '<span class="pill">' + t + '</span>';
+
+function fillOptions(sel, obj) {
+  Object.keys(obj).sort().forEach((k) => {
+    const o = document.createElement('option');
+    o.value = k; o.textContent = k + ' (' + obj[k].toLocaleString() + ')';
+    sel.appendChild(o);
+  });
+}
+
+function apply() {
+  const term = q.value.trim().toLowerCase();
+  const v = fV.value, c = fC.value, p = fP.value;
+  const out = [];
+  for (let i = 0; i < ROWS.length && out.length < CAP; i++) {
+    const r = ROWS[i];
+    if (v && r[1] !== v) continue;
+    if (c && r[2] !== c) continue;
+    if (p && r[3] !== p) continue;
+    if (term && r[0].toLowerCase().indexOf(term) === -1) continue;
+    out.push(r);
+  }
+  // full count (not capped) for the header
+  let n = 0;
+  for (const r of ROWS) {
+    if (v && r[1] !== v) continue;
+    if (c && r[2] !== c) continue;
+    if (p && r[3] !== p) continue;
+    if (term && r[0].toLowerCase().indexOf(term) === -1) continue;
+    n++;
+  }
+  $('count').textContent =
+    n.toLocaleString() + ' match' + (n === 1 ? '' : 'es') +
+    (n > out.length ? ' · showing first ' + out.length + ', narrow the search to see more' : '');
+
+  const html = out.map((r) =>
+    '<li><div class="name">' + esc(r[0]) + '</div><div class="tags">' +
+    '<span class="tag v">' + VN[r[1]] + '</span>' +
+    '<span class="tag">' + esc(r[2]) + '</span>' +
+    '<span class="tag">' + esc(r[3]) + '</span>' +
+    '<span class="tag">' + esc(r[4]) + '</span>' +
+    (r[5] ? '<span class="tag">' + '🌶️'.repeat(r[5]) + '</span>' : '') +
+    '</div></li>'
+  ).join('');
+  $('list').innerHTML = html;
+}
+
+function esc(s) { return String(s).replace(/[&<>]/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
+
+let t;
+q.addEventListener('input', () => { clearTimeout(t); t = setTimeout(apply, 120); });
+[fV, fC, fP].forEach((el) => el.addEventListener('change', apply));
+</script>
+</body>
+</html>
