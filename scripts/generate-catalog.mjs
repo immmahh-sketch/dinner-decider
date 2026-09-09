@@ -75,34 +75,93 @@ const CUIS = {
   in: 'indian', ea: 'east-asian', mx: 'mexican', ca: 'caribbean', ot: 'other', br: 'british',
 };
 const ALLCUIS = Object.values(CUIS);
-// key = technique key; value = { p: allowed protein enum keys, c: allowed sauce cuisines,
-// carbs: base carbs, tag?: require any of these sauce tags, ban?: sauce-word regex to exclude }
+
+// How a sauce actually behaves in the pan — this is what stops a raw herb
+// dressing being "slow-cooked for 4 hours" or a beef-jus landing on cod.
+//   rub      — dry spice blend / marinade paste, on before cooking
+//   dressing — raw or no-cook herb / yoghurt / citrus sauce, spooned over at the end
+//   glaze    — sticky reduction (soy, honey, hoisin, bbq)
+//   stirfry  — East-Asian wok sauce, fast and hot
+//   cream    — dairy- or butter-forward finishing sauce
+//   braise   — wine / stock reduction built for long cooking
+//   simmer   — a cookable sauce you braise the main ingredient in (the default)
+const SAUCE_FORM = {
+  harissa: 'rub', zaatar: 'rub', 'ras-el-hanout': 'rub', baharat: 'rub', tandoori: 'rub',
+  'peri-peri': 'rub', jerk: 'rub', 'piri-lemon': 'rub', cajun: 'rub', blackened: 'rub', 'fajita-spiced': 'rub',
+  'sumac-lemon': 'dressing', 'harissa-yoghurt': 'dressing', chermoula: 'dressing', tahini: 'dressing',
+  tzatziki: 'dressing', chimichurri: 'dressing', 'salsa-verde': 'dressing', romesco: 'dressing',
+  salmoriglio: 'dressing', 'lemon-garlic': 'dressing', pesto: 'dressing', gremolata: 'dressing',
+  'green-goddess': 'dressing', 'chilli-lime': 'dressing', 'aji-verde': 'dressing', mojo: 'dressing',
+  'salsa-macha': 'dressing', 'sesame-ginger': 'dressing', ponzu: 'dressing', 'nam-jim': 'dressing',
+  'lemongrass-lime': 'dressing', 'ginger-scallion': 'dressing',
+  teriyaki: 'glaze', miso: 'glaze', gochujang: 'glaze', 'sticky-soy-ginger': 'glaze', hoisin: 'glaze',
+  'sweet-chilli': 'glaze', 'char-siu': 'glaze', bulgogi: 'glaze', tonkatsu: 'glaze',
+  bbq: 'glaze', buffalo: 'glaze', 'honey-mustard': 'glaze', 'maple-bacon': 'glaze',
+  'black-bean': 'stirfry', 'sweet-sour': 'stirfry', 'kung-pao': 'stirfry', 'sichuan-chilli': 'stirfry',
+  oyster: 'stirfry', xo: 'stirfry', doubanjiang: 'stirfry', 'black-pepper': 'stirfry',
+  'lemon-caper-butter': 'cream', 'brown-butter-sage': 'cream', carbonara: 'cream', 'garlic-butter': 'cream',
+  'lemon-herb-butter': 'cream', 'creamy-garlic-mushroom': 'cream', 'mustard-cream': 'cream',
+  peppercorn: 'cream', diane: 'cream', 'tarragon-cream': 'cream', 'blue-cheese': 'cream',
+  'cider-cream': 'cream', 'cheddar-mustard': 'cream',
+  marsala: 'braise', madeira: 'braise', 'red-wine-shallot': 'braise', chasseur: 'braise', 'white-wine-herb': 'braise',
+  'tikka-masala': 'simmer', korma: 'simmer', jalfrezi: 'simmer', madras: 'simmer', 'rogan-josh': 'simmer',
+  bhuna: 'simmer', balti: 'simmer', saag: 'simmer', 'coconut-dhansak': 'simmer', 'butter-masala': 'simmer',
+  vindaloo: 'simmer', dopiaza: 'simmer', methi: 'simmer', achari: 'simmer',
+  katsu: 'simmer', satay: 'simmer', 'thai-green': 'simmer', 'thai-red': 'simmer', panang: 'simmer',
+  massaman: 'simmer', 'coconut-lime': 'simmer', 'caribbean-curry': 'simmer',
+  puttanesca: 'simmer', arrabbiata: 'simmer', 'tomato-basil': 'simmer', nduja: 'simmer',
+  'saffron-tomato': 'simmer', provencal: 'simmer', 'pomegranate-walnut': 'simmer',
+  'preserved-lemon-olive': 'simmer', chipotle: 'simmer', mole: 'simmer', 'salsa-roja': 'simmer', sofrito: 'simmer',
+};
+const sform = (sk) => SAUCE_FORM[sk] || 'simmer';
+
+// cream/braise sauces that only really suit red meat (+ chicken)
+const BEEFY_SAUCE = new Set(['peppercorn', 'diane', 'madeira', 'red-wine-shallot', 'marsala', 'blue-cheese', 'chasseur']);
+// the only cream sauces that belong with fish / seafood — light, lemon/butter
+const FISH_CREAM_OK = new Set(['lemon-caper-butter', 'lemon-herb-butter', 'garlic-butter', 'tarragon-cream']);
+// quick-cook shellfish that must not go anywhere near a long braise
+const QUICK_SEAFOOD = new Set(['squid', 'scallop']);
+const LONG_COOK = ['curry', 'stew', 'braised', 'slow', 'soup', 'onepot', 'bake', 'stuffed', 'loaded', 'poached'];
+
+// no dairy / honey / fish / meat hiding in the sauce — for vegan proteins
+function plantSafeSauce(s) {
+  const t = s.ing.join(' ').toLowerCase().replace(/coconut milk/g, 'coconut');
+  return !/cream|crème|creme|butter|cheese|parmesan|pecorino|pancetta|guanciale|\bbacon\b|lardon|nduja|yoghurt|yogurt|\bmilk\b|anchov|fish sauce|oyster sauce|worcestershire|\bhoney\b|\begg/.test(t);
+}
+// dairy is fine, but no meat or fish — for vegetarian proteins
+function vegSafeSauce(s) {
+  const t = s.ing.join(' ').toLowerCase();
+  return !/anchov|fish sauce|oyster sauce|worcestershire|pancetta|guanciale|\bbacon\b|lardon|nduja/.test(t);
+}
+
+// key = technique; value = { p: protein enums, c: sauce cuisines, forms: allowed sauce forms,
+//   carbs: base carbs, tag?: require a sauce tag, word?: require a sauce-word match }
 const RULES = {
-  traybake: { p: ['chicken', 'pork', 'lamb', 'fish', 'seafood', 'veggie', 'vegan'], c: [CUIS.me, CUIS.med, CUIS.am, CUIS.ot, CUIS.ca, CUIS.in, CUIS.it, CUIS.mx], carbs: ['potato', 'none', 'grains'] },
-  skillet: { p: ['chicken', 'beef', 'pork', 'lamb', 'seafood', 'veggie', 'vegan'], c: [CUIS.med, CUIS.me, CUIS.am, CUIS.it, CUIS.fr, CUIS.mx, CUIS.ot, CUIS.ca, CUIS.in], carbs: ['rice', 'grains', 'none', 'potato'] },
-  stirfry: { p: ['chicken', 'beef', 'pork', 'seafood', 'veggie', 'vegan'], c: [CUIS.ea], carbs: ['rice', 'noodles', 'none'] },
-  curry: { p: ['chicken', 'beef', 'lamb', 'pork', 'fish', 'seafood', 'veggie', 'vegan'], c: [CUIS.in, CUIS.ea, CUIS.ca], carbs: ['rice', 'bread'], word: /Masala|Korma|Jalfrezi|Madras|Rogan|Bhuna|Balti|Saag|Dhansak|Tikka|Tandoori|Thai|Massaman|Panang|Katsu|Coconut|Satay|Caribbean|Vindaloo|Dopiaza|Methi|Achari/ },
-  stew: { p: ['beef', 'lamb', 'pork', 'chicken', 'vegan'], c: [CUIS.fr, CUIS.it, CUIS.med, CUIS.me, CUIS.ca, CUIS.am, CUIS.ot], carbs: ['potato', 'bread', 'none'] },
-  soup: { p: ['chicken', 'fish', 'seafood', 'veggie', 'vegan'], c: [CUIS.ea, CUIS.med, CUIS.me, CUIS.it, CUIS.fr, CUIS.am, CUIS.ot, CUIS.ca], carbs: ['none', 'bread', 'noodles'], ban: /Hoisin|Char Siu|Sticky Soy|Teriyaki|Oyster|Black Bean|Sweet & Sour|Gochujang|Kung Pao|Peppercorn|Diane|Garlic Butter|BBQ|Buffalo|Honey Mustard|Maple|Carbonara|Marsala|Madeira|Blue Cheese|Bulgogi|Tonkatsu/ },
-  grill: { p: ['chicken', 'beef', 'lamb', 'pork', 'seafood', 'fish', 'veggie'], c: [CUIS.me, CUIS.med, CUIS.am, CUIS.ot, CUIS.ca, CUIS.mx, CUIS.ea, CUIS.in], carbs: ['rice', 'bread', 'grains', 'none'] },
-  roast: { p: ['chicken', 'beef', 'lamb', 'pork', 'fish', 'veggie', 'vegan'], c: [CUIS.fr, CUIS.med, CUIS.me, CUIS.am, CUIS.ot, CUIS.it, CUIS.br], carbs: ['potato', 'grains', 'none'] },
-  panfry: { p: ['chicken', 'beef', 'pork', 'fish', 'seafood', 'veggie'], c: [CUIS.fr, CUIS.it, CUIS.med, CUIS.am, CUIS.br], carbs: ['potato', 'none', 'grains'] },
-  salad: { p: ['chicken', 'beef', 'fish', 'seafood', 'veggie', 'vegan'], c: [CUIS.med, CUIS.me, CUIS.ea, CUIS.it, CUIS.mx, CUIS.ot, CUIS.am], tag: ['fresh', 'zesty', 'herby'], carbs: ['none', 'grains', 'salad'] },
-  bowl: { p: ['chicken', 'beef', 'pork', 'fish', 'seafood', 'veggie', 'vegan'], c: [CUIS.ea, CUIS.me, CUIS.mx, CUIS.med, CUIS.ot, CUIS.am], carbs: ['rice', 'grains'] },
-  pasta: { p: ['beef', 'pork', 'chicken', 'fish', 'seafood', 'veggie', 'vegan'], c: [CUIS.it, CUIS.fr, CUIS.med], carbs: ['pasta'] },
-  bake: { p: ['chicken', 'beef', 'pork', 'fish', 'seafood', 'veggie', 'vegan'], c: [CUIS.it, CUIS.fr, CUIS.am, CUIS.med, CUIS.me, CUIS.br], carbs: ['potato', 'pasta', 'none', 'grains'] },
-  noodles: { p: ['chicken', 'beef', 'pork', 'seafood', 'veggie', 'vegan'], c: [CUIS.ea], carbs: ['noodles'] },
-  wrap: { p: ['chicken', 'beef', 'pork', 'lamb', 'seafood', 'veggie', 'vegan'], c: [CUIS.mx, CUIS.me, CUIS.ea, CUIS.am, CUIS.ot, CUIS.ca], carbs: ['bread'] },
-  slow: { p: ['beef', 'lamb', 'pork', 'chicken'], c: [CUIS.fr, CUIS.it, CUIS.med, CUIS.me, CUIS.am, CUIS.ca, CUIS.ot, CUIS.mx], carbs: ['potato', 'rice', 'bread', 'none'] },
-  griddle: { p: ['chicken', 'beef', 'lamb', 'pork', 'seafood', 'fish', 'veggie'], c: [CUIS.med, CUIS.me, CUIS.it, CUIS.am, CUIS.ot, CUIS.mx], tag: ['fresh', 'zesty', 'herby', 'smoky'], carbs: ['grains', 'none', 'potato', 'salad'] },
-  airfryer: { p: ['chicken', 'pork', 'fish', 'seafood', 'veggie', 'vegan'], c: [CUIS.am, CUIS.ea, CUIS.me, CUIS.ot, CUIS.mx, CUIS.in], carbs: ['none', 'potato', 'rice'] },
-  onepot: { p: ['chicken', 'beef', 'pork', 'veggie', 'vegan'], c: [CUIS.med, CUIS.me, CUIS.it, CUIS.am, CUIS.in, CUIS.ca, CUIS.ea, CUIS.ot], carbs: ['rice', 'grains'] },
-  glazed: { p: ['chicken', 'pork', 'fish', 'seafood', 'beef'], c: [CUIS.ea, CUIS.am, CUIS.ot], carbs: ['rice', 'grains', 'none'] },
-  crispy: { p: ['chicken', 'pork', 'beef', 'seafood', 'veggie', 'vegan'], c: [CUIS.ea], carbs: ['rice', 'noodles'] },
-  braised: { p: ['beef', 'lamb', 'pork', 'chicken'], c: [CUIS.fr, CUIS.it, CUIS.med, CUIS.ea, CUIS.ot], carbs: ['potato', 'rice', 'none', 'grains'] },
-  poached: { p: ['chicken', 'fish', 'seafood', 'veggie'], c: [CUIS.fr, CUIS.ea, CUIS.med, CUIS.me], carbs: ['grains', 'none', 'rice'] },
-  stuffed: { p: ['beef', 'lamb', 'chicken', 'pork', 'veggie', 'vegan'], c: [CUIS.med, CUIS.me, CUIS.it, CUIS.mx, CUIS.ot], carbs: ['rice', 'grains', 'none'] },
-  loaded: { p: ['beef', 'chicken', 'pork', 'veggie', 'vegan'], c: [CUIS.mx, CUIS.am, CUIS.ot], carbs: ['none', 'potato'] },
+  traybake: { p: ['chicken', 'pork', 'lamb', 'fish', 'seafood', 'veggie', 'vegan'], c: [CUIS.me, CUIS.med, CUIS.am, CUIS.ot, CUIS.ca, CUIS.in, CUIS.it, CUIS.mx], forms: ['rub', 'glaze', 'dressing'], carbs: ['potato', 'none', 'grains'] },
+  skillet: { p: ['chicken', 'beef', 'pork', 'lamb', 'seafood', 'veggie', 'vegan'], c: [CUIS.med, CUIS.me, CUIS.am, CUIS.it, CUIS.fr, CUIS.mx, CUIS.ot, CUIS.ca, CUIS.in], forms: ['simmer', 'cream', 'glaze', 'rub', 'dressing'], carbs: ['rice', 'grains', 'none', 'potato'] },
+  stirfry: { p: ['chicken', 'beef', 'pork', 'seafood', 'veggie', 'vegan'], c: [CUIS.ea], forms: ['stirfry', 'glaze'], carbs: ['rice', 'noodles', 'none'] },
+  curry: { p: ['chicken', 'beef', 'lamb', 'pork', 'fish', 'seafood', 'veggie', 'vegan'], c: [CUIS.in, CUIS.ea, CUIS.ca], forms: ['simmer'], carbs: ['rice', 'bread'], word: /Masala|Korma|Jalfrezi|Madras|Rogan|Bhuna|Balti|Saag|Dhansak|Tikka|Thai|Massaman|Panang|Katsu|Coconut|Satay|Caribbean|Vindaloo|Dopiaza|Methi|Achari/ },
+  stew: { p: ['beef', 'lamb', 'pork', 'chicken', 'vegan'], c: [CUIS.fr, CUIS.it, CUIS.med, CUIS.me, CUIS.ca, CUIS.am, CUIS.ot], forms: ['braise', 'simmer'], carbs: ['potato', 'bread', 'none'] },
+  soup: { p: ['chicken', 'fish', 'seafood', 'veggie', 'vegan'], c: [CUIS.ea, CUIS.med, CUIS.me, CUIS.it, CUIS.fr, CUIS.am, CUIS.ot, CUIS.ca], forms: ['simmer'], ban: /Arrabbiata|Puttanesca|Nduja|Mole|Bhuna|Achari|Dopiaza|Methi|Vindaloo|Butter Masala|Rogan/, carbs: ['none', 'bread', 'noodles'] },
+  grill: { p: ['chicken', 'beef', 'lamb', 'pork', 'seafood', 'fish', 'veggie'], c: [CUIS.me, CUIS.med, CUIS.am, CUIS.ot, CUIS.ca, CUIS.mx, CUIS.ea, CUIS.in], forms: ['rub', 'glaze', 'dressing'], carbs: ['rice', 'bread', 'grains', 'none'] },
+  roast: { p: ['chicken', 'beef', 'lamb', 'pork', 'fish', 'veggie', 'vegan'], c: [CUIS.fr, CUIS.med, CUIS.me, CUIS.am, CUIS.ot, CUIS.it, CUIS.br], forms: ['rub', 'glaze', 'simmer', 'dressing'], carbs: ['potato', 'grains', 'none'] },
+  panfry: { p: ['chicken', 'beef', 'pork', 'fish', 'seafood', 'veggie'], c: [CUIS.fr, CUIS.it, CUIS.med, CUIS.am, CUIS.br], forms: ['cream', 'braise', 'simmer', 'dressing'], carbs: ['potato', 'none', 'grains'] },
+  salad: { p: ['chicken', 'beef', 'fish', 'seafood', 'veggie', 'vegan'], c: [CUIS.med, CUIS.me, CUIS.ea, CUIS.it, CUIS.mx, CUIS.ot, CUIS.am], forms: ['dressing', 'rub'], tag: ['fresh', 'zesty', 'herby'], carbs: ['none', 'grains', 'salad'] },
+  bowl: { p: ['chicken', 'beef', 'pork', 'fish', 'seafood', 'veggie', 'vegan'], c: [CUIS.ea, CUIS.me, CUIS.mx, CUIS.med, CUIS.ot, CUIS.am], forms: ['glaze', 'dressing', 'simmer', 'stirfry'], carbs: ['rice', 'grains'] },
+  pasta: { p: ['beef', 'pork', 'chicken', 'fish', 'seafood', 'veggie', 'vegan'], c: [CUIS.it, CUIS.fr, CUIS.med], forms: ['simmer', 'cream', 'dressing'], carbs: ['pasta'] },
+  bake: { p: ['chicken', 'beef', 'pork', 'fish', 'seafood', 'veggie', 'vegan'], c: [CUIS.it, CUIS.fr, CUIS.am, CUIS.med, CUIS.me, CUIS.br], forms: ['simmer', 'cream'], carbs: ['potato', 'pasta', 'none', 'grains'] },
+  noodles: { p: ['chicken', 'beef', 'pork', 'seafood', 'veggie', 'vegan'], c: [CUIS.ea], forms: ['stirfry', 'glaze'], carbs: ['noodles'] },
+  wrap: { p: ['chicken', 'beef', 'pork', 'lamb', 'seafood', 'veggie', 'vegan'], c: [CUIS.mx, CUIS.me, CUIS.ea, CUIS.am, CUIS.ot, CUIS.ca], forms: ['rub', 'glaze', 'dressing', 'simmer'], carbs: ['bread'] },
+  slow: { p: ['beef', 'lamb', 'pork', 'chicken'], c: [CUIS.fr, CUIS.it, CUIS.med, CUIS.me, CUIS.am, CUIS.ca, CUIS.ot, CUIS.mx], forms: ['braise', 'simmer'], carbs: ['potato', 'rice', 'bread', 'none'] },
+  griddle: { p: ['chicken', 'beef', 'lamb', 'pork', 'seafood', 'fish', 'veggie'], c: [CUIS.med, CUIS.me, CUIS.it, CUIS.am, CUIS.ot, CUIS.mx], forms: ['rub', 'dressing', 'glaze'], tag: ['fresh', 'zesty', 'herby', 'smoky'], carbs: ['grains', 'none', 'potato', 'salad'] },
+  airfryer: { p: ['chicken', 'pork', 'fish', 'seafood', 'veggie', 'vegan'], c: [CUIS.am, CUIS.ea, CUIS.me, CUIS.ot, CUIS.mx, CUIS.in], forms: ['rub', 'glaze', 'dressing'], carbs: ['none', 'potato', 'rice'] },
+  onepot: { p: ['chicken', 'beef', 'pork', 'veggie', 'vegan'], c: [CUIS.med, CUIS.me, CUIS.it, CUIS.am, CUIS.in, CUIS.ca, CUIS.ea, CUIS.ot], forms: ['simmer', 'braise'], carbs: ['rice', 'grains'] },
+  glazed: { p: ['chicken', 'pork', 'fish', 'seafood', 'beef'], c: [CUIS.ea, CUIS.am, CUIS.ot], forms: ['glaze', 'stirfry'], carbs: ['rice', 'grains', 'none'] },
+  crispy: { p: ['chicken', 'pork', 'beef', 'seafood', 'veggie', 'vegan'], c: [CUIS.ea], forms: ['stirfry', 'glaze'], carbs: ['rice', 'noodles'] },
+  braised: { p: ['beef', 'lamb', 'pork', 'chicken'], c: [CUIS.fr, CUIS.it, CUIS.med, CUIS.ea, CUIS.ot], forms: ['braise', 'simmer'], carbs: ['potato', 'rice', 'none', 'grains'] },
+  poached: { p: ['chicken', 'fish', 'seafood', 'veggie'], c: [CUIS.fr, CUIS.ea, CUIS.med, CUIS.me], forms: ['simmer', 'dressing', 'cream'], carbs: ['grains', 'none', 'rice'] },
+  stuffed: { p: ['beef', 'lamb', 'chicken', 'pork', 'veggie', 'vegan'], c: [CUIS.med, CUIS.me, CUIS.it, CUIS.mx, CUIS.ot], forms: ['simmer', 'rub'], carbs: ['rice', 'grains', 'none'] },
+  loaded: { p: ['beef', 'chicken', 'pork', 'veggie', 'vegan'], c: [CUIS.mx, CUIS.am, CUIS.ot], forms: ['simmer', 'glaze'], carbs: ['none', 'potato'] },
 };
 // techniques whose carb genuinely varies the dish name
 const CARB_IN_NAME = new Set(['bowl', 'curry']);
@@ -135,11 +194,22 @@ const homeCards = [];
     const p = PROTEINS[pk];
     if (!rule.p.includes(p.key)) continue;
     if (!rule.c.includes(s.cuisine)) continue;
+    if (!rule.forms.includes(sform(sk))) continue;
     if (rule.tag && !rule.tag.some((tag) => (s.tags || []).includes(tag))) continue;
     if (rule.word && !rule.word.test(s.word)) continue;
     if (rule.ban && rule.ban.test(s.word)) continue;
-    if (p.diet.includes('vegan') && /Puttanesca|Salsa Verde|Oyster|Carbonara|Blue Cheese|Cheddar|Maple & Bacon|Marsala|Madeira/.test(s.word)) continue;
-    if (p.key === 'fish' && ['stew', 'slow', 'braised'].includes(tk)) continue;
+    // protein <-> sauce sanity
+    if (p.diet.includes('vegan') && !plantSafeSauce(s)) continue;
+    if (['veggie', 'egg'].includes(p.key) && !vegSafeSauce(s)) continue;
+    if (BEEFY_SAUCE.has(sk) && !['beef', 'lamb', 'pork', 'mixed', 'chicken'].includes(p.key)) continue;
+    if (['fish', 'seafood'].includes(p.key) && sform(sk) === 'cream' && !FISH_CREAM_OK.has(sk)) continue;
+    if (['fish', 'seafood'].includes(p.key) && ['stew', 'slow', 'braised'].includes(tk)) continue;
+    if (['fish', 'seafood'].includes(p.key) && ['maple-bacon', 'nduja'].includes(sk)) continue;
+    if (QUICK_SEAFOOD.has(pk) && LONG_COOK.includes(tk)) continue;
+    if (['stew', 'slow', 'braised'].includes(tk) && ['cauliflower', 'tofu', 'egg'].includes(pk)) continue;
+    if (p.key === 'fish' && tk === 'curry' && s.spicy >= 3) continue;
+    if (tk === 'curry' && pk === 'gammon') continue;
+    if (sk === 'xo' && (p.diet.includes('vegan') || ['veggie', 'egg'].includes(p.key))) continue;
 
     // dish-identity variants: carb (bowl/curry) OR a named veg pairing (everything else)
     let variants;
@@ -156,9 +226,11 @@ const homeCards = [];
     for (const { carb, vegName, mode } of variants) {
       const vegBit = vegName ? ` with ${vegName[0].toUpperCase()}${vegName.slice(1)}` : '';
       let name;
-      const adjTech = ['crispy', 'glazed', 'braised', 'poached', 'stuffed', 'loaded', 'slow'].includes(tk);
+      const adjTech = ['crispy', 'glazed', 'braised', 'poached', 'stuffed', 'loaded', 'slow', 'panfry'].includes(tk);
       if (mode === 'bowl') name = `${s.word} ${p.word} ${CARB_NAME[carb] || 'Rice'} Bowl`;
       else if (mode === 'curry') name = `${s.word} ${p.word} Curry${carb === 'bread' ? ' with Flatbread' : ' with Rice'}`;
+      else if (tk === 'stuffed') name = `${s.word} ${p.word} Stuffed Peppers${vegBit}`;
+      else if (tk === 'loaded') name = `${s.word} ${p.word} Loaded Fries${vegBit}`;
       else if (adjTech) name = `${s.word} ${t.word} ${p.word}${vegBit}`;
       else name = `${s.word} ${p.word} ${t.word}${vegBit}`;
       name = name.replace(/\s+/g, ' ').trim();

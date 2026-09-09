@@ -268,7 +268,7 @@ export const TECHNIQUES = {
     ],
   }),
   panfry: M({
-    word: 'with Pan Sauce', mins: 20, effort: 'quick', onePan: true, richness: 'medium', format: 'plate', mood: ['comfort'],
+    word: 'Pan-Fried', mins: 20, effort: 'quick', onePan: true, richness: 'medium', format: 'plate', mood: ['comfort'],
     verb: 'pan-fried with a quick pan sauce', join: 'with',
     method: (p, s, c, v, x) => [
       `Season the ${lc(p)} generously. Heat a splash of oil in a heavy frying pan over medium-high and cook for 3–4 minutes each side until golden and just done.`,
@@ -453,15 +453,20 @@ function listJoin(arr) {
 
 // Which grammatical form a sauce takes in prose.
 const DRESSING_RE =
-  /Pesto|Salsa Verde|Salsa Roja|Salsa Macha|Chimichurri|Gremolata|Chermoula|Green Goddess|Tzatziki|Romesco|Mojo|Nam Jim|Ponzu|Aji Verde|Salmoriglio|Lemon Tahini|Ginger & Scallion|Sofrito/i;
+  /Pesto|Salsa Verde|Salsa Roja|Salsa Macha|Chimichurri|Gremolata|Chermoula|Green Goddess|Tzatziki|Romesco|Mojo|Nam Jim|Ponzu|Aji Verde|Salmoriglio|Lemon Tahini|Ginger & Scallion|Sofrito|Sumac & Lemon|Lemon & Garlic|Harissa Yoghurt|Lemongrass & Lime/i;
 const RUB_RE =
-  /Za'atar|Sumac & Lemon|Ras el Hanout|Baharat|Cajun|Blackened|Tandoori|Jerk|Fajita-Spiced|Peri Peri|Piri Lemon|Bulgogi|Char Siu/i;
+  /Za'atar|Ras el Hanout|Baharat|Cajun|Blackened|Tandoori|Jerk|Fajita-Spiced|Peri Peri|Piri Lemon|Harissa\b/i;
 
 function saucePhrase(word) {
   const w = word.toLowerCase();
+  const article = /^[aeiou]/.test(w) ? 'an' : 'a';
   if (DRESSING_RE.test(word)) return { kind: 'dressing', blurb: w, method: w };
-  if (RUB_RE.test(word)) return { kind: 'rub', blurb: `${w} spicing`, method: `${w} spicing` };
-  return { kind: 'sauce', blurb: `a ${w} sauce`, method: `${w} sauce` };
+  if (RUB_RE.test(word)) {
+    // "blackened", "fajita-spiced" already read as spice descriptors
+    const phrase = /(ed|spiced)$/.test(w) ? w : `${w} spicing`;
+    return { kind: 'rub', blurb: phrase, method: phrase };
+  }
+  return { kind: 'sauce', blurb: `${article} ${w} sauce`, method: `${w} sauce` };
 }
 
 // Aromatics + finishing herbs tuned to the sauce's cuisine.
