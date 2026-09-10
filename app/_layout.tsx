@@ -8,7 +8,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { usePrefs } from '@/store/prefs';
 import { useShoppingList } from '@/store/shoppingList';
 import { loadCatalog } from '@/data/dishes';
-import { prefetchUpdate } from '@/lib/updates';
+import { prefetchUpdate, useAutoUpdate } from '@/lib/updates';
 import { colors } from '@/theme';
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
@@ -45,6 +45,9 @@ export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
 export default function RootLayout() {
   const prefsHydrated = usePrefs((s) => s.hydrated);
   const listHydrated = useShoppingList((s) => s.hydrated);
+
+  // Apply a freshly-downloaded OTA update at launch (see useAutoUpdate).
+  useAutoUpdate();
 
   useEffect(() => {
     if (prefsHydrated && listHydrated) {

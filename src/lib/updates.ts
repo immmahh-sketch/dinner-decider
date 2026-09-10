@@ -1,5 +1,28 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import * as Updates from 'expo-updates';
+
+/**
+ * Auto-applies an OTA update the moment it finishes downloading — but only in
+ * the first few seconds after launch, so it never yanks someone out of the
+ * quiz mid-flow. After that window it just waits for the next cold launch
+ * (expo-updates has already cached it, so that launch runs the new code).
+ *
+ * Pair with app.json `updates.checkAutomatically: "ON_LOAD"` +
+ * `fallbackToCacheTimeout: 0`: launch is never blocked, the check + download
+ * run in the background, and this reload swaps to the new bundle as soon as
+ * it's ready.
+ */
+export function useAutoUpdate(): void {
+  const launchedAt = useRef(Date.now());
+  const reloaded = useRef(false);
+  const { isUpdatePending } = Updates.useUpdates();
+  useEffect(() => {
+    if (!isUpdatePending || reloaded.current) return;
+    if (Date.now() - launchedAt.current > 12_000) return;
+    reloaded.current = true;
+    Updates.reloadAsync().catch(() => {});
+  }, [isUpdatePending]);
+}
 
 export type UpdateStatus =
   | 'idle'
