@@ -84,7 +84,6 @@ export default function RootLayout() {
           <Stack.Screen name="pick" />
           <Stack.Screen name="search" />
           <Stack.Screen name="wheel" />
-          <Stack.Screen name="peek" options={{ animation: 'fade', presentation: 'transparentModal' }} />
           <Stack.Screen name="results" />
           <Stack.Screen name="dish/[id]" />
           <Stack.Screen name="shopping-list" options={{ presentation: 'modal', animation: 'slide_from_bottom' }} />

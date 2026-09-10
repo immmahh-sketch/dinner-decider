@@ -107,4 +107,4 @@ export function seededShuffle<T>(items: T[], seed: number): T[] {
   return arr;
 }
 
-export const RESULT_THRESHOLD = 10;
+export const RESULT_THRESHOLD = 50;

@@ -56,7 +56,9 @@ export const useDecider = create<DeciderStore>((set, get) => ({
     const { steps } = get();
     const res = applyAnswer(ALL_DISHES, steps, questionId, optionId);
     const nextId = nextQuestionId(questionId, answersFromSteps(res.steps));
-    const done = res.pool.length <= RESULT_THRESHOLD || nextId === null;
+    // The user decides when to view the list (via the pill, unlocked at
+    // RESULT_THRESHOLD); the quiz only auto-ends when it runs out of questions.
+    const done = nextId === null;
 
     set((s) => ({
       steps: res.steps,

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { Redirect, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -11,7 +11,15 @@ import { usePrefs } from '@/store/prefs';
 import { UPDATED_AT } from '@/meta';
 import { colors, radius, shadowCard } from '@/theme';
 
-type Option = { key: string; emoji: string; label: string; onPress: () => void };
+const APP_ICON = require('../assets/icon.png');
+
+type Option = {
+  key: string;
+  emoji?: string;
+  image?: number;
+  label: string;
+  onPress: () => void;
+};
 
 export default function Welcome() {
   const router = useRouter();
@@ -37,7 +45,7 @@ export default function Welcome() {
 
   const options: Option[] = [
     { key: 'quiz', emoji: '🧭', label: 'Answer questions', onPress: answerQuestions },
-    { key: 'spin', emoji: '🎡', label: 'Spin the wheel', onPress: () => router.push('/wheel') },
+    { key: 'spin', image: APP_ICON, label: 'Spin the wheel', onPress: () => router.push('/wheel') },
     { key: 'ingredients', emoji: '🧺', label: 'Pick by ingredients', onPress: () => router.push('/pick') },
     { key: 'search', emoji: '🔎', label: 'Search for a dish', onPress: () => router.push('/search') },
   ];
@@ -64,7 +72,11 @@ export default function Welcome() {
                   onPress={o.onPress}
                   style={({ pressed }) => [styles.card, shadowCard, pressed && styles.cardPressed]}
                 >
-                  <Text style={styles.cardEmoji}>{o.emoji}</Text>
+                  {o.image != null ? (
+                    <Image source={o.image} style={styles.cardIcon} />
+                  ) : (
+                    <Text style={styles.cardEmoji}>{o.emoji}</Text>
+                  )}
                   <Text style={styles.cardLabel}>{o.label}</Text>
                 </Pressable>
               ))}
@@ -114,6 +126,7 @@ const styles = StyleSheet.create({
   },
   cardPressed: { transform: [{ scale: 0.97 }], backgroundColor: '#F4F7FA' },
   cardEmoji: { fontSize: 28 },
+  cardIcon: { width: 30, height: 30, borderRadius: 7 },
   cardLabel: { fontSize: 14, fontWeight: '800', color: colors.ink, textAlign: 'center' },
   count: {
     textAlign: 'center',
