@@ -96,9 +96,9 @@ export const QUESTIONS: Record<string, Question> = {
     subtitle: 'Rough per-portion estimate — shown with a ≈ on every dish.',
     when: (a) => a.q_plan === 'cals',
     options: [
-      { id: 'u400', label: '400 or less', emoji: '🥗', keep: (d) => estimateDish(d).kcal <= 400 },
-      { id: 'u600', label: '401 – 600', emoji: '🍽️', keep: (d) => estimateDish(d).kcal <= 600 },
-      { id: 'u800', label: '601 – 800', emoji: '🍲', keep: (d) => estimateDish(d).kcal <= 800 },
+      { id: 'u400', label: 'Under 400', emoji: '🥗', keep: (d) => estimateDish(d).kcal <= 400 },
+      { id: 'u600', label: 'Under 600', emoji: '🍽️', keep: (d) => estimateDish(d).kcal <= 600 },
+      { id: 'u800', label: 'Under 800', emoji: '🍲', keep: (d) => estimateDish(d).kcal <= 800 },
       { id: 'o800', label: '801+', emoji: '🍔' },
     ],
   },
