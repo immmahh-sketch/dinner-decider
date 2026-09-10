@@ -13,10 +13,22 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "enabled": true,
+      "checkAutomatically": "ON_LOAD",
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/50d4ca4e-d7a9-416f-ad37-192110bd393d",
+      "requestHeaders": {
+        "expo-channel-name": "preview"
+      }
+    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.dinnerdecider.app",
-      "buildNumber": "24",
+      "buildNumber": "26",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -42,6 +54,7 @@
     "plugins": [
       "expo-router",
       "expo-web-browser",
+      "expo-updates",
       [
         "expo-splash-screen",
         {

@@ -1,3 +1,340 @@
-export default function Screen() {
-  return null;
+import { useState } from 'react';
+import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useRouter } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Button } from '@/components/Button';
+import { ALLERGENS, DIETS, looksLikePostcode, tidyPostcode, usePrefs } from '@/store/prefs';
+import { openExternal } from '@/lib/links';
+import { useAppUpdates } from '@/lib/updates';
+import { colors, radius, shadowCard } from '@/theme';
+
+// Placeholder hosted-checkout link. Swap for a real Stripe Payment Link or
+// Gumroad product URL, then deliver the unlock code on success. See MONETISATION.md.
+const CHECKOUT_URL = 'https://example.com/dinner-decider/remove-ads';
+const UNLOCK_CODE = 'DINNER2025';
+
+function updateBlurb(status: string, current: string): string {
+  switch (status) {
+    case 'ready':
+      return 'A new version has been downloaded. Restart to apply it.';
+    case 'downloading':
+      return 'Downloading the latest version…';
+    case 'checking':
+      return 'Checking for a newer version…';
+    case 'up-to-date':
+      return `You are on the latest version (${current}).`;
+    case 'unavailable':
+      return 'Over-the-air updates are only active in the installed app, not in Expo Go.';
+    case 'error':
+      return 'Could not check right now. Try again when you have signal.';
+    default:
+      return `Running ${current}. Updates download automatically; you can also check now.`;
+  }
 }
+
+export default function RemoveAds() {
+  const router = useRouter();
+  const adsRemoved = usePrefs((s) => s.adsRemoved);
+  const setAdsRemoved = usePrefs((s) => s.setAdsRemoved);
+  const setHideHowItWorks = usePrefs((s) => s.setHideHowItWorks);
+  const updates = useAppUpdates();
+
+  const username = usePrefs((s) => s.username);
+  const setUsername = usePrefs((s) => s.setUsername);
+  const postcode = usePrefs((s) => s.postcode);
+  const setPostcode = usePrefs((s) => s.setPostcode);
+  const avoid = usePrefs((s) => s.avoid);
+  const diets = usePrefs((s) => s.diets);
+  const allergens = usePrefs((s) => s.allergens);
+  const addAvoid = usePrefs((s) => s.addAvoid);
+  const removeAvoid = usePrefs((s) => s.removeAvoid);
+  const toggleDiet = usePrefs((s) => s.toggleDiet);
+  const toggleAllergen = usePrefs((s) => s.toggleAllergen);
+
+  const [term, setTerm] = useState('');
+  const [showCode, setShowCode] = useState(false);
+  const [code, setCode] = useState('');
+  const [error, setError] = useState('');
+
+  const submitAvoid = () => {
+    const v = term.trim();
+    if (!v) return;
+    addAvoid(v);
+    setTerm('');
+  };
+
+  const redeem = () => {
+    if (code.trim().toUpperCase() === UNLOCK_CODE) {
+      setAdsRemoved(true);
+      setError('');
+    } else {
+      setError('That code did not work. Check your email receipt.');
+    }
+  };
+
+  return (
+    <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
+      <View style={styles.header}>
+        <Text style={styles.h1}>Settings</Text>
+        <Pressable hitSlop={12} onPress={() => router.back()}>
+          <Text style={styles.close}>Done</Text>
+        </Pressable>
+      </View>
+
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 28 }}>
+        {/* -------------------------------------------------- you */}
+        <View style={[styles.card, shadowCard]}>
+          <Text style={styles.cardTitle}>You</Text>
+          <Text style={styles.cardBody}>
+            Your name shows when you share a dinner idea. Your postcode opens Just Eat,
+            Deliveroo, Uber Eats and local searches for the right area — it&apos;s saved on
+            this phone only and never sent anywhere else.
+          </Text>
+          <Text style={styles.groupLabel}>Name</Text>
+          <TextInput
+            value={username}
+            onChangeText={setUsername}
+            placeholder="e.g. Sam"
+            placeholderTextColor={colors.inkSoft}
+            autoCapitalize="words"
+            autoCorrect={false}
+            maxLength={24}
+            style={styles.input}
+          />
+          <Text style={styles.groupLabel}>Postcode</Text>
+          <TextInput
+            value={postcode}
+            onChangeText={(t) => setPostcode(tidyPostcode(t))}
+            placeholder="e.g. SW1A 1AA"
+            placeholderTextColor={colors.inkSoft}
+            autoCapitalize="characters"
+            autoCorrect={false}
+            autoComplete="postal-code"
+            maxLength={8}
+            style={styles.input}
+          />
+          {!!postcode && !looksLikePostcode(postcode) && (
+            <Text style={styles.error}>That doesn&apos;t look like a UK postcode.</Text>
+          )}
+        </View>
+
+        {/* -------------------------------------------------- deal-breakers */}
+        <View style={[styles.card, shadowCard]}>
+          <Text style={styles.cardTitle}>Deal-breakers &amp; dietary</Text>
+          <Text style={styles.cardBody}>
+            These are absolute — matching dishes are hidden from every result, before
+            the quiz even starts.
+          </Text>
+
+          <Text style={styles.groupLabel}>Never show me…</Text>
+          <View style={styles.chipWrap}>
+            {avoid.map((a) => (
+              <Pressable key={a} style={[styles.chip, styles.chipOn]} onPress={() => removeAvoid(a)}>
+                <Text style={[styles.chipText, styles.chipTextOn]}>{a}  ✕</Text>
+              </Pressable>
+            ))}
+            {avoid.length === 0 && <Text style={styles.hint}>Nothing yet — add an ingredient below.</Text>}
+          </View>
+          <View style={styles.addRow}>
+            <TextInput
+              value={term}
+              onChangeText={setTerm}
+              onSubmitEditing={submitAvoid}
+              placeholder="e.g. onions, coriander, almonds"
+              placeholderTextColor={colors.inkSoft}
+              autoCapitalize="none"
+              autoCorrect={false}
+              returnKeyType="done"
+              style={[styles.input, { flex: 1 }]}
+            />
+            <Button label="Add" variant="accent" onPress={submitAvoid} />
+          </View>
+
+          <Text style={styles.groupLabel}>Allergens to screen out</Text>
+          <View style={styles.chipWrap}>
+            {ALLERGENS.map(({ key, label }) => {
+              const on = allergens.includes(key);
+              return (
+                <Pressable
+                  key={key}
+                  style={[styles.chip, on && styles.chipOn]}
+                  onPress={() => toggleAllergen(key)}
+                >
+                  <Text style={[styles.chipText, on && styles.chipTextOn]}>{label}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+
+          <Text style={styles.groupLabel}>Dietary</Text>
+          <View style={styles.chipWrap}>
+            {DIETS.map(({ key, label }) => {
+              const on = diets.includes(key);
+              return (
+                <Pressable
+                  key={key}
+                  style={[styles.chip, on && styles.chipOn]}
+                  onPress={() => toggleDiet(key)}
+                >
+                  <Text style={[styles.chipText, on && styles.chipTextOn]}>{label}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+          <Text style={styles.fineprint}>
+            Allergen screening matches dish wording and can’t be perfect — always check
+            with the venue or recipe if a reaction would be serious.
+          </Text>
+        </View>
+
+        {/* -------------------------------------------------- remove ads */}
+        <View style={[styles.card, shadowCard]}>
+          <Text style={styles.badge}>ONE-TIME · £2.99</Text>
+          <Text style={styles.cardTitle}>Remove ads</Text>
+          <Text style={styles.cardBody}>
+            Support the app and lose every ad slot, forever, on this device.
+          </Text>
+
+          {adsRemoved ? (
+            <View style={styles.doneRow}>
+              <Text style={styles.doneText}>✅ Ads are off. Thank you!</Text>
+              <Pressable onLongPress={() => setAdsRemoved(false)}>
+                <Text style={styles.restoreHint}>(long-press to re-enable for testing)</Text>
+              </Pressable>
+            </View>
+          ) : (
+            <>
+              <Button
+                label="Continue to checkout"
+                variant="primary"
+                onPress={() => openExternal(CHECKOUT_URL)}
+                style={{ marginTop: 16 }}
+              />
+              <Pressable onPress={() => setShowCode((v) => !v)} style={{ marginTop: 12 }}>
+                <Text style={styles.codeToggle}>Have an unlock code?</Text>
+              </Pressable>
+              {showCode && (
+                <View style={styles.codeBox}>
+                  <TextInput
+                    value={code}
+                    onChangeText={setCode}
+                    autoCapitalize="characters"
+                    autoCorrect={false}
+                    placeholder="Enter code"
+                    placeholderTextColor={colors.inkSoft}
+                    style={[styles.input, { flex: 1 }]}
+                  />
+                  <Button label="Redeem" variant="accent" onPress={redeem} />
+                </View>
+              )}
+              {!!error && <Text style={styles.error}>{error}</Text>}
+            </>
+          )}
+        </View>
+
+        <View style={[styles.card, shadowCard]}>
+          <Text style={styles.cardTitle}>App updates</Text>
+          <Text style={styles.cardBody}>{updateBlurb(updates.status, updates.currentLabel)}</Text>
+          {updates.status === 'ready' ? (
+            <Button
+              label="Restart to update"
+              variant="accent"
+              onPress={updates.restart}
+              style={{ marginTop: 14 }}
+            />
+          ) : (
+            <Button
+              label={updates.status === 'checking' || updates.status === 'downloading' ? 'Checking…' : 'Check for updates'}
+              variant="outline"
+              onPress={updates.check}
+              disabled={updates.status === 'checking' || updates.status === 'downloading'}
+              style={{ marginTop: 14 }}
+            />
+          )}
+        </View>
+
+        <View style={[styles.card, shadowCard]}>
+          <Text style={styles.cardTitle}>Show me how it works again</Text>
+          <Text style={styles.cardBody}>Bring back the intro screen next time you start.</Text>
+          <Button
+            label="Re-enable intro"
+            variant="outline"
+            onPress={() => setHideHowItWorks(false)}
+            style={{ marginTop: 14 }}
+          />
+        </View>
+
+        <Text style={styles.legal}>
+          In-app purchases are not available on sideloaded builds, so “Remove ads” uses a web
+          checkout that emails an unlock code. Ads currently show a placeholder until an ad
+          network is connected.
+        </Text>
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  safe: { flex: 1, backgroundColor: colors.bg, paddingHorizontal: 20 },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 14,
+  },
+  h1: { fontSize: 24, fontWeight: '900', color: colors.ink },
+  close: { fontSize: 16, fontWeight: '800', color: colors.primary },
+  card: {
+    backgroundColor: colors.card,
+    borderRadius: radius.lg,
+    padding: 18,
+    marginBottom: 14,
+    borderWidth: 1,
+    borderColor: colors.line,
+  },
+  badge: { fontSize: 11, fontWeight: '900', color: colors.primary, letterSpacing: 1 },
+  cardTitle: { fontSize: 18, fontWeight: '900', color: colors.ink, marginTop: 4 },
+  cardBody: { fontSize: 13.5, color: colors.inkSoft, marginTop: 4, lineHeight: 19 },
+  groupLabel: {
+    fontSize: 11,
+    fontWeight: '900',
+    color: colors.inkSoft,
+    letterSpacing: 0.8,
+    textTransform: 'uppercase',
+    marginTop: 16,
+    marginBottom: 8,
+  },
+  chipWrap: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, alignItems: 'center' },
+  chip: {
+    backgroundColor: colors.bg,
+    borderRadius: radius.pill,
+    paddingHorizontal: 12,
+    paddingVertical: 7,
+    borderWidth: 1,
+    borderColor: colors.line,
+  },
+  chipOn: { backgroundColor: colors.primary, borderColor: colors.primary },
+  chipText: { fontSize: 12.5, fontWeight: '800', color: colors.inkSoft, textTransform: 'capitalize' },
+  chipTextOn: { color: '#fff' },
+  hint: { fontSize: 12.5, color: colors.inkSoft, fontStyle: 'italic' },
+  addRow: { flexDirection: 'row', gap: 8, alignItems: 'center', marginTop: 10 },
+  fineprint: { fontSize: 11, color: colors.inkSoft, lineHeight: 16, marginTop: 14 },
+  doneRow: { marginTop: 14, gap: 4 },
+  doneText: { fontSize: 15, fontWeight: '800', color: colors.mint },
+  restoreHint: { fontSize: 11, color: colors.inkSoft },
+  codeToggle: { fontSize: 13, fontWeight: '800', color: colors.primary },
+  codeBox: { flexDirection: 'row', gap: 8, marginTop: 10, alignItems: 'center' },
+  input: {
+    borderWidth: 1,
+    borderColor: colors.line,
+    borderRadius: radius.md,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    fontSize: 15,
+    fontWeight: '700',
+    color: colors.ink,
+    backgroundColor: colors.bg,
+  },
+  error: { color: colors.danger, fontSize: 12.5, marginTop: 8 },
+  legal: { fontSize: 11, color: colors.inkSoft, lineHeight: 16, marginTop: 4 },
+});

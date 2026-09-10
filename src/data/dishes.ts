@@ -16,25 +16,18 @@ import { Dish, HomeDish, RestaurantDish, TakeawayDish } from '@/engine/types';
 export const CATALOG_URL =
   'https://github.com/immmahh-sketch/dinner-decider/releases/download/catalog/dishes.json';
 
-type Ctx = { keys(): string[]; (id: string): unknown };
-function loadDir(ctx: Ctx): unknown[] {
-  return ctx
-    .keys()
-    .sort()
-    .flatMap((k) => {
-      const mod = ctx(k) as unknown;
-      const arr = (mod as { default?: unknown }).default ?? mod;
-      return Array.isArray(arr) ? arr : [];
-    });
-}
-const req = require as unknown as { context: (a: string, b: boolean, c: RegExp) => Ctx };
-const homeCtx = req.context('./home', false, /\.json$/);
-const takeawayCtx = req.context('./takeaway', false, /\.json$/);
-const restaurantCtx = req.context('./restaurant', false, /\.json$/);
+// The hand-written dish files under src/data/{home,takeaway,restaurant}/*.json
+// are concatenated into these three bundles by scripts/bundle-dishes.mjs.
+// (Was Metro require.context — an experimental feature that crashes the New
+// Architecture release build on launch. Run bundle-dishes.mjs after editing
+// any dish file.)
+import homeBundle from './home.bundle.json';
+import takeawayBundle from './takeaway.bundle.json';
+import restaurantBundle from './restaurant.bundle.json';
 
-export const HOME_DISHES = loadDir(homeCtx) as HomeDish[];
-export const TAKEAWAY_DISHES = loadDir(takeawayCtx) as TakeawayDish[];
-export const RESTAURANT_DISHES = loadDir(restaurantCtx) as RestaurantDish[];
+export const HOME_DISHES = homeBundle as unknown as HomeDish[];
+export const TAKEAWAY_DISHES = takeawayBundle as unknown as TakeawayDish[];
+export const RESTAURANT_DISHES = restaurantBundle as unknown as RestaurantDish[];
 
 const BUNDLED: Dish[] = [...HOME_DISHES, ...TAKEAWAY_DISHES, ...RESTAURANT_DISHES];
 
