@@ -23,11 +23,15 @@ interface DeciderStore {
   /** stack of question ids shown so far, for the back button */
   visited: string[];
   shuffleSeed: number;
+  /** "Choose directly" — ingredient terms the user picked instead of the quiz.
+   *  When non-empty, results are filtered by these instead of by `steps`. */
+  pickedIngredients: string[];
 
   start: () => void;
   answer: (questionId: string, optionId: string) => AnswerOutcome;
   goBack: () => void;
   reshuffle: () => void;
+  setPickedIngredients: (terms: string[]) => void;
 }
 
 const freshSeed = () => Math.floor(Math.random() * 1_000_000) + 1;
@@ -37,6 +41,7 @@ export const useDecider = create<DeciderStore>((set, get) => ({
   currentQuestionId: FIRST_QUESTION_ID,
   visited: [FIRST_QUESTION_ID],
   shuffleSeed: freshSeed(),
+  pickedIngredients: [],
 
   start: () =>
     set({
@@ -44,6 +49,7 @@ export const useDecider = create<DeciderStore>((set, get) => ({
       currentQuestionId: FIRST_QUESTION_ID,
       visited: [FIRST_QUESTION_ID],
       shuffleSeed: freshSeed(),
+      pickedIngredients: [],
     }),
 
   answer: (questionId, optionId) => {
@@ -56,6 +62,8 @@ export const useDecider = create<DeciderStore>((set, get) => ({
       steps: res.steps,
       currentQuestionId: nextId ?? s.currentQuestionId,
       visited: nextId ? [...s.visited, nextId] : s.visited,
+      // answering the quiz supersedes a direct ingredient pick
+      pickedIngredients: [],
     }));
 
     return { count: res.pool.length, done, nextId, ignored: res.ignored };
@@ -73,6 +81,9 @@ export const useDecider = create<DeciderStore>((set, get) => ({
   },
 
   reshuffle: () => set({ shuffleSeed: freshSeed() }),
+
+  setPickedIngredients: (terms) =>
+    set({ pickedIngredients: terms, shuffleSeed: freshSeed() }),
 }));
 
 /** Imperative pool read (outside React). Components should use the hooks in pool.ts. */

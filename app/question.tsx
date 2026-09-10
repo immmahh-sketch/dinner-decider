@@ -86,6 +86,13 @@ export default function QuestionScreen() {
             </Animated.View>
           ))}
         </View>
+
+        {answered === 0 && (
+          <Pressable style={styles.directRow} onPress={() => router.push('/pick')}>
+            <Text style={styles.directText}>🧺  Know what you want? Choose by ingredient</Text>
+            <Text style={styles.directChevron}>›</Text>
+          </Pressable>
+        )}
       </ScrollView>
 
       <AdBanner slot="question" />
@@ -127,4 +134,18 @@ const styles = StyleSheet.create({
   optionEmoji: { fontSize: 22 },
   optionLabel: { flex: 1, fontSize: 17, fontWeight: '800', color: colors.ink },
   optionChevron: { fontSize: 22, color: colors.inkSoft, fontWeight: '800' },
+  directRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginTop: 22,
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    borderRadius: radius.lg,
+    borderWidth: 1.5,
+    borderStyle: 'dashed',
+    borderColor: colors.line,
+  },
+  directText: { flex: 1, fontSize: 14.5, fontWeight: '800', color: colors.inkSoft },
+  directChevron: { fontSize: 20, color: colors.inkSoft, fontWeight: '800' },
 });

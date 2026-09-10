@@ -25,12 +25,19 @@ export default function Results() {
   const reshuffle = useDecider((s) => s.reshuffle);
   const start = useDecider((s) => s.start);
   const steps = useDecider((s) => s.steps);
+  const picked = useDecider((s) => s.pickedIngredients);
   const username = usePrefs((s) => s.username);
   const plan = planLabel(answersFromSteps(steps).q_plan);
 
+  const byIngredient = picked.length > 0;
   const overflow = total > RESULT_THRESHOLD;
-  const subtitle =
-    total === 0
+  const subtitle = byIngredient
+    ? total === 0
+      ? `Nothing uses all of: ${picked.join(', ')} — try fewer`
+      : `${total} ${total === 1 ? 'dish uses' : 'dishes use'} ${picked.join(', ')}${
+          overflow ? ` — here are ${RESULT_THRESHOLD}` : ''
+        }`
+    : total === 0
       ? 'Nothing matched every answer — start over and loosen a choice'
       : overflow
         ? `${total} match — here are ${RESULT_THRESHOLD} to spark ideas`
@@ -73,13 +80,22 @@ export default function Results() {
         contentContainerStyle={{ paddingVertical: 8, paddingBottom: 20 }}
         ListEmptyComponent={
           <Text style={styles.empty}>
-            Nothing matched every answer. Start over and loosen up a choice or two.
+            {byIngredient
+              ? 'No dish uses all of those together. Go back and drop one or two.'
+              : 'Nothing matched every answer. Start over and loosen up a choice or two.'}
           </Text>
         }
         ListFooterComponent={
           <View style={styles.footer}>
             {overflow && (
               <Button label={`Shuffle these ${RESULT_THRESHOLD}`} variant="outline" onPress={reshuffle} />
+            )}
+            {byIngredient && (
+              <Button
+                label="Adjust ingredients"
+                variant="outline"
+                onPress={() => router.replace('/pick')}
+              />
             )}
             <Button label="Start over" variant="ghost" onPress={restart} />
           </View>
