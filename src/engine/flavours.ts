@@ -70,7 +70,8 @@ export function deriveFlavours(dish: Dish): Flavour[] {
   const text = [
     dish.name,
     dish.blurb,
-    isHome(dish) ? dish.ingredients.join(' ') : '',
+    // Hosted home "cards" carry no `ingredients` array — guard the access.
+    isHome(dish) && Array.isArray(dish.ingredients) ? dish.ingredients.join(' ') : '',
     'searchTerm' in dish ? String((dish as { searchTerm?: string }).searchTerm ?? '') : '',
   ]
     .join(' ')

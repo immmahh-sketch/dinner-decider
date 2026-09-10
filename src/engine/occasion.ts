@@ -34,7 +34,9 @@ export function deriveOccasions(dish: Dish): Occasion[] {
   const text = [
     dish.name,
     dish.blurb,
-    isHome(dish) ? dish.ingredients.join(' ') : '',
+    // Hosted home dishes arrive as lightweight "cards" with no `ingredients`
+    // array (engine/hydrate rebuilds it on demand), so guard the access.
+    isHome(dish) && Array.isArray(dish.ingredients) ? dish.ingredients.join(' ') : '',
     'searchTerm' in dish ? String((dish as { searchTerm?: string }).searchTerm ?? '') : '',
   ]
     .join(' ')
