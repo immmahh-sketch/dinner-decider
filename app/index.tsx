@@ -4,13 +4,14 @@ import Animated, { FadeInDown } from 'react-native-reanimated';
 import { Redirect, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Wheel } from '@/components/Wheel';
-import { Button } from '@/components/Button';
 import { WHEEL_TITLES } from '@/data/dishes';
 import { useDecider } from '@/store/decider';
 import { useCatalogStats } from '@/store/catalog';
 import { usePrefs } from '@/store/prefs';
 import { UPDATED_AT } from '@/meta';
-import { colors } from '@/theme';
+import { colors, radius, shadowCard } from '@/theme';
+
+type Option = { key: string; emoji: string; label: string; onPress: () => void };
 
 export default function Welcome() {
   const router = useRouter();
@@ -28,30 +29,47 @@ export default function Welcome() {
     return <Redirect href="/setup" />;
   }
 
-  const begin = () => {
+  const answerQuestions = () => {
     start();
     if (hideHowItWorks) router.replace('/question');
     else router.push('/how-it-works');
   };
 
+  const options: Option[] = [
+    { key: 'quiz', emoji: '🧭', label: 'Answer questions', onPress: answerQuestions },
+    { key: 'spin', emoji: '🎡', label: 'Spin the wheel', onPress: () => router.push('/wheel') },
+    { key: 'ingredients', emoji: '🧺', label: 'Pick by ingredients', onPress: () => router.push('/pick') },
+    { key: 'search', emoji: '🔎', label: 'Search for a dish', onPress: () => router.push('/search') },
+  ];
+
   return (
     <SafeAreaView style={styles.safe}>
       <View style={styles.topRow}>
-        <Pressable hitSlop={12} onPress={() => router.push('/search')}>
-          <Text style={styles.settings}>🔎 Search</Text>
-        </Pressable>
         <Pressable hitSlop={12} onPress={() => router.push('/remove-ads')}>
           <Text style={styles.settings}>⚙︎ Settings</Text>
         </Pressable>
       </View>
+
       <View style={styles.wheelArea}>
         <Wheel titles={WHEEL_TITLES} onRevealed={() => setRevealed(true)} />
       </View>
 
       <View style={styles.bottom}>
         {revealed && (
-          <Animated.View entering={FadeInDown.duration(400)} style={styles.cta}>
-            <Button label="Help me decide" onPress={begin} variant="primary" />
+          <Animated.View entering={FadeInDown.duration(400)}>
+            <View style={styles.grid}>
+              {options.map((o) => (
+                <Pressable
+                  key={o.key}
+                  onPress={o.onPress}
+                  style={({ pressed }) => [styles.card, shadowCard, pressed && styles.cardPressed]}
+                >
+                  <Text style={styles.cardEmoji}>{o.emoji}</Text>
+                  <Text style={styles.cardLabel}>{o.label}</Text>
+                </Pressable>
+              ))}
+            </View>
+
             <Text style={styles.count}>
               {stats.total.toLocaleString()} dinners in the deck
               {stats.source === 'bundled' ? ' · loading the full menu…' : ''}
@@ -78,24 +96,38 @@ export default function Welcome() {
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.bg },
-  topRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 4,
-  },
+  topRow: { alignItems: 'flex-end', paddingHorizontal: 20, paddingTop: 4 },
   settings: { color: colors.inkSoft, fontSize: 13, fontWeight: '700' },
   wheelArea: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  bottom: { minHeight: 140, paddingHorizontal: 28, justifyContent: 'flex-start' },
-  cta: { gap: 12, alignItems: 'stretch' },
-  count: { textAlign: 'center', color: colors.inkSoft, fontSize: 13, fontWeight: '600' },
+  bottom: { paddingHorizontal: 20, paddingTop: 4, justifyContent: 'flex-start' },
+  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12, justifyContent: 'center' },
+  card: {
+    width: '47%',
+    minHeight: 92,
+    backgroundColor: colors.card,
+    borderRadius: radius.lg,
+    paddingVertical: 16,
+    paddingHorizontal: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+  },
+  cardPressed: { transform: [{ scale: 0.97 }], backgroundColor: '#F4F7FA' },
+  cardEmoji: { fontSize: 28 },
+  cardLabel: { fontSize: 14, fontWeight: '800', color: colors.ink, textAlign: 'center' },
+  count: {
+    textAlign: 'center',
+    color: colors.inkSoft,
+    fontSize: 13,
+    fontWeight: '600',
+    marginTop: 14,
+  },
   nameNudge: {
     textAlign: 'center',
     color: colors.primary,
     fontSize: 12.5,
     fontWeight: '800',
-    marginTop: 2,
+    marginTop: 4,
   },
   updated: {
     textAlign: 'center',
