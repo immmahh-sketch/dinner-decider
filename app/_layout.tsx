@@ -1,9 +1,9 @@
-// BISECT build 22 — providers + @/store/prefs + @/data/dishes.
-// (= crashing build 17's _layout, minus @/store/shoppingList, which
-// build 21 proved is fine.)
-// crash -> it's @/store/prefs (engine chain / module-scope subscribe) or
-//          @/data/dishes (require.context of ~2177 JSON).
-// launch -> the crash needs shoppingList present too (interaction).
+// BISECT build 24 — providers + ONLY @/store/prefs (its @/engine/exclude
+// -> dishText -> recipeTemplates.mjs chain + module-scope
+// syncExcluder/subscribe). NO @/data/dishes, NO @/store/shoppingList.
+// Run in parallel with build 23 (providers + prefs + data/dishes):
+//   23 crash + 24 crash  -> @/store/prefs is the trigger
+//   23 crash + 24 launch -> @/data/dishes is the trigger
 import { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -11,7 +11,6 @@ import * as SplashScreen from 'expo-splash-screen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { usePrefs } from '@/store/prefs';
-import { loadCatalog } from '@/data/dishes';
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
 
@@ -24,13 +23,6 @@ export default function RootLayout() {
 
   useEffect(() => {
     const t = setTimeout(() => SplashScreen.hideAsync().catch(() => {}), 3000);
-    return () => clearTimeout(t);
-  }, []);
-
-  useEffect(() => {
-    const t = setTimeout(() => {
-      loadCatalog();
-    }, 2500);
     return () => clearTimeout(t);
   }, []);
 
