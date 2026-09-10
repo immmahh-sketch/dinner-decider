@@ -82,6 +82,7 @@ export default function RootLayout() {
           <Stack.Screen name="how-it-works" options={{ animation: 'fade' }} />
           <Stack.Screen name="question" />
           <Stack.Screen name="pick" />
+          <Stack.Screen name="search" />
           <Stack.Screen name="peek" options={{ animation: 'fade', presentation: 'transparentModal' }} />
           <Stack.Screen name="results" />
           <Stack.Screen name="dish/[id]" />

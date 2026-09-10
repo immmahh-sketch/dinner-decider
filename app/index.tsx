@@ -37,6 +37,9 @@ export default function Welcome() {
   return (
     <SafeAreaView style={styles.safe}>
       <View style={styles.topRow}>
+        <Pressable hitSlop={12} onPress={() => router.push('/search')}>
+          <Text style={styles.settings}>🔎 Search</Text>
+        </Pressable>
         <Pressable hitSlop={12} onPress={() => router.push('/remove-ads')}>
           <Text style={styles.settings}>⚙︎ Settings</Text>
         </Pressable>
@@ -75,7 +78,13 @@ export default function Welcome() {
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.bg },
-  topRow: { alignItems: 'flex-end', paddingHorizontal: 20, paddingTop: 4 },
+  topRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 4,
+  },
   settings: { color: colors.inkSoft, fontSize: 13, fontWeight: '700' },
   wheelArea: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   bottom: { minHeight: 140, paddingHorizontal: 28, justifyContent: 'flex-start' },
