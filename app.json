@@ -20,6 +20,7 @@
       "enabled": true,
       "checkAutomatically": "ON_LOAD",
       "fallbackToCacheTimeout": 0,
+      "disableAntiBrickingMeasures": true,
       "url": "https://u.expo.dev/50d4ca4e-d7a9-416f-ad37-192110bd393d",
       "requestHeaders": {
         "expo-channel-name": "preview"
@@ -28,7 +29,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.dinnerdecider.app",
-      "buildNumber": "26",
+      "buildNumber": "28",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
