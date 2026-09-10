@@ -1,6 +1,7 @@
 import { Dish, isHome, isRestaurant, isTakeaway } from './types';
 import { hasFlavour } from './flavours';
 import { hasOccasion } from './occasion';
+import { estimateDish } from './estimate';
 
 export type Answers = Record<string, string>;
 
@@ -86,6 +87,19 @@ export const QUESTIONS: Record<string, Question> = {
       { id: 'ww', label: 'WeightWatchers', emoji: '🔵' },
       { id: 'cals', label: 'Counting calories', emoji: '🔢' },
       { id: 'lighter', label: 'No set plan — just lighter', emoji: '🍃' },
+    ],
+  },
+
+  q_cal_limit: {
+    id: 'q_cal_limit',
+    title: 'How many calories is too much?',
+    subtitle: 'Rough per-portion estimate — shown with a ≈ on every dish.',
+    when: (a) => a.q_plan === 'cals',
+    options: [
+      { id: 'u400', label: '400 or less', emoji: '🥗', keep: (d) => estimateDish(d).kcal <= 400 },
+      { id: 'u600', label: '401 – 600', emoji: '🍽️', keep: (d) => estimateDish(d).kcal <= 600 },
+      { id: 'u800', label: '601 – 800', emoji: '🍲', keep: (d) => estimateDish(d).kcal <= 800 },
+      { id: 'o800', label: '801+', emoji: '🍔' },
     ],
   },
 
@@ -233,6 +247,7 @@ export const QUESTION_ORDER: string[] = [
   'q_evening',
   'q_health',
   'q_plan',
+  'q_cal_limit',
   'q_where',
   'q_cook_order',
   'q_vibe',
