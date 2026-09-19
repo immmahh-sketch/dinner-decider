@@ -1,3 +1,3 @@
 // Bump this each time an OTA update ships so the welcome screen shows
 // when the content was last refreshed.
-export const UPDATED_AT = '19 September 2026 · v1.1.0 · flag-instead-of-hide ingredients';
+export const UPDATED_AT = '19 September 2026 · v1.1.0 · search straight into build-your-wheel';
