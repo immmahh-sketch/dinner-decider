@@ -138,7 +138,7 @@ export default function WheelPick() {
           onPress={isCustom ? spinRandomInstead : () => router.push('/wheel-build')}
         >
           <Text style={styles.modeLink}>
-            {isCustom ? '🎲 Spin randomly instead' : '❤️ Build from favourites'}
+            {isCustom ? '🎲 Spin randomly instead' : '🎡 Build your own wheel'}
           </Text>
         </Pressable>
       </View>
