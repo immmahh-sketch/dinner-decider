@@ -53,6 +53,9 @@ export default function Welcome() {
   return (
     <SafeAreaView style={styles.safe}>
       <View style={styles.topRow}>
+        <Pressable hitSlop={12} onPress={() => router.push('/favourites')}>
+          <Text style={styles.favLink}>♥ Favourites</Text>
+        </Pressable>
         <Pressable hitSlop={12} onPress={() => router.push('/remove-ads')}>
           <Text style={styles.settings}>⚙︎ Settings</Text>
         </Pressable>
@@ -108,7 +111,14 @@ export default function Welcome() {
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.bg },
-  topRow: { alignItems: 'flex-end', paddingHorizontal: 20, paddingTop: 4 },
+  topRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingTop: 4,
+  },
+  favLink: { color: colors.accent, fontSize: 13, fontWeight: '700' },
   settings: { color: colors.inkSoft, fontSize: 13, fontWeight: '700' },
   wheelArea: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   bottom: { paddingHorizontal: 20, paddingTop: 4, justifyContent: 'flex-start' },

@@ -7,6 +7,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { usePrefs } from '@/store/prefs';
 import { useShoppingList } from '@/store/shoppingList';
+import { useFavourites } from '@/store/favourites';
 import { loadCatalog } from '@/data/dishes';
 import { prefetchUpdate, useAutoUpdate } from '@/lib/updates';
 import { colors } from '@/theme';
@@ -45,15 +46,16 @@ export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
 export default function RootLayout() {
   const prefsHydrated = usePrefs((s) => s.hydrated);
   const listHydrated = useShoppingList((s) => s.hydrated);
+  const favouritesHydrated = useFavourites((s) => s.hydrated);
 
   // Apply a freshly-downloaded OTA update at launch (see useAutoUpdate).
   useAutoUpdate();
 
   useEffect(() => {
-    if (prefsHydrated && listHydrated) {
+    if (prefsHydrated && listHydrated && favouritesHydrated) {
       SplashScreen.hideAsync().catch(() => {});
     }
-  }, [prefsHydrated, listHydrated]);
+  }, [prefsHydrated, listHydrated, favouritesHydrated]);
 
   useEffect(() => {
     // Fail-safe: never let the splash sit forever if a store doesn't hydrate.
@@ -84,6 +86,8 @@ export default function RootLayout() {
           <Stack.Screen name="pick" />
           <Stack.Screen name="search" />
           <Stack.Screen name="wheel" />
+          <Stack.Screen name="wheel-build" />
+          <Stack.Screen name="favourites" />
           <Stack.Screen name="results" />
           <Stack.Screen name="dish/[id]" />
           <Stack.Screen name="shopping-list" options={{ presentation: 'modal', animation: 'slide_from_bottom' }} />

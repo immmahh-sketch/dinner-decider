@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { TopBar } from '@/components/TopBar';
 import { AdBanner } from '@/components/AdBanner';
 import { Button } from '@/components/Button';
+import { FavouriteButton } from '@/components/FavouriteButton';
 import { dishById, loadCatalog } from '@/data/dishes';
 import { hydrateDish } from '@/engine/hydrate';
 import { Dish, isHome, isTakeaway } from '@/engine/types';
@@ -68,7 +69,10 @@ export default function DishDetail() {
       <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
         <TopBar title={dish.name} onBack={() => router.back()} />
         <ScrollView contentContainerStyle={styles.pad} showsVerticalScrollIndicator={false}>
-          <Text style={styles.title}>{dish.name}</Text>
+          <View style={styles.titleRow}>
+            <Text style={styles.title}>{dish.name}</Text>
+            <FavouriteButton dishId={dish.id} size={34} />
+          </View>
           <Text style={styles.blurb}>{dish.blurb}</Text>
           <NutritionCard dish={dish} plan={plan} />
 
@@ -121,7 +125,10 @@ export default function DishDetail() {
       <TopBar title={dish.name} onBack={() => router.back()} />
 
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-        <Text style={styles.title}>{dish.name}</Text>
+        <View style={styles.titleRow}>
+          <Text style={styles.title}>{dish.name}</Text>
+          <FavouriteButton dishId={dish.id} size={34} />
+        </View>
         <Text style={styles.blurb}>{dish.blurb}</Text>
 
         <View style={styles.metaRow}>
@@ -264,7 +271,8 @@ const styles = StyleSheet.create({
   orderBtnPressed: { transform: [{ scale: 0.97 }], opacity: 0.9 },
   orderBtnText: { color: '#fff', fontSize: 14, fontWeight: '800' },
   orderNote: { fontSize: 11.5, color: colors.inkSoft, lineHeight: 16, marginTop: 8 },
-  title: { fontSize: 26, fontWeight: '900', color: colors.ink },
+  titleRow: { flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 },
+  title: { flex: 1, fontSize: 26, fontWeight: '900', color: colors.ink },
   blurb: { fontSize: 14.5, color: colors.inkSoft, marginTop: 6, lineHeight: 20 },
   metaRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 16 },
   meta: {
