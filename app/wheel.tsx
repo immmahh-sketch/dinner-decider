@@ -44,9 +44,9 @@ function labelPos(index: number, total: number) {
   return { x: R + dist * Math.cos(rad), y: R + dist * Math.sin(rad), rotate: mid };
 }
 
-/** Resolve the favourites picked on /wheel-build, or null if there aren't at least 2. */
-function resolveCustom(ids: string[] | null): Dish[] | null {
-  if (!ids || ids.length < 2) return null;
+/** Resolve the ids queued on /wheel-build (or quick-added from search), or null if <2. */
+function resolveCustom(ids: string[]): Dish[] | null {
+  if (ids.length < 2) return null;
   const ds = ids.map((id) => hydrateDish(dishById(id))).filter((d): d is Dish => !!d);
   return ds.length >= 2 ? ds : null;
 }
@@ -54,12 +54,12 @@ function resolveCustom(ids: string[] | null): Dish[] | null {
 export default function WheelPick() {
   const router = useRouter();
   const catVersion = useCatalogVersion();
-  const customIds = useWheelPicks((s) => s.customIds);
-  const setCustomIds = useWheelPicks((s) => s.setCustomIds);
+  const wheelIds = useWheelPicks((s) => s.ids);
+  const clearWheelPicks = useWheelPicks((s) => s.clear);
 
-  const [isCustom, setIsCustom] = useState(() => resolveCustom(customIds) != null);
+  const [isCustom, setIsCustom] = useState(() => resolveCustom(wheelIds) != null);
   const [dishes, setDishes] = useState<Dish[]>(
-    () => resolveCustom(customIds) ?? randomDishes(ALL_DISHES, RANDOM_N),
+    () => resolveCustom(wheelIds) ?? randomDishes(ALL_DISHES, RANDOM_N),
   );
   const [phase, setPhase] = useState<'idle' | 'spinning' | 'result'>('idle');
   const [pickedIndex, setPickedIndex] = useState<number | null>(null);
@@ -67,7 +67,7 @@ export default function WheelPick() {
   // one-shot handoff: consume it once on mount so a later plain "Spin the
   // wheel" from the home screen doesn't silently reuse an old custom pick.
   useEffect(() => {
-    setCustomIds(null);
+    clearWheelPicks();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -107,7 +107,7 @@ export default function WheelPick() {
   };
 
   const spinRandomInstead = () => {
-    setCustomIds(null);
+    clearWheelPicks();
     setIsCustom(false);
     setDishes(randomDishes(ALL_DISHES, RANDOM_N));
     setPickedIndex(null);
@@ -130,7 +130,7 @@ export default function WheelPick() {
         <Text style={styles.h1}>Let fate decide</Text>
         <Text style={styles.sub}>
           {isCustom
-            ? `${n} of your favourites on the wheel — spin as many times as you like.`
+            ? `Your ${n} picks on the wheel — spin as many times as you like.`
             : `${n} dinners on the wheel — a new ${n} every spin. Give it a whirl.`}
         </Text>
         <Pressable

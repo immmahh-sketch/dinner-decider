@@ -1,16 +1,26 @@
 import { create } from 'zustand';
 
 /**
- * A one-shot handoff from /wheel-build to /wheel: the dish ids the user
- * picked from their favourites to spin between. Not persisted -- it's set
- * right before navigating and read once the wheel screen mounts.
+ * "Tonight's wheel" -- the dishes currently queued to spin between. Grows as
+ * the user hearts a favourite, taps the 🎡 quick-add on a search result, or
+ * ticks a box on /wheel-build; read (and cleared) once by /wheel on mount so
+ * a later plain "Spin the wheel" from the home screen starts fresh instead
+ * of reusing a stale pick. Not persisted -- it's a working set, not a saved
+ * list (favourites is the saved list).
  */
 interface WheelPicksState {
-  customIds: string[] | null;
-  setCustomIds: (ids: string[] | null) => void;
+  ids: string[];
+  toggle: (id: string) => void;
+  set: (ids: string[]) => void;
+  clear: () => void;
 }
 
 export const useWheelPicks = create<WheelPicksState>((set) => ({
-  customIds: null,
-  setCustomIds: (ids) => set({ customIds: ids }),
+  ids: [],
+  toggle: (id) =>
+    set((s) => ({
+      ids: s.ids.includes(id) ? s.ids.filter((x) => x !== id) : [...s.ids, id],
+    })),
+  set: (ids) => set({ ids }),
+  clear: () => set({ ids: [] }),
 }));

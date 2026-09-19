@@ -15,21 +15,20 @@ import { colors, radius, shadowCard } from '@/theme';
 export default function WheelBuild() {
   const router = useRouter();
   const favIds = useFavourites((s) => s.ids);
-  const setCustomIds = useWheelPicks((s) => s.setCustomIds);
+  const wheelIds = useWheelPicks((s) => s.ids);
+  const setWheelIds = useWheelPicks((s) => s.set);
   const catVersion = useCatalogVersion();
 
   useEffect(() => {
     loadCatalog();
   }, []);
 
-  const dishes = useMemo(
-    () =>
-      [...favIds]
-        .reverse()
-        .map((id) => hydrateDish(dishById(id)))
-        .filter((d): d is Dish => !!d),
-    [favIds, catVersion],
-  );
+  // Favourites, plus anything quick-added to the wheel from search that
+  // isn't (yet) favourited -- both are fair game to build a wheel from.
+  const dishes = useMemo(() => {
+    const ids = [...new Set([...favIds, ...wheelIds])].reverse();
+    return ids.map((id) => hydrateDish(dishById(id))).filter((d): d is Dish => !!d);
+  }, [favIds, wheelIds, catVersion]);
 
   const [selected, setSelected] = useState<Set<string>>(
     () => new Set(dishes.map((d) => d.id)),
@@ -48,7 +47,7 @@ export default function WheelBuild() {
   const canSpin = count >= 2;
 
   const go = () => {
-    setCustomIds(dishes.filter((d) => selected.has(d.id)).map((d) => d.id));
+    setWheelIds(dishes.filter((d) => selected.has(d.id)).map((d) => d.id));
     router.replace('/wheel');
   };
 

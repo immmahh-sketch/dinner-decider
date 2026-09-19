@@ -2,6 +2,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Dish, isHome, isRestaurant, isTakeaway } from '@/engine/types';
 import { Plan, planChip } from '@/engine/estimate';
 import { FavouriteButton } from '@/components/FavouriteButton';
+import { WheelToggleButton } from '@/components/WheelToggleButton';
 import { colors, radius, shadowCard } from '@/theme';
 
 const VENUE_ICON: Record<string, string> = {
@@ -19,11 +20,14 @@ export function DishCard({
   onPress,
   plan,
   onShare,
+  showWheelToggle,
 }: {
   dish: Dish;
   onPress: () => void;
   plan?: Plan | null;
   onShare?: () => void;
+  /** show the 🎡 quick-add-to-wheel toggle (favourites screen only) */
+  showWheelToggle?: boolean;
 }) {
   const tags: string[] = [];
   if (isHome(dish)) {
@@ -43,6 +47,7 @@ export function DishCard({
         <Text style={styles.icon}>{VENUE_ICON[dish.venue]}</Text>
         <Text style={styles.name}>{dish.name}</Text>
         <FavouriteButton dishId={dish.id} />
+        {showWheelToggle && <WheelToggleButton dishId={dish.id} />}
         {onShare && (
           <Pressable hitSlop={12} onPress={onShare} style={styles.shareBtn}>
             <Text style={styles.shareIcon}>↗</Text>
