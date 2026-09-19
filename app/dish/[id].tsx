@@ -11,6 +11,7 @@ import { hydrateDish } from '@/engine/hydrate';
 import { Dish, isHome, isTakeaway } from '@/engine/types';
 import { estimateDish, planLabel } from '@/engine/estimate';
 import { answersFromSteps } from '@/engine/filter';
+import { getActiveSoftWarnings } from '@/engine/exclude';
 import { useShoppingList } from '@/store/shoppingList';
 import { useDecider } from '@/store/decider';
 import { usePrefs } from '@/store/prefs';
@@ -64,6 +65,8 @@ export default function DishDetail() {
     );
   }
 
+  const warnTerms = getActiveSoftWarnings()?.(dish) ?? [];
+
   if (!isHome(dish)) {
     return (
       <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
@@ -74,6 +77,13 @@ export default function DishDetail() {
             <FavouriteButton dishId={dish.id} size={34} />
           </View>
           <Text style={styles.blurb}>{dish.blurb}</Text>
+          {warnTerms.length > 0 && (
+            <View style={styles.warnBanner}>
+              <Text style={styles.warnBannerText}>
+                ⚠️ Contains {warnTerms.join(', ')} — worth checking before you order.
+              </Text>
+            </View>
+          )}
           <NutritionCard dish={dish} plan={plan} />
 
           {isTakeaway(dish) && (
@@ -130,6 +140,14 @@ export default function DishDetail() {
           <FavouriteButton dishId={dish.id} size={34} />
         </View>
         <Text style={styles.blurb}>{dish.blurb}</Text>
+        {warnTerms.length > 0 && (
+          <View style={styles.warnBanner}>
+            <Text style={styles.warnBannerText}>
+              ⚠️ Contains {warnTerms.join(', ')} — marked below. Leave it out or swap it if you're
+              avoiding it.
+            </Text>
+          </View>
+        )}
 
         <View style={styles.metaRow}>
           <Meta label="Time" value={`${dish.timeMinutes} min`} />
@@ -145,12 +163,15 @@ export default function DishDetail() {
             <Text style={styles.sectionTitle}>Ingredients</Text>
             <Text style={styles.serves}>for {dish.servings}</Text>
           </View>
-          {dish.ingredients.map((line, i) => (
-            <View key={i} style={styles.ingRow}>
-              <Text style={styles.bullet}>•</Text>
-              <Text style={styles.ingText}>{line}</Text>
-            </View>
-          ))}
+          {dish.ingredients.map((line, i) => {
+            const flagged = warnTerms.some((t) => line.toLowerCase().includes(t));
+            return (
+              <View key={i} style={styles.ingRow}>
+                <Text style={[styles.bullet, flagged && styles.bulletWarn]}>{flagged ? '⚠️' : '•'}</Text>
+                <Text style={[styles.ingText, flagged && styles.ingTextWarn]}>{line}</Text>
+              </View>
+            );
+          })}
 
           <Button
             label={inList ? 'Add again to shopping list' : 'Add to shopping list'}
@@ -274,6 +295,15 @@ const styles = StyleSheet.create({
   titleRow: { flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 },
   title: { flex: 1, fontSize: 26, fontWeight: '900', color: colors.ink },
   blurb: { fontSize: 14.5, color: colors.inkSoft, marginTop: 6, lineHeight: 20 },
+  warnBanner: {
+    backgroundColor: '#FDECEC',
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.danger,
+    padding: 12,
+    marginTop: 12,
+  },
+  warnBannerText: { fontSize: 13, fontWeight: '700', color: colors.danger, lineHeight: 18 },
   metaRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 16 },
   meta: {
     backgroundColor: colors.card,
@@ -299,7 +329,9 @@ const styles = StyleSheet.create({
   serves: { fontSize: 12, color: colors.inkSoft, fontWeight: '700' },
   ingRow: { flexDirection: 'row', gap: 8, paddingVertical: 3 },
   bullet: { color: colors.primary, fontSize: 15, fontWeight: '900' },
+  bulletWarn: { fontSize: 13 },
   ingText: { flex: 1, fontSize: 14.5, color: colors.ink, lineHeight: 20 },
+  ingTextWarn: { color: colors.danger, fontWeight: '800' },
   added: { marginTop: 8, fontSize: 12.5, color: colors.inkSoft, textAlign: 'center' },
   addedLink: { color: colors.primary, fontWeight: '800' },
   stepRow: { flexDirection: 'row', gap: 12, paddingVertical: 7 },

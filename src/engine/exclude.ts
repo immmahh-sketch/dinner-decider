@@ -12,6 +12,9 @@ import { dishText } from './dishText';
  */
 export interface ExcludePrefs {
   avoid: string[]; // free-text ingredient terms
+  /** when true, "avoid" terms don't hide the dish -- see buildSoftWarnings.
+   *  Allergens and diets are never softened; those stay a hard filter. */
+  softAvoid: boolean;
   diets: Diet[]; // hard dietary requirements
   allergens: string[]; // allergen keys — see ALLERGEN_TERMS
 }
@@ -54,8 +57,12 @@ const ALLERGEN_TERMS: Record<string, string[]> = {
 
 const MEAT: Dish['protein'][] = ['chicken', 'beef', 'lamb', 'pork', 'mixed'];
 
+const norm = (s: string): string => s.toLowerCase().trim();
+
 export function buildExcluder(prefs: ExcludePrefs): ((d: Dish) => boolean) | null {
-  const avoid = (prefs.avoid || []).map((s) => s.toLowerCase().trim()).filter(Boolean);
+  // "avoid" terms only hard-exclude when softAvoid is off -- when it's on,
+  // matching dishes stay in the results but get flagged (buildSoftWarnings).
+  const avoid = prefs.softAvoid ? [] : (prefs.avoid || []).map(norm).filter(Boolean);
   const diets = prefs.diets || [];
   const allergens = prefs.allergens || [];
   if (!avoid.length && !diets.length && !allergens.length) return null;
@@ -91,8 +98,29 @@ export function buildExcluder(prefs: ExcludePrefs): ((d: Dish) => boolean) | nul
   };
 }
 
+/**
+ * Which of the user's "avoid" terms a dish contains, for when softAvoid is on
+ * and the dish is shown anyway rather than hidden. Empty/null when there's
+ * nothing to flag (softAvoid off, or no avoid terms match).
+ */
+export function buildSoftWarnings(prefs: ExcludePrefs): ((d: Dish) => string[]) | null {
+  if (!prefs.softAvoid) return null;
+  const terms = (prefs.avoid || []).map(norm).filter(Boolean);
+  if (!terms.length) return null;
+  return (d: Dish): string[] => {
+    const text = dishText(d);
+    return terms.filter((term) => text.includes(term));
+  };
+}
+
 let active: ((d: Dish) => boolean) | null = null;
 export const setActiveExcluder = (fn: ((d: Dish) => boolean) | null): void => {
   active = fn;
 };
 export const getActiveExcluder = (): ((d: Dish) => boolean) | null => active;
+
+let activeSoftWarnings: ((d: Dish) => string[]) | null = null;
+export const setActiveSoftWarnings = (fn: ((d: Dish) => string[]) | null): void => {
+  activeSoftWarnings = fn;
+};
+export const getActiveSoftWarnings = (): ((d: Dish) => string[]) | null => activeSoftWarnings;

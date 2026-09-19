@@ -23,11 +23,12 @@ export function usePool(): Dish[] {
   // deal-breakers feed poolFor via the module-singleton excluder; this key just
   // forces the memo to refresh when the user edits them.
   const avoid = usePrefs((s) => s.avoid);
+  const softAvoid = usePrefs((s) => s.softAvoid);
   const diets = usePrefs((s) => s.diets);
   const allergens = usePrefs((s) => s.allergens);
   const dealKey = useMemo(
-    () => `${avoid.join(',')}|${diets.join(',')}|${allergens.join(',')}`,
-    [avoid, diets, allergens],
+    () => `${avoid.join(',')}|${softAvoid}|${diets.join(',')}|${allergens.join(',')}`,
+    [avoid, softAvoid, diets, allergens],
   );
   const pickKey = picked.join('|');
   return useMemo(() => {

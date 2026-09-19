@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Dish, isHome, isRestaurant, isTakeaway } from '@/engine/types';
 import { Plan, planChip } from '@/engine/estimate';
+import { getActiveSoftWarnings } from '@/engine/exclude';
 import { FavouriteButton } from '@/components/FavouriteButton';
 import { WheelToggleButton } from '@/components/WheelToggleButton';
 import { colors, radius, shadowCard } from '@/theme';
@@ -38,6 +39,8 @@ export function DishCard({
   if (isRestaurant(dish)) tags.push('££'.slice(0, dish.priceTier) || '£');
   if (dish.spicy > 0) tags.push(spiceLabel(dish.spicy));
 
+  const warnings = getActiveSoftWarnings()?.(dish) ?? [];
+
   return (
     <Pressable
       onPress={onPress}
@@ -58,6 +61,11 @@ export function DishCard({
         {dish.blurb}
       </Text>
       <View style={styles.tagRow}>
+        {warnings.length > 0 && (
+          <View style={[styles.tag, styles.warnTag]}>
+            <Text style={[styles.tagText, styles.warnText]}>⚠️ has {warnings.join(', ')}</Text>
+          </View>
+        )}
         {plan && (
           <View style={[styles.tag, styles.planTag]}>
             <Text style={[styles.tagText, styles.planText]}>{planChip(dish, plan)}</Text>
@@ -111,4 +119,6 @@ const styles = StyleSheet.create({
   tagText: { fontSize: 11.5, fontWeight: '700', color: colors.inkSoft },
   planTag: { backgroundColor: colors.primary, borderColor: colors.primary },
   planText: { color: '#fff', fontWeight: '900' },
+  warnTag: { backgroundColor: '#FDECEC', borderColor: colors.danger },
+  warnText: { color: colors.danger, fontWeight: '800' },
 });

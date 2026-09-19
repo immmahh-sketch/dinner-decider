@@ -2,7 +2,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import type { Diet } from '@/engine/types';
-import { buildExcluder, setActiveExcluder } from '@/engine/exclude';
+import {
+  buildExcluder,
+  buildSoftWarnings,
+  setActiveExcluder,
+  setActiveSoftWarnings,
+} from '@/engine/exclude';
 
 export type Allergen =
   | 'nuts'
@@ -48,6 +53,10 @@ interface PrefsState {
   postcode: string;
   /** free-text "never show me this" ingredient terms, lowercased */
   avoid: string[];
+  /** when true, "avoid" terms flag a matching dish instead of hiding it.
+   *  Allergens stay a hard filter regardless -- this is for dislikes, not
+   *  safety. See src/engine/exclude.ts. */
+  softAvoid: boolean;
   /** hard dietary requirements */
   diets: Diet[];
   /** allergens to screen out */
@@ -59,6 +68,7 @@ interface PrefsState {
   setPostcode: (v: string) => void;
   addAvoid: (term: string) => void;
   removeAvoid: (term: string) => void;
+  setSoftAvoid: (v: boolean) => void;
   toggleDiet: (d: Diet) => void;
   toggleAllergen: (a: Allergen) => void;
 }
@@ -88,6 +98,7 @@ export const usePrefs = create<PrefsState>()(
       username: '',
       postcode: '',
       avoid: [],
+      softAvoid: false,
       diets: [],
       allergens: [],
       setHideHowItWorks: (v) => set({ hideHowItWorks: v }),
@@ -102,6 +113,7 @@ export const usePrefs = create<PrefsState>()(
           return { avoid: [...s.avoid, clean].slice(0, 40) };
         }),
       removeAvoid: (term) => set((s) => ({ avoid: s.avoid.filter((x) => x !== term) })),
+      setSoftAvoid: (v) => set({ softAvoid: v }),
       toggleDiet: (d) => set((s) => ({ diets: toggle(s.diets, d) })),
       toggleAllergen: (a) => set((s) => ({ allergens: toggle(s.allergens, a) })),
     }),
@@ -115,6 +127,7 @@ export const usePrefs = create<PrefsState>()(
         username: s.username,
         postcode: s.postcode,
         avoid: s.avoid,
+        softAvoid: s.softAvoid,
         diets: s.diets,
         allergens: s.allergens,
       }),
@@ -131,17 +144,22 @@ export const usePrefs = create<PrefsState>()(
 // ---- keep the always-on deal-breaker filter in step with prefs ------------
 // Wrapped defensively: this runs at module load and on every prefs change, and
 // it must never be able to take the whole app down.
-function syncExcluder(s: Pick<PrefsState, 'avoid' | 'diets' | 'allergens'>): void {
+function syncExcluder(s: Pick<PrefsState, 'avoid' | 'softAvoid' | 'diets' | 'allergens'>): void {
+  const prefs = {
+    avoid: s.avoid ?? [],
+    softAvoid: s.softAvoid ?? false,
+    diets: s.diets ?? [],
+    allergens: s.allergens ?? [],
+  };
   try {
-    setActiveExcluder(
-      buildExcluder({
-        avoid: s.avoid ?? [],
-        diets: s.diets ?? [],
-        allergens: s.allergens ?? [],
-      }),
-    );
+    setActiveExcluder(buildExcluder(prefs));
   } catch {
     setActiveExcluder(null);
+  }
+  try {
+    setActiveSoftWarnings(buildSoftWarnings(prefs));
+  } catch {
+    setActiveSoftWarnings(null);
   }
 }
 try {

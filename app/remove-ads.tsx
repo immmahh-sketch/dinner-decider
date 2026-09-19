@@ -44,10 +44,12 @@ export default function RemoveAds() {
   const postcode = usePrefs((s) => s.postcode);
   const setPostcode = usePrefs((s) => s.setPostcode);
   const avoid = usePrefs((s) => s.avoid);
+  const softAvoid = usePrefs((s) => s.softAvoid);
   const diets = usePrefs((s) => s.diets);
   const allergens = usePrefs((s) => s.allergens);
   const addAvoid = usePrefs((s) => s.addAvoid);
   const removeAvoid = usePrefs((s) => s.removeAvoid);
+  const setSoftAvoid = usePrefs((s) => s.setSoftAvoid);
   const toggleDiet = usePrefs((s) => s.toggleDiet);
   const toggleAllergen = usePrefs((s) => s.toggleAllergen);
 
@@ -122,8 +124,9 @@ export default function RemoveAds() {
         <View style={[styles.card, shadowCard]}>
           <Text style={styles.cardTitle}>Deal-breakers &amp; dietary</Text>
           <Text style={styles.cardBody}>
-            These are absolute — matching dishes are hidden from every result, before
-            the quiz even starts.
+            Allergens and dietary needs are absolute — matching dishes are hidden from every
+            result, before the quiz even starts. For "never show me…" you can choose to hide
+            those dishes too, or just have the ingredient flagged on them instead.
           </Text>
 
           <Text style={styles.groupLabel}>Never show me…</Text>
@@ -135,6 +138,35 @@ export default function RemoveAds() {
             ))}
             {avoid.length === 0 && <Text style={styles.hint}>Nothing yet — add an ingredient below.</Text>}
           </View>
+
+          {avoid.length > 0 && (
+            <View style={styles.segmentWrap}>
+              <Pressable
+                style={[styles.segment, !softAvoid && styles.segmentOn]}
+                onPress={() => setSoftAvoid(false)}
+              >
+                <Text style={[styles.segmentText, !softAvoid && styles.segmentTextOn]}>
+                  Hide those dishes
+                </Text>
+              </Pressable>
+              <Pressable
+                style={[styles.segment, softAvoid && styles.segmentOn]}
+                onPress={() => setSoftAvoid(true)}
+              >
+                <Text style={[styles.segmentText, softAvoid && styles.segmentTextOn]}>
+                  Just flag the ingredient
+                </Text>
+              </Pressable>
+            </View>
+          )}
+          {avoid.length > 0 && (
+            <Text style={styles.hint}>
+              {softAvoid
+                ? 'Dishes with these stay in your results, with the ingredient marked so you know to leave it out or swap it.'
+                : 'This is for dislikes, not allergies — for a real allergy, use the checklist below instead, which always hides the dish.'}
+            </Text>
+          )}
+
           <View style={styles.addRow}>
             <TextInput
               value={term}
@@ -317,6 +349,24 @@ const styles = StyleSheet.create({
   chipText: { fontSize: 12.5, fontWeight: '800', color: colors.inkSoft, textTransform: 'capitalize' },
   chipTextOn: { color: '#fff' },
   hint: { fontSize: 12.5, color: colors.inkSoft, fontStyle: 'italic' },
+  segmentWrap: {
+    flexDirection: 'row',
+    marginTop: 12,
+    borderRadius: radius.pill,
+    backgroundColor: colors.bg,
+    borderWidth: 1,
+    borderColor: colors.line,
+    padding: 3,
+  },
+  segment: {
+    flex: 1,
+    paddingVertical: 9,
+    borderRadius: radius.pill,
+    alignItems: 'center',
+  },
+  segmentOn: { backgroundColor: colors.primary },
+  segmentText: { fontSize: 12.5, fontWeight: '800', color: colors.inkSoft },
+  segmentTextOn: { color: '#fff' },
   addRow: { flexDirection: 'row', gap: 8, alignItems: 'center', marginTop: 10 },
   fineprint: { fontSize: 11, color: colors.inkSoft, lineHeight: 16, marginTop: 14 },
   doneRow: { marginTop: 14, gap: 4 },
