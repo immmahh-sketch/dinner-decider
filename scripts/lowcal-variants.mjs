@@ -25,74 +25,82 @@ const dishText = (d) => [d.name, d.blurb, (d.ingredients || []).join(' ')].join(
 
 function estimateKcal(d) {
   const t = dishText(d);
-  let kcal = 520;
+  let kcal = 430;
 
-  if (d.richness === 'light') kcal -= 150;
-  else if (d.richness === 'hearty') kcal += 170;
+  if (d.richness === 'light') kcal -= 110;
+  else if (d.richness === 'hearty') kcal += 110;
 
-  if (has(t, 'deep-fried', 'deep fried', 'battered', 'tempura', 'katsu', 'fried chicken', 'schnitzel', 'karaage', 'popcorn chicken')) kcal += 260;
-  else if (has(t, 'fried', 'crispy', 'crumbed', 'breaded', 'panko', 'golden')) kcal += 150;
-  if (has(t, 'creamy', 'double cream', 'carbonara', 'alfredo', 'gratin', 'dauphinoise', 'mac and cheese', 'macaroni cheese', 'cheese sauce', 'béchamel', 'bechamel', 'stroganoff')) kcal += 190;
-  if (has(t, 'cheese', 'mozzarella', 'parmesan', 'cheddar', 'halloumi', 'feta', 'paneer', 'blue cheese', 'raclette')) kcal += 90;
-  if (has(t, 'butter', 'buttery', 'ghee', 'brown butter')) kcal += 90;
-  if (has(t, 'coconut', 'korma', 'massaman', 'rendang', 'peanut', 'satay')) kcal += 150;
-  if (has(t, 'pastry', 'puff pastry', 'shortcrust', ' pie', 'sausage roll', 'wellington', 'filo', 'pot pie', 'pasty')) kcal += 170;
-  if (has(t, 'bbq', 'barbecue', 'honey', 'glazed', 'glaze', 'teriyaki', 'hoisin', 'sweet chilli', 'sweet-and-sour', 'sweet and sour', 'maple', 'char siu', 'plum sauce', 'sticky')) kcal += 45;
-  if (has(t, 'grilled', 'griddled', 'chargrilled', 'steamed', 'poached', ' salad', 'tandoori', 'skewer', 'souvlaki', 'ceviche', 'poke', 'broth', 'consommé', 'nourish bowl')) kcal -= 120;
-  if (has(t, 'roast', 'roasted', 'baked', 'traybake', 'tray bake', 'tray-bake')) kcal += 30;
+  // Indulgence signals bucket: only the biggest one counts in full, the
+  // rest at half weight (they mostly describe overlapping richness).
+  const indulgence = [];
+  if (has(t, 'deep-fried', 'deep fried', 'battered', 'tempura', 'katsu', 'fried chicken', 'schnitzel', 'karaage', 'popcorn chicken')) indulgence.push(190);
+  else if (has(t, 'fried', 'crispy', 'crumbed', 'breaded', 'panko', 'golden')) indulgence.push(110);
+  if (has(t, 'creamy', 'double cream', 'carbonara', 'alfredo', 'gratin', 'dauphinoise', 'mac and cheese', 'macaroni cheese', 'cheese sauce', 'béchamel', 'bechamel', 'stroganoff')) indulgence.push(140);
+  if (has(t, 'cheese', 'mozzarella', 'parmesan', 'cheddar', 'halloumi', 'feta', 'paneer', 'blue cheese', 'raclette')) indulgence.push(60);
+  if (has(t, 'butter', 'buttery', 'ghee', 'brown butter')) indulgence.push(60);
+  if (has(t, 'coconut', 'korma', 'massaman', 'rendang', 'peanut', 'satay')) indulgence.push(110);
+  if (has(t, 'pastry', 'puff pastry', 'shortcrust', ' pie', 'sausage roll', 'wellington', 'filo', 'pot pie', 'pasty')) indulgence.push(130);
+  if (has(t, 'sausage', 'chorizo', 'bacon', 'pepperoni', 'salami', 'pancetta', 'lardon', 'nduja', "n'duja", 'hot dog', 'frankfurter', 'corned beef', 'spam', 'black pudding')) indulgence.push(80);
+  if (has(t, 'chips', 'fries', 'wedges', 'hash brown', 'onion rings', 'fried rice', 'egg-fried rice', 'egg fried rice', 'pilau', 'garlic bread', 'naan', 'roti', 'paratha', 'dough balls')) indulgence.push(130);
+  indulgence.sort((a, b) => b - a);
+  indulgence.forEach((v, i) => {
+    kcal += v * (i === 0 ? 1 : 0.5);
+  });
+
+  if (has(t, 'bbq', 'barbecue', 'honey', 'glazed', 'glaze', 'teriyaki', 'hoisin', 'sweet chilli', 'sweet-and-sour', 'sweet and sour', 'maple', 'char siu', 'plum sauce', 'sticky')) kcal += 35;
+  if (has(t, 'grilled', 'griddled', 'chargrilled', 'steamed', 'poached', ' salad', 'tandoori', 'skewer', 'souvlaki', 'ceviche', 'poke', 'broth', 'consommé', 'nourish bowl')) kcal -= 100;
+  // NB: no flat bonus for "roast/roasted/baked" — see estimate.ts calibration note.
 
   switch (d.protein) {
     case 'beef':
     case 'lamb':
-      kcal += 90;
+      kcal += 70;
       break;
     case 'pork':
-      kcal += 60;
+      kcal += 50;
       break;
     case 'fish':
       kcal -= 20;
       break;
     case 'seafood':
-      kcal -= 60;
+      kcal -= 50;
       break;
     case 'vegan':
-      kcal -= 40;
+      kcal -= 30;
       break;
     default:
       break;
   }
-  if (has(t, 'sausage', 'chorizo', 'bacon', 'pepperoni', 'salami', 'pancetta', 'lardon', 'nduja', "n'duja", 'hot dog', 'frankfurter', 'corned beef', 'spam', 'black pudding')) kcal += 110;
 
   switch (d.carb) {
     case 'pasta':
-      kcal += 120;
+      kcal += 100;
       break;
     case 'rice':
-      kcal += 130;
+      kcal += 105;
       break;
     case 'noodles':
-      kcal += 125;
+      kcal += 100;
       break;
     case 'potato':
-      kcal += 110;
+      kcal += 90;
       break;
     case 'bread':
     case 'pastry':
-      kcal += 110;
+      kcal += 90;
       break;
     case 'grains':
-      kcal += 120;
+      kcal += 95;
       break;
     case 'salad':
-      kcal -= 60;
+      kcal -= 50;
       break;
     case 'none':
-      kcal -= 90;
+      kcal -= 70;
       break;
     default:
       break;
   }
-  if (has(t, 'chips', 'fries', 'wedges', 'hash brown', 'onion rings', 'fried rice', 'egg-fried rice', 'egg fried rice', 'pilau', 'garlic bread', 'naan', 'roti', 'paratha', 'dough balls')) kcal += 180;
 
   return Math.max(180, Math.round(kcal / 10) * 10);
 }
